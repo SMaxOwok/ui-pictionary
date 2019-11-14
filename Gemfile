@@ -6,8 +6,10 @@ ruby '2.3.5'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
+gem 'react-rails', '~> 2.6'
 gem 'redis', '~> 4.0'
 gem 'sass-rails', '~> 5.0'
+gem 'webpacker', '~> 4.2'
 
 group :development, :test do
   gem 'pry-rails', '~> 0.3'
