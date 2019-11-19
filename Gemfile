@@ -15,6 +15,11 @@ group :development, :test do
   gem 'pry-rails', '~> 0.3'
 end
 
+group :test do
+  gem 'factory_bot_rails', '~> 5.1'
+  gem 'rspec-rails', '~> 3.8'
+end
+
 group :development do
   gem 'spring'
 end

@@ -29,6 +29,9 @@
 # IntelliJ
 /.idea
 
+# RSpec
+/examples.txt
+
 /public/packs
 /public/packs-test
 /node_modules
