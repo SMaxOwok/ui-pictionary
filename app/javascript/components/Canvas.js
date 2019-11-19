@@ -11,12 +11,43 @@ export default class Canvas extends React.Component {
     }
   }
 
+  get subscription() {
+    return App.cable.subscriptions.subscriptions[0];
+  }
+
+  initializeCanvas() {
+    this.ctx = this.canvas.current.getContext('2d');
+    this.ctx.lineWidth = 1;
+  }
+
+  initializeWebsocket() {
+    App.cable.subscriptions.create(
+      { channel: 'DrawingChannel' },
+      {
+        received: data => this.handleDrawingDataReceived(data),
+        draw: function(data) {
+          return this.perform('draw', data)
+        }
+      }
+    );
+  }
+
+  handleDrawingDataReceived(data) {
+    if (!data) return null;
+
+    this.renderCanvas(data);
+  }
+
   handleDrawStart = () => {
     this.setState({ isDrawing: true });
   };
 
   handleDrawEnd = () => {
-    this.setState({ isDrawing: false, currentPlots: [] });
+    this.setState(state => {
+      this.subscription.draw({ plots: state.currentPlots });
+
+      return { isDrawing: false, currentPlots: [] };
+    });
   };
 
   handleDraw = event => {
@@ -31,15 +62,15 @@ export default class Canvas extends React.Component {
   };
 
   componentDidMount() {
-    this.ctx = this.canvas.current.getContext('2d');
-    this.ctx.lineWidth = 1;
+    this.initializeCanvas();
+    this.initializeWebsocket();
   }
 
-  renderCanvas() {
+  renderCanvas(plots = this.state.currentPlots) {
     this.ctx.beginPath();
-    this.ctx.moveTo(this.state.currentPlots[0].x, this.state.currentPlots[0].y);
+    this.ctx.moveTo(plots[0].x, plots[0].y);
 
-    this.state.currentPlots.forEach(plot => this.ctx.lineTo(plot.x, plot.y));
+    plots.forEach(plot => this.ctx.lineTo(plot.x, plot.y));
 
     this.ctx.stroke();
   }
