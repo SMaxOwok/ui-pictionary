@@ -10,11 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_071455) do
+ActiveRecord::Schema.define(version: 2019_11_19_072710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "games", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "singleton_guard", default: 0, null: false
+    t.string "words", default: [], array: true
+    t.index ["singleton_guard"], name: "index_games_on_singleton_guard", unique: true
+  end
 
 end
