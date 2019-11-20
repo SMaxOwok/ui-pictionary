@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_072710) do
+ActiveRecord::Schema.define(version: 2019_11_20_053619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "game_transitions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "to_state", null: false
+    t.jsonb "metadata", default: {}
+    t.integer "sort_key", null: false
+    t.uuid "game_id", null: false
+    t.boolean "most_recent", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id", "most_recent"], name: "index_game_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["game_id", "sort_key"], name: "index_game_transitions_parent_sort", unique: true
+  end
 
   create_table "games", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "singleton_guard", default: 0, null: false
@@ -23,4 +35,5 @@ ActiveRecord::Schema.define(version: 2019_11_19_072710) do
     t.index ["singleton_guard"], name: "index_games_on_singleton_guard", unique: true
   end
 
+  add_foreign_key "game_transitions", "games"
 end

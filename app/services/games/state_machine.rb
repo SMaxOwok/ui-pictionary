@@ -13,5 +13,9 @@ module Games
     transition from: :pre_draw, to: [:drawing, :completed]
     transition from: :drawing, to: [:pre_draw, :completed]
     transition from: :completed, to: [:initialized]
+
+    before_transition(from: :completed, to: :initialized) do |object|
+      object.game_transitions.destroy_all
+    end
   end
 end
