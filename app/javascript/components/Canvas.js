@@ -17,7 +17,9 @@ export default class Canvas extends React.Component {
 
   initializeCanvas() {
     this.ctx = this.canvas.current.getContext('2d');
-    this.ctx.lineWidth = 1;
+    this.ctx.lineWidth = 5;
+    this.ctx.lineCap = 'round';
+    this.ctx.lineJoin = 'round';
   }
 
   initializeWebsocket() {
@@ -66,12 +68,30 @@ export default class Canvas extends React.Component {
     this.initializeWebsocket();
   }
 
+  midpointOfLine(pointOne, pointTwo) {
+    return {
+      x: pointOne.x + (pointTwo.x - pointOne.x) / 2,
+      y: pointOne.y + (pointTwo.y - pointOne.y) / 2
+    };
+  }
+
   renderCanvas(plots = this.state.currentPlots) {
+    if (plots.length === 0) return null;
+
+    let pointOne = plots[0];
+    let pointTwo = plots[1];
+
     this.ctx.beginPath();
-    this.ctx.moveTo(plots[0].x, plots[0].y);
+    this.ctx.moveTo(pointOne.x, pointOne.y);
 
-    plots.forEach(plot => this.ctx.lineTo(plot.x, plot.y));
+    for (let i = 1, len = plots.length; i < len; i++) {
+      const midPoint = this.midpointOfLine(pointOne, pointTwo);
+      this.ctx.quadraticCurveTo(pointOne.x, pointOne.y, midPoint.x, midPoint.y);
+      pointOne = plots[i];
+      pointTwo = plots[i + 1];
+    }
 
+    this.ctx.lineTo(pointOne.x, pointOne.y);
     this.ctx.stroke();
   }
 
