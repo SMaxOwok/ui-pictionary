@@ -12,7 +12,9 @@ export default class Canvas extends React.Component {
   }
 
   get subscription() {
-    return App.cable.subscriptions.subscriptions[0];
+    return App.cable.subscriptions.subscriptions.find(sub => (
+      sub.identifier === '{"channel":"DrawingChannel"}'
+    ));
   }
 
   initializeCanvas() {
