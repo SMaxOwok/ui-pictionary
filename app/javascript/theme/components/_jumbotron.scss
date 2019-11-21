@@ -1,0 +1,14 @@
+.Jumbotron {
+  display: flex;
+  flex-direction: column;
+  background-color: $neutral10;
+  border-radius: $border-radius;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+
+  &__status {
+    margin-top: 0.5rem;
+  }
+}

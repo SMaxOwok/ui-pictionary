@@ -1,0 +1,21 @@
+.Team {
+  flex-grow: 1;
+
+  &__scoreboard {
+    background-color: $neutral10;
+    border-radius: $border-radius;
+    padding: 0.5rem 1rem;
+    text-align: center;
+  }
+
+  &__player-list {
+    @include list-unstyled;
+  }
+
+  &__player {
+    background-color: $neutral10;
+    border-radius: $border-radius;
+    padding: 0.5rem 0.75rem;
+    margin-top: 1rem;
+  }
+}

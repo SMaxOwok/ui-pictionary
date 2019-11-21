@@ -2,12 +2,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 export default class Canvas extends React.Component {
+  static propTypes = {
+    drawable: PropTypes.bool.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.canvas = React.createRef();
     this.state = {
       currentPlots: [],
       isDrawing: false
+    }
+  }
+
+  get actionHandlers() {
+    if (!this.props.drawable) return {};
+
+    return {
+      onMouseMove: this.handleDraw,
+      onMouseDown: this.handleDrawStart,
+      onMouseUp: this.handleDrawEnd
     }
   }
 
@@ -19,7 +33,7 @@ export default class Canvas extends React.Component {
 
   initializeCanvas() {
     this.ctx = this.canvas.current.getContext('2d');
-    this.ctx.lineWidth = 5;
+    this.ctx.lineWidth = 3;
     this.ctx.lineCap = 'round';
     this.ctx.lineJoin = 'round';
   }
@@ -100,13 +114,11 @@ export default class Canvas extends React.Component {
   render () {
     return (
       <canvas
-        className="Canvas"
+        className='Canvas'
         ref={this.canvas}
-        height={600}
-        width={800}
-        onMouseMove={this.handleDraw}
-        onMouseDown={this.handleDrawStart}
-        onMouseUp={this.handleDrawEnd}
+        height={500}
+        width={500}
+        {...this.actionHandlers}
       />
     );
   }

@@ -1,0 +1,19 @@
+.Button {
+  background: none;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: $border-radius;
+  transition: background-color $timing $duration;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--primary {
+    background-color: $neutral50;
+
+    &:hover {
+      background-color: $neutral70;
+    }
+  }
+}

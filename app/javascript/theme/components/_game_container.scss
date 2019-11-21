@@ -1,0 +1,11 @@
+.GameContainer {
+  display: flex;
+  justify-content: space-between;
+  background-color: $neutral50;
+  height: calc(100vh - 4rem);
+  padding: 2rem;
+
+  &__content {
+    margin: 0 2rem;
+  }
+}

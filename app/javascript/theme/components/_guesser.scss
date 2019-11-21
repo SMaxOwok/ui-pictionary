@@ -1,0 +1,15 @@
+.Guesser {
+  &__toolbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 0.75rem;
+  }
+
+  &__input {
+    flex-grow: 1;
+    background: none;
+    outline: none;
+    border: none;
+    margin-right: 1rem;
+  }
+}
