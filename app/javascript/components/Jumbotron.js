@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class Jumbotron extends React.Component {
+import withGame from 'components/hoc/withGame';
+
+class Jumbotron extends React.Component {
   static propTypes = {
-    round: PropTypes.number,
-    status: PropTypes.string.isRequired
+    game: PropTypes.object.isRequired
   };
 
   get status() {
-    switch (this.props.status) {
+    switch (this.props.game.currentState) {
       case 'initialized':
         return 'Initialized';
       case 'setup':
@@ -28,7 +29,7 @@ export default class Jumbotron extends React.Component {
     return (
       <div className='Jumbotron'>
         <div className='Jumbotron__round'>
-          {this.props.round && `Round ${this.props.round} of 10`}
+          {this.props.game.roundCount && `Round ${this.props.game.roundCount} of 10`}
         </div>
 
         <div className='Jumbotron__status'>
@@ -38,3 +39,5 @@ export default class Jumbotron extends React.Component {
     );
   }
 }
+
+export default withGame(Jumbotron);

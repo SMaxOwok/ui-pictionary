@@ -1,5 +1,7 @@
 class GameSerializer < ActiveModel::Serializer
-  has_many :teams
+  attributes :id, :current_state, :words, :round_count, :type, :team_ids
 
-  attributes :current_state, :words, :round_count
+  def type
+    :game
+  end
 end

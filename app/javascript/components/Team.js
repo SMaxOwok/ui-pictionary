@@ -4,14 +4,15 @@ import PropTypes from 'prop-types'
 export default class Team extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    players: PropTypes.array
-  };
-
-  static defaultProps = {
-    players: []
+    team: PropTypes.shape({
+      score: PropTypes.number.isRequired,
+      players: PropTypes.array.isRequired
+    })
   };
 
   render () {
+    if (!this.props.team) return null;
+
     return (
       <div className='Team'>
         <div className='Team__scoreboard'>
@@ -19,12 +20,12 @@ export default class Team extends React.Component {
             {this.props.name}
           </div>
           <div className='Team__score'>
-            0
+            {this.props.team.score}
           </div>
         </div>
 
         <ul className='Team__player-list'>
-          {this.props.players.map(player => (
+          {this.props.team.players.map(player => (
             <li className='Team__player' key={player.id}>
               {player.name}
             </li>

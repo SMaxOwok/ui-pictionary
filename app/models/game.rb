@@ -2,6 +2,7 @@ class Game < ApplicationRecord
   # Associations
   has_many :game_transitions, autosave: false, dependent: :destroy
   has_many :teams
+  has_many :players, through: :teams
 
   # Validations
   validates :singleton_guard, inclusion: [0], uniqueness: true
