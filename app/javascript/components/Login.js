@@ -1,33 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Routes from 'routes';
 
-import Modal from './Modal';
-import Loading from './Loading';
+import { authenticationActions } from 'store/actions';
 
 import withCurrentUser from 'components/hoc/withCurrentUser';
 
-const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+import Modal from './Modal';
 
 class Login extends Component {
   static propTypes = {
     currentUser: PropTypes.object,
-    onSuccess: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired
   };
 
-  state = { email: '', loading: false };
-
-  async login() {
-    await fetch(
-      Routes.sessions_path({ email: this.state.email }),
-      { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf } }
-    ).then(response => (
-      response.json()
-    )).then(currentUser => {
-      this.setState({ email: '' });
-      this.props.onSuccess(currentUser);
-    }).catch(() => {});
-  }
+  state = { email: '' };
 
   handleChange = ({ target: { value } }) => {
     this.setState({ email: value });
@@ -35,16 +22,15 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({ loading: true }, async () => (
-      this.login()
-    ).finally(() => this.setState({ loading: false })));
+
+    this.props.dispatch(authenticationActions.login(
+      { email: this.state.email }
+    )).then(() => this.setState({ email: '' }));
   };
 
   render() {
     return (
       <Modal visible={!this.props.currentUser}>
-        <Loading visible={this.state.loading} />
-
         <div className='Login'>
           <div className='Login__title'>
             Login to play
@@ -68,4 +54,4 @@ class Login extends Component {
   }
 }
 
-export default withCurrentUser(Login);
+export default withCurrentUser(connect(Login.mapStateToProps)(Login));

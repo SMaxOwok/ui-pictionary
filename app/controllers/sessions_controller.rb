@@ -4,9 +4,10 @@ class SessionsController < ApplicationController
 
     if player.present?
       session[:player_id] = player.id
-      render json: {}, status: :created
+
+      render json: current_user, status: :created
     else
-      render json: 'Invalid email', status: :unprocessable_entity
+      render json: { error: 'Invalid email' }, status: :unprocessable_entity
     end
   end
 

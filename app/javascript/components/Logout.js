@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Routes from 'routes';
+
+import { authenticationActions } from 'store/actions';
 
 import withCurrentUser from 'components/hoc/withCurrentUser';
-
-const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 class Logout extends Component {
   static propTypes = {
     currentUser: PropTypes.object,
-    onSuccess: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired
   };
 
-  state = { loading: false };
-
-  async logout() {
-    await fetch(
-      Routes.sessions_path(),
-      { method: 'DELETE', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf } }
-    ).then(response => (
-      response.json()
-    )).then(() => (
-      this.props.onSuccess(null)
-    )).catch(() => {});
-  }
-
   handleSubmit = () => {
-    this.setState({ loading: true }, async () => this.logout().finally(() => this.setState({ loading: false })));
+    this.props.dispatch(authenticationActions.logout());
   };
 
   render() {
@@ -42,4 +29,4 @@ class Logout extends Component {
   }
 }
 
-export default withCurrentUser(Logout);
+export default withCurrentUser(connect(Logout.mapStateToProps)(Logout));
