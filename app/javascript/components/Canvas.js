@@ -42,6 +42,8 @@ export default class Canvas extends React.Component {
 
   handleDrawEnd = () => {
     this.setState(state => {
+      if (state.currentPlots.length === 0) return { isDrawing: false };
+
       this.props.drawingSubscription.draw({ plots: state.currentPlots });
 
       return { isDrawing: false, currentPlots: [] };
