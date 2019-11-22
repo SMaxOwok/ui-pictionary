@@ -11,8 +11,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    current_user.abandon_team!
+
     session[:player_id] = nil
 
-    render json: {}, status: :deleted
+    render json: {}, status: :ok
   end
 end

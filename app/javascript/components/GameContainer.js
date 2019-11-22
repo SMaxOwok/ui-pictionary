@@ -1,10 +1,18 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types'
 
 import Jumbotron from './Jumbotron';
 import Easels from './easels';
 import Team from './Team';
+import Login from './Login';
+import Logout from './Logout';
 
 export default class GameContainer extends React.Component {
+  state = { currentUser: this.props.currentUser };
+
+  static propTypes = {
+    currentUser: PropTypes.object
+  };
 
   get EaselComponent() {
     const Components = [Easels.Artist, Easels.Guesser, Easels.Spectator];
@@ -12,9 +20,17 @@ export default class GameContainer extends React.Component {
     return Components[Math.floor(Math.random() * Components.length)];
   }
 
+  setCurrentUser = currentUser => {
+    this.setState({ currentUser });
+  };
+
   render () {
     return (
-      <div className='GameContainer'>
+      <main className='GameContainer'>
+        <Login
+          currentUser={this.state.currentUser}
+          onSuccess={this.setCurrentUser}
+        />
         <Team name='Team A' players={[{ id: 1, name: 'Max'}, { id: 2, name: 'Skye' }]} />
 
         <div className='GameContainer__content'>
@@ -23,7 +39,9 @@ export default class GameContainer extends React.Component {
         </div>
 
         <Team name='Team B' />
-      </div>
+
+        <Logout currentUser={this.state.currentUser} onSuccess={this.setCurrentUser} />
+      </main>
     );
   }
 }

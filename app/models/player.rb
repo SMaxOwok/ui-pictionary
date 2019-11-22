@@ -5,4 +5,8 @@ class Player < ApplicationRecord
   # Validations
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
+
+  def abandon_team!
+    update team_id: nil
+  end
 end
