@@ -1,3 +1,12 @@
 class ApplicationController < ActionController::Base
   def index; end
+
+  def current_user
+    if session[:player_id]
+      @current_user ||= Player.find(session[:player_id])
+    else
+      @current_user = nil
+    end
+  end
+  helper_method :current_user
 end
