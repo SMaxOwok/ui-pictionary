@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_20_053619) do
+ActiveRecord::Schema.define(version: 2019_11_22_004538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(version: 2019_11_20_053619) do
     t.integer "singleton_guard", default: 0, null: false
     t.string "words", default: [], array: true
     t.index ["singleton_guard"], name: "index_games_on_singleton_guard", unique: true
+  end
+
+  create_table "teams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "game_id", null: false
+    t.integer "score", default: 0, null: false
+    t.text "draw_order", default: [], array: true
+    t.index ["game_id"], name: "index_teams_on_game_id"
   end
 
   add_foreign_key "game_transitions", "games"
