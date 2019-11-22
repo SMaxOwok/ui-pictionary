@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
 
 import Easel from 'components/Easel';
+import subscribedToDrawingChannel from 'components/hoc/subscribedToDrawingChannel';
 
-export default class Guesser extends React.Component {
+class Guesser extends React.Component {
   state = { guess: '' };
 
   handleInputChange = ({ target: { value } }) => {
@@ -37,8 +37,11 @@ export default class Guesser extends React.Component {
               </button>
             </div>
           )}
+          {...this.props}
         />
       </div>
     );
   }
 }
+
+export default subscribedToDrawingChannel(Guesser);

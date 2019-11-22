@@ -1,17 +1,16 @@
 import React from 'react'
 
 import Easel from 'components/Easel';
+import subscribedToDrawingChannel from 'components/hoc/subscribedToDrawingChannel';
 
-export default class Artist extends React.Component {
-
+class Artist extends React.Component {
   handleUndo = () => {
     // Remove last line from history
     // Redraw from response
   };
 
   handleReset = () => {
-    // Clear history
-    // Redraw
+    this.props.drawingSubscription.draw({ plots: [] });
   };
 
   handleSkip = () => {
@@ -36,8 +35,11 @@ export default class Artist extends React.Component {
               </button>
             </div>
           )}
+          {...this.props}
         />
       </div>
     );
   }
 }
+
+export default subscribedToDrawingChannel(Artist);

@@ -1,9 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import Loading from 'components/Loading';
 
 export default class Canvas extends React.Component {
   static propTypes = {
-    drawable: PropTypes.bool.isRequired
+    drawable: PropTypes.bool.isRequired,
+    drawingSubscription: PropTypes.object
   };
 
   constructor(props) {
@@ -11,7 +14,8 @@ export default class Canvas extends React.Component {
     this.canvas = React.createRef();
     this.state = {
       currentPlots: [],
-      isDrawing: false
+      isDrawing: false,
+      loading: true
     }
   }
 
@@ -25,35 +29,11 @@ export default class Canvas extends React.Component {
     }
   }
 
-  get subscription() {
-    return App.cable.subscriptions.subscriptions.find(sub => (
-      sub.identifier === '{"channel":"DrawingChannel"}'
-    ));
-  }
-
   initializeCanvas() {
     this.ctx = this.canvas.current.getContext('2d');
     this.ctx.lineWidth = 3;
     this.ctx.lineCap = 'round';
     this.ctx.lineJoin = 'round';
-  }
-
-  initializeWebsocket() {
-    App.cable.subscriptions.create(
-      { channel: 'DrawingChannel' },
-      {
-        received: data => this.handleDrawingDataReceived(data),
-        draw: function(data) {
-          return this.perform('draw', data)
-        }
-      }
-    );
-  }
-
-  handleDrawingDataReceived(data) {
-    if (!data) return null;
-
-    this.renderCanvas(data);
   }
 
   handleDrawStart = () => {
@@ -62,7 +42,7 @@ export default class Canvas extends React.Component {
 
   handleDrawEnd = () => {
     this.setState(state => {
-      this.subscription.draw({ plots: state.currentPlots });
+      this.props.drawingSubscription.draw({ plots: state.currentPlots });
 
       return { isDrawing: false, currentPlots: [] };
     });
@@ -81,7 +61,16 @@ export default class Canvas extends React.Component {
 
   componentDidMount() {
     this.initializeCanvas();
-    this.initializeWebsocket();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.drawingSubscription && this.props.drawingSubscription) {
+      this.setState({ loading: false });
+    }
+
+    if (JSON.stringify(prevProps.plots) !== JSON.stringify(this.props.plots)) {
+      this.renderCanvas(this.props.plots);
+    }
   }
 
   midpointOfLine(pointOne, pointTwo) {
@@ -92,7 +81,9 @@ export default class Canvas extends React.Component {
   }
 
   renderCanvas(plots = this.state.currentPlots) {
-    if (plots.length === 0) return null;
+    if (plots.length === 0) {
+      return this.resetCanvas();
+    }
 
     let pointOne = plots[0];
     let pointTwo = plots[1];
@@ -111,15 +102,23 @@ export default class Canvas extends React.Component {
     this.ctx.stroke();
   }
 
+  resetCanvas() {
+    this.ctx.clearRect(0, 0, this.canvas.current.width, this.canvas.current.height);
+    this.ctx.beginPath();
+  }
+
   render () {
     return (
-      <canvas
-        className='Canvas'
-        ref={this.canvas}
-        height={500}
-        width={500}
-        {...this.actionHandlers}
-      />
+      <div className='Canvas'>
+        <Loading visible={this.state.loading} />
+
+        <canvas
+          ref={this.canvas}
+          height={500}
+          width={500}
+          {...this.actionHandlers}
+        />
+      </div>
     );
   }
 }
