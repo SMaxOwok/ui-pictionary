@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Routes from 'routes';
 
-import Modal from './Modal';
-import Loading from './Loading';
+import withCurrentUser from 'components/hoc/withCurrentUser';
 
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-export default class Logout extends Component {
+class Logout extends Component {
   static propTypes = {
     currentUser: PropTypes.object,
     onSuccess: PropTypes.func.isRequired
@@ -42,3 +41,5 @@ export default class Logout extends Component {
     )
   }
 }
+
+export default withCurrentUser(Logout);

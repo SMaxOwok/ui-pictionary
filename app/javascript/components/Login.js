@@ -5,9 +5,11 @@ import Routes from 'routes';
 import Modal from './Modal';
 import Loading from './Loading';
 
+import withCurrentUser from 'components/hoc/withCurrentUser';
+
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-export default class Login extends Component {
+class Login extends Component {
   static propTypes = {
     currentUser: PropTypes.object,
     onSuccess: PropTypes.func.isRequired
@@ -65,3 +67,5 @@ export default class Login extends Component {
     )
   }
 }
+
+export default withCurrentUser(Login);
