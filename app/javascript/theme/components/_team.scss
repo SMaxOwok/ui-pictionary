@@ -1,21 +1,59 @@
 .Team {
+  $block: #{&};
+
   flex-grow: 1;
+  border-radius: $border-radius;
+  background-color: $neutralWhite;
+  padding: 1rem;
+
+  &--primary {
+    #{$block}__scoreboard {
+      background-color: $primary80;
+    }
+
+    #{$block}__player {
+      background-color: $primary10;
+    }
+  }
+
+  &--secondary {
+    #{$block}__scoreboard {
+      background-color: $secondary50;
+    }
+
+    #{$block}__player {
+      background-color: $secondary10;
+    }
+  }
 
   &__scoreboard {
-    background-color: $neutral10;
+    color: $neutralWhite;
     border-radius: $border-radius;
-    padding: 0.5rem 1rem;
+    padding: 1rem 3rem;
     text-align: center;
+  }
+
+  &__name {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &__score {
+    font-size: 3.375rem;
   }
 
   &__player-list {
     @include list-unstyled;
+
+    margin-top: 1.5rem;
   }
 
   &__player {
-    background-color: $neutral10;
     border-radius: $border-radius;
-    padding: 0.5rem 0.75rem;
-    margin-top: 1rem;
+    padding: 0.5rem;
+
+    + #{&} {
+      margin-top: 1rem;
+    }
   }
 }

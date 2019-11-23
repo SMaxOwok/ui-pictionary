@@ -5,3 +5,14 @@
 @import 'shared';
 @import 'components';
 @import 'vendor';
+
+// Applies a natural box layout model to all the things
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'lato', sans-serif;
+}

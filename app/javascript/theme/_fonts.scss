@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'lato';
+  font-style: normal;
+  font-weight: $weight-regular;
+  src: url('theme/assets/fonts/Lato/Lato-Regular/Lato-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'lato';
+  font-style: normal;
+  font-weight: $weight-bold;
+  src: url('theme/assets/fonts/Lato/Lato-Bold/Lato-Bold.woff') format('woff');
+}

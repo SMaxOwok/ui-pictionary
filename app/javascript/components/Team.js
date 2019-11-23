@@ -42,7 +42,7 @@ class Team extends React.Component {
     if (!this.props.team) return null;
 
     return (
-      <div className='Team'>
+      <div className={`Team Team--${this.props.team.palette}`}>
         <div className='Team__scoreboard'>
           <div className='Team__name'>
             {this.props.team.name}

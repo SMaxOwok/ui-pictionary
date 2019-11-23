@@ -20,7 +20,7 @@
 
     &--primary#{$block}--selected {
       #{$block}__label {
-        color: $primary50;
+        color: $primary80;
       }
 
       #{$block}__button {
@@ -52,7 +52,7 @@
       }
 
       #{$block}--primary & {
-        color: $primary50;
+        color: $primary80;
 
         &:hover {
           border-color: $primary10;
