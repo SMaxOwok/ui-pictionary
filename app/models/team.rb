@@ -3,8 +3,14 @@ class Team < ApplicationRecord
   belongs_to :game
   has_many :players, dependent: :nullify
 
+  # Validations
+  validates :name, presence: true
+
   # Callbacks
   after_commit :broadcast!
+
+  # Enums
+  enum palette: { primary: 0, secondary: 1 }
 
   private
 

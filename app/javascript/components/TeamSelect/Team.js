@@ -2,12 +2,17 @@ import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-export default class Team extends PureComponent {
+export default class TeamOption extends PureComponent {
   static propTypes = {
     team: PropTypes.object.isRequired,
     selectedId: PropTypes.string,
+    palette: PropTypes.string.isRequired,
     onTeamSelect: PropTypes.func.isRequired
   };
+
+  get teamIsSelected() {
+    return this.props.team.id === this.props.selectedId;
+  }
 
   get playerCount() {
     const count = this.props.team.playerCount;
@@ -19,9 +24,15 @@ export default class Team extends PureComponent {
   }
 
   get teamButtonClasses() {
-    return classnames('TeamSelect__team__button', {
-      'TeamSelect__team__button--selected': this.props.team.id === this.props.selectedId
+    return classnames(`TeamButton TeamButton--${this.props.palette}`, {
+      'TeamButton--selected': this.teamIsSelected
     })
+  }
+
+  get teamLabel() {
+    if (this.teamIsSelected) return `You've selected ${this.props.team.id}`;
+
+    return `Choose ${this.props.team.id}`;
   }
 
   handleTeamSelect = () => {
@@ -30,16 +41,16 @@ export default class Team extends PureComponent {
 
   render() {
     return (
-      <div className='TeamSelect__team'>
-        <span className='TeamSelect__team__label'>
-          {`Choose ${this.props.team.id}`}
+      <div className={`TeamButton TeamButton--${this.props.palette}`}>
+        <span className='TeamButton__team__label'>
+          {this.teamLabel}
         </span>
 
         <div className={this.teamButtonClasses} onClick={this.handleTeamSelect}>
           {`${this.props.team.id}`}
         </div>
 
-        <span className='TeamSelect__team__player-count'>
+        <span className='TeamButton__team__player-count'>
           {this.playerCount}
         </span>
       </div>
