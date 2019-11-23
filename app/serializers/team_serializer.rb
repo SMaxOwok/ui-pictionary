@@ -6,4 +6,9 @@ class TeamSerializer < ActiveModel::Serializer
   def type
     :team
   end
+
+  # TODO: Investigate -- This is returning the integer value on Heroku only.
+  def palette
+    object.palette.to_s
+  end
 end
