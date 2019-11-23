@@ -34,6 +34,7 @@ export default class Canvas extends React.Component {
     this.ctx.lineWidth = 3;
     this.ctx.lineCap = 'round';
     this.ctx.lineJoin = 'round';
+    this.setCanvasSize();
   }
 
   handleDrawStart = () => {
@@ -63,6 +64,7 @@ export default class Canvas extends React.Component {
 
   componentDidMount() {
     this.initializeCanvas();
+    window.addEventListener('resize', this.setCanvasSize);
   }
 
   componentDidUpdate(prevProps) {
@@ -74,6 +76,20 @@ export default class Canvas extends React.Component {
       this.renderCanvas(this.props.plots);
     }
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setCanvasSize);
+  }
+
+  setCanvasSize = () => {
+    if (!this.canvas) return null;
+    const data = this.ctx.getImageData(0, 0, this.canvas.current.width, this.canvas.current.height);
+
+    this.canvas.current.width = this.canvas.current.parentElement.clientWidth;
+    this.canvas.current.height = this.canvas.current.parentElement.clientHeight;
+
+    this.ctx.putImageData(data, 0, 0);
+  };
 
   midpointOfLine(pointOne, pointTwo) {
     return {
@@ -116,8 +132,8 @@ export default class Canvas extends React.Component {
 
         <canvas
           ref={this.canvas}
-          height={500}
-          width={500}
+          height='100%'
+          width='100%'
           {...this.actionHandlers}
         />
       </div>

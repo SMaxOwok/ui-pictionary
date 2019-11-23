@@ -6,6 +6,10 @@
   padding: 4rem 2.5rem;
 
   &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     margin: 0 2.5rem;
+    width: 50%;
   }
 }

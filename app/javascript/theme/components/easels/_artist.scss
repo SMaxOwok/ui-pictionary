@@ -1,7 +1,9 @@
 .Artist {
+  height: 100%;
+
   &__toolbar {
     display: flex;
     justify-content: space-evenly;
-    padding: 0.5rem 0.75rem;
+    padding: 1rem;
   }
 }

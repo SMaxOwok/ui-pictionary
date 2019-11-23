@@ -21,7 +21,6 @@ class Artist extends React.Component {
     return (
       <div className='Artist'>
         <Easel
-          header='The current word'
           footer={(
             <div className='Artist__toolbar'>
               <button className='Button Button--primary' onClick={this.handleUndo}>

@@ -19,7 +19,6 @@ class Guesser extends React.Component {
       <div className='Guesser'>
         <Easel
           drawable={false}
-          header='Guess the drawing'
           footer={(
             <div className='Guesser__toolbar'>
               <input

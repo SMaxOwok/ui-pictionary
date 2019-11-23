@@ -1,0 +1,12 @@
+.Easel {
+  display: flex;
+  flex-direction: column;
+  border-radius: $border-radius;
+  overflow: hidden;
+  height: 100%;
+
+  &__footer {
+    background-color: $neutralWhite;
+    border-top: 1px solid $neutral40;
+  }
+}

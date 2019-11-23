@@ -9,7 +9,6 @@ class Spectator extends React.Component {
       <div className='Spectator'>
         <Easel
           drawable={false}
-          header='The other team is drawing'
           {...this.props}
         />
       </div>

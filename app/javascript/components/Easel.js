@@ -5,7 +5,6 @@ import Canvas from './Canvas';
 
 export default class Easel extends React.Component {
   static propTypes = {
-    header: PropTypes.string.isRequired,
     footer: PropTypes.node,
     drawable: PropTypes.bool,
     drawingSubscription: PropTypes.object,
@@ -19,10 +18,6 @@ export default class Easel extends React.Component {
   render () {
     return (
       <div className='Easel'>
-        <div className='Easel__header'>
-          {this.props.header}
-        </div>
-
         <Canvas
           drawable={this.props.drawable}
           drawingSubscription={this.props.drawingSubscription}
