@@ -34,14 +34,14 @@ class GameContainer extends React.Component {
         <Logout />
         <TeamSelect />
 
-        <Team name='Team A' teamId={this.props.game.teamIds[0]} />
+        <Team id={this.props.game.teamIds[0]} />
 
         <div className='GameContainer__content'>
           <Jumbotron round={1} status='initialized' />
           <this.EaselComponent />
         </div>
 
-        <Team name='Team B' teamId={this.props.game.teamIds[1]} />
+        <Team id={this.props.game.teamIds[1]} />
       </main>
     );
   }

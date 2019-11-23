@@ -6,51 +6,52 @@ export default class TeamOption extends PureComponent {
   static propTypes = {
     team: PropTypes.object.isRequired,
     selectedId: PropTypes.string,
-    palette: PropTypes.string.isRequired,
     onTeamSelect: PropTypes.func.isRequired
   };
 
+  get team() {
+    return this.props.team;
+  }
+
   get teamIsSelected() {
-    return this.props.team.id === this.props.selectedId;
+    return this.team.id === this.props.selectedId;
   }
 
   get playerCount() {
-    const count = this.props.team.playerCount;
+    const count = this.team.players.length;
+    if (count === 1) return `${count} person`;
 
-    return '5 people';
-    // if (count === 1) return `${count} person`;
-    //
-    // return `${count} people`;
+    return `${count} people`;
   }
 
-  get teamButtonClasses() {
-    return classnames(`TeamButton TeamButton--${this.props.palette}`, {
-      'TeamButton--selected': this.teamIsSelected
+  get teamClasses() {
+    return classnames(`TeamSelect__team TeamSelect__team--${this.team.palette}`, {
+      'TeamSelect__team--selected': this.teamIsSelected
     })
   }
 
   get teamLabel() {
-    if (this.teamIsSelected) return `You've selected ${this.props.team.id}`;
+    if (this.teamIsSelected) return `You've selected ${this.team.name}`;
 
-    return `Choose ${this.props.team.id}`;
+    return `Choose ${this.team.name}`;
   }
 
   handleTeamSelect = () => {
-    this.props.onTeamSelect(this.props.team.id);
+    this.props.onTeamSelect(this.team.id);
   };
 
   render() {
     return (
-      <div className={`TeamButton TeamButton--${this.props.palette}`}>
-        <span className='TeamButton__team__label'>
+      <div className={this.teamClasses}>
+        <span className='TeamSelect__team__label'>
           {this.teamLabel}
         </span>
 
-        <div className={this.teamButtonClasses} onClick={this.handleTeamSelect}>
-          {`${this.props.team.id}`}
+        <div className='TeamSelect__team__button' onClick={this.handleTeamSelect}>
+          {`${this.team.name}`}
         </div>
 
-        <span className='TeamButton__team__player-count'>
+        <span className='TeamSelect__team__player-count'>
           {this.playerCount}
         </span>
       </div>

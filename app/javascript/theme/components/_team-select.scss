@@ -12,25 +12,61 @@
   }
 
   &__team {
+    $block: #{&};
+
     > * {
       display: block;
     }
 
+    &--primary#{$block}--selected {
+      #{$block}__label {
+        color: $primary50;
+      }
+
+      #{$block}__button {
+        border-color: $primary10;
+        background-color: $primary10;
+      }
+    }
+
+    &--secondary#{$block}--selected {
+      #{$block}__label {
+        color: $secondary50;
+      }
+
+      #{$block}__button {
+        border-color: $secondary10;
+        background-color: $secondary10;
+      }
+    }
+
     &__button {
-      border: 1px solid $neutral60;
+      border: 1px solid $neutral40;
       border-radius: $border-radius-tight;
       padding: 2.5rem 3.125rem;
       margin: 0.625rem 0;
-      transition: border-color $timing $duration;
+      transition: border-color $timing $duration, background-color $timing $duration;
 
       &:hover {
         cursor: pointer;
-        border-color: $neutral70;
       }
 
-      &--selected {
-        padding: calc(2.5rem - 1px) calc(3.125rem - 1px);
-        border: 2px solid $neutral70;
+      #{$block}--primary & {
+        color: $primary50;
+
+        &:hover {
+          border-color: $primary10;
+          background-color: $primary10;
+        }
+      }
+
+      #{$block}--secondary & {
+        color: $secondary50;
+
+        &:hover {
+          border-color: $secondary10;
+          background-color: $secondary10;
+        }
       }
     }
 
@@ -48,7 +84,7 @@
     width: 100%;
 
     .Button {
-      background-color: $neutral100;
+      background-color: $neutral90;
       color: $neutralWhite;
       padding: 0.875rem;
       height: 100%;
