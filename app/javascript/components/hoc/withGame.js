@@ -13,8 +13,7 @@ export default function withGame(WrappedComponent) {
   class WithGame extends PureComponent {
     static mapStateToProps = state => (
       {
-        game: get(state, 'entities.game'),
-        teams: get(state, 'entities.team')
+        game: get(state, 'entities.game')
       }
     );
 

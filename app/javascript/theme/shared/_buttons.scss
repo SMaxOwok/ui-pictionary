@@ -2,7 +2,7 @@
   background: none;
   border: none;
   padding: 0.25rem 0.75rem;
-  border-radius: $border-radius;
+  border-radius: $border-radius-tight;
   transition: background-color $timing $duration;
 
   &:hover {

@@ -14,7 +14,7 @@ export function request(endpoint, method = 'GET', params = {}) {
   })
   .then(response => {
     if (response.ok) {
-      return response;
+      return response.json();
     } else {
       return Promise.reject(response.statusText);
     }

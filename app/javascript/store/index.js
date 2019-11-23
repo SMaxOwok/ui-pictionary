@@ -5,11 +5,13 @@ import reducers from './reducers';
 
 import promiseMiddleware from 'redux-promise';
 import authenticationMiddleware from './middleware/authentication';
+import playerMiddleware from './middleware/player';
 
 const initialState = {};
 const enhancers = [];
 const middleware = [
   authenticationMiddleware,
+  playerMiddleware,
   thunk,
   promiseMiddleware
 ];

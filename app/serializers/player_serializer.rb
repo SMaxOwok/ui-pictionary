@@ -1,7 +1,5 @@
 class PlayerSerializer < ActiveModel::Serializer
-  belongs_to :team
-
-  attributes :id, :email, :name, :type
+  attributes :id, :email, :name, :type, :team_id
 
   def type
     :player

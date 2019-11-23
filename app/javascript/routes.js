@@ -491,6 +491,9 @@ Based on Rails 5.2.3 routes of UiPictionary::Application
     make: function() {
       var routes;
       routes = {
+// me => /me(.:format)
+  // function(options)
+  me_path: Utils.route([["format",false]], {}, [2,[7,"/",false],[2,[6,"me",false],[1,[2,[8,".",false],[3,"format",false]],false]]]),
 // sessions => /sessions(.:format)
   // function(options)
   sessions_path: Utils.route([["format",false]], {}, [2,[7,"/",false],[2,[6,"sessions",false],[1,[2,[8,".",false],[3,"format",false]],false]]])}

@@ -1,41 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-import Jumbotron from './Jumbotron';
-import Easels from './easels';
-import Team from './Team';
-import Login from './Login';
-import Logout from './Logout';
+import Jumbotron from 'components/Jumbotron';
+import Easels from 'components/easels';
+import Team from 'components/Team';
+import TeamSelect from 'components/TeamSelect';
+import Login from 'components/Login';
+import Logout from 'components/Logout';
 
 import withGame from 'components/hoc/withGame';
 
 class GameContainer extends React.Component {
   static propTypes = {
-    game: PropTypes.object,
-    teams: PropTypes.object
+    game: PropTypes.object
   };
 
   static defaultProps = {
-    game: null,
-    teams: {}
+    game: null
   };
 
   get EaselComponent() {
     const Components = [Easels.Artist, Easels.Guesser, Easels.Spectator];
 
     return Components[Math.floor(Math.random() * Components.length)];
-  }
-
-  get teamA() {
-    const id = this.props.game.teamIds[0];
-
-    return this.props.teams[id];
-  }
-
-  get teamB() {
-    const id = this.props.game.teamIds[1];
-
-    return this.props.teams[id];
   }
 
   render () {
@@ -45,15 +32,16 @@ class GameContainer extends React.Component {
       <main className='GameContainer'>
         <Login />
         <Logout />
+        <TeamSelect />
 
-        <Team name='Team A' team={this.teamA} />
+        <Team name='Team A' teamId={this.props.game.teamIds[0]} />
 
         <div className='GameContainer__content'>
           <Jumbotron round={1} status='initialized' />
           <this.EaselComponent />
         </div>
 
-        <Team name='Team B' team={this.teamB} />
+        <Team name='Team B' teamId={this.props.game.teamIds[1]} />
       </main>
     );
   }

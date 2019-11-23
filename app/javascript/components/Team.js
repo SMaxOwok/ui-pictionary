@@ -1,14 +1,42 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class Team extends React.Component {
+import get from 'lodash/get';
+
+import { entityActions } from 'store/actions';
+
+class Team extends React.Component {
+  static mapStateToProps = (state, ownProps) => (
+    { team: get(state, `entities.team[${ownProps.teamId}]`) }
+  );
+
   static propTypes = {
     name: PropTypes.string.isRequired,
+    teamId: PropTypes.string.isRequired,
     team: PropTypes.shape({
+      id: PropTypes.string.isRequired,
       score: PropTypes.number.isRequired,
       players: PropTypes.array.isRequired
     })
   };
+
+  initializeWebsocket() {
+    App.cable.subscriptions.create(
+      { channel: 'TeamChannel', id: this.props.teamId },
+      {
+        received: data => this.handleTeamUpdate(data)
+      }
+    );
+  }
+
+  handleTeamUpdate = team => {
+    this.props.dispatch(entityActions.setEntities([team]));
+  };
+
+  componentDidMount() {
+    this.initializeWebsocket();
+  }
 
   render () {
     if (!this.props.team) return null;
@@ -35,3 +63,5 @@ export default class Team extends React.Component {
     );
   }
 }
+
+export default connect(Team.mapStateToProps)(Team);
