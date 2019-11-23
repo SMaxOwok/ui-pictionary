@@ -1,22 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
+import ActionOverlay from 'components/ActionOverlay';
 import Jumbotron from 'components/Jumbotron';
 import Easels from 'components/easels';
 import Team from 'components/Team';
 import TeamSelect from 'components/TeamSelect';
 import Login from 'components/Login';
-import Logout from 'components/Logout';
 
 import withGame from 'components/hoc/withGame';
 
 class GameContainer extends React.Component {
   static propTypes = {
     game: PropTypes.object
-  };
-
-  static defaultProps = {
-    game: null
   };
 
   get EaselComponent() {
@@ -30,8 +26,8 @@ class GameContainer extends React.Component {
 
     return (
       <main className='GameContainer'>
+        <ActionOverlay />
         <Login />
-        <Logout />
         <TeamSelect />
 
         <Team id={this.props.game.teamIds[0]} />

@@ -1,0 +1,43 @@
+.ActionOverlay {
+  button {
+    font-size: 0.875rem;
+    font-weight: $weight-bold;
+    padding: 0;
+
+    .svg-inline--fa {
+      margin-right: 0.5rem;
+    }
+  }
+
+  &--logo {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    font-size: 0.875rem;
+    top: 1.5rem;
+    left: 2.5rem;
+    color: $primary50;
+
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+
+  &--sign-out {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 2.5rem;
+  }
+
+  &--leaderboard {
+    position: absolute;
+    top: 1.5rem;
+    right: 2.5rem;
+  }
+
+  &--rules {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 2.5rem;
+  }
+}
