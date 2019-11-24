@@ -9,7 +9,7 @@
     }
   }
 
-  &--logo {
+  &__logo {
     display: flex;
     align-items: center;
     position: absolute;
@@ -18,24 +18,24 @@
     left: 2.5rem;
     color: $primary50;
 
-    svg {
+    &__icon {
       margin-right: 0.5rem;
     }
   }
 
-  &--sign-out {
+  &__sign-out {
     position: absolute;
     bottom: 1.5rem;
     right: 2.5rem;
   }
 
-  &--leaderboard {
+  &__leaderboard {
     position: absolute;
     top: 1.5rem;
     right: 2.5rem;
   }
 
-  &--rules {
+  &__rules {
     position: absolute;
     bottom: 1.5rem;
     left: 2.5rem;

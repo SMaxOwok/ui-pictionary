@@ -6,7 +6,7 @@ import { authenticationActions } from 'store/actions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy, faSignOutAlt, faBook } from '@fortawesome/free-solid-svg-icons';
-import Icons from 'components/icons';
+import Icon from 'components/icons/Icon';
 
 import withCurrentUser from 'components/hoc/withCurrentUser';
 
@@ -31,18 +31,18 @@ class ActionOverlay extends Component {
   render () {
     return (
       <Fragment>
-        <div className='ActionOverlay ActionOverlay--logo'>
-          <Icons.UILogo /> UI Pictionary
+        <div className='ActionOverlay ActionOverlay__logo'>
+          <Icon name='UILogo' className='ActionOverlay__logo__icon' /> UI Pictionary
         </div>
 
-        <div className='ActionOverlay ActionOverlay--leaderboard'>
+        <div className='ActionOverlay ActionOverlay__leaderboard'>
           <button type='button' className='Button Button--icon' onClick={this.handleShowLeaderboard}>
             <FontAwesomeIcon icon={faTrophy} />
             Leaderboard
           </button>
         </div>
 
-        <div className='ActionOverlay ActionOverlay--rules'>
+        <div className='ActionOverlay ActionOverlay__rules'>
           <button type='button' className='Button Button--icon' onClick={this.handleShowRules}>
             <FontAwesomeIcon icon={faBook} />
             Rules
@@ -50,7 +50,7 @@ class ActionOverlay extends Component {
         </div>
 
         {this.props.currentUser && (
-          <div className='ActionOverlay ActionOverlay--sign-out'>
+          <div className='ActionOverlay ActionOverlay__sign-out'>
             <button type='button' className='Button Button--icon' onClick={this.handleSignOut}>
               <FontAwesomeIcon icon={faSignOutAlt} />
               Sign out
