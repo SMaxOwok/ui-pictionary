@@ -1,7 +1,7 @@
 .Button {
   background: none;
   border: none;
-  padding: 0.25rem 0.75rem;
+  padding: 0.875rem 2rem;
   border-radius: $border-radius-tight;
   transition: background-color $timing $duration;
 
@@ -10,10 +10,11 @@
   }
 
   &--primary {
-    background-color: $neutral50;
+    color: $neutralWhite;
+    background-color: $neutralBlack;
 
     &:hover {
-      background-color: $neutral70;
+      background-color: $neutral100;
     }
   }
 }

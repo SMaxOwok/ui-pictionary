@@ -32,12 +32,12 @@ class Game extends React.Component {
     ));
   }
 
-  handleDataReceived = (data) => {
+  handleDataReceived = data => {
     this.props.dispatch(entityActions.setEntity(data));
   };
 
   handleTransition = data => {
-    this.props.gameChannel.perform('transition_to', data);
+    this.props.gameChannel.perform('transition_game', data);
   };
 
   componentDidMount() {

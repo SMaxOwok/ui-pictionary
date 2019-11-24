@@ -10,6 +10,11 @@ class Game < ApplicationRecord
   delegate :can_transition_to?, :current_state, :history, :last_transition,
            :transition_to!, :transition_to, :in_state?, to: :state_machine
 
+  def broadcast!
+    ActionCable.server.broadcast 'game_channel',
+                                 ActiveModelSerializers::SerializableResource.new(self).as_json
+  end
+
   def state_machine
     @state_machine ||= Games::StateMachine.new(self, transition_class: GameTransition)
   end

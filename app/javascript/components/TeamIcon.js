@@ -23,7 +23,7 @@ export default class TeamIcon extends PureComponent {
 
   render() {
     return (
-      <div className='TeamIcon'>
+      <div className={this.props.wrapperClass}>
         <Icon name={this.iconName} className='TeamIcon__icon' />
         <span className='TeamIcon__label'>{`${this.team.name}`}</span>
       </div>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import ActionOverlay from 'components/ActionOverlay';
 import Jumbotron from 'components/Jumbotron';
-import Easels from 'components/easels';
+import GameState from 'components/GameState';
 import Team from 'components/Team';
 import TeamSelect from 'components/TeamSelect';
 import Login from 'components/Login';
@@ -20,12 +20,6 @@ class GameContainer extends React.Component {
     game: PropTypes.object
   };
 
-  get EaselComponent() {
-    const Components = [Easels.Artist, Easels.Guesser, Easels.Spectator];
-
-    return Components[Math.floor(Math.random() * Components.length)];
-  }
-
   render () {
     if (!this.props.game) return null;
 
@@ -39,7 +33,7 @@ class GameContainer extends React.Component {
 
         <div className='GameContainer__content'>
           <Jumbotron round={1} status='initialized' />
-          <Easels.Artist />
+          <GameState game={this.props.game} />
         </div>
 
         <Team id={this.props.game.teamIds[1]} />

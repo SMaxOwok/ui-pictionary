@@ -3,3 +3,9 @@
   padding: 0;
   margin: 0;
 }
+
+@mixin respond($size, $operator: min, $aspect: width) {
+  @media all and (#{$operator}-#{$aspect}: $size) {
+    @content;
+  }
+}

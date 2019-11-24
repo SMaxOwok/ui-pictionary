@@ -17,5 +17,9 @@ module Games
     before_transition(from: :completed, to: :initialized) do |object|
       object.game_transitions.destroy_all
     end
+
+    after_transition do |object|
+      object.broadcast!
+    end
   end
 end

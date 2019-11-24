@@ -10,6 +10,7 @@
     flex-direction: column;
     justify-content: flex-start;
     margin: 0 2.5rem;
-    width: 50%;
+    min-width: 40%;
+    flex-grow: 1;
   }
 }
