@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import get from 'lodash/get';
 
-import withGame from 'components/hoc/withGame';
+class Jumbotron extends Component {
+  static mapStateToProps = state => (
+    { game: get(state, 'entities.game') }
+  );
 
-class Jumbotron extends React.Component {
   static propTypes = {
     game: PropTypes.object.isRequired
   };
@@ -40,4 +44,4 @@ class Jumbotron extends React.Component {
   }
 }
 
-export default withGame(Jumbotron);
+export default connect(Jumbotron.mapStateToProps)(Jumbotron);

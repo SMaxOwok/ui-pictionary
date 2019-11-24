@@ -1,5 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import ActionOverlay from 'components/ActionOverlay';
 import Jumbotron from 'components/Jumbotron';
@@ -8,9 +9,13 @@ import Team from 'components/Team';
 import TeamSelect from 'components/TeamSelect';
 import Login from 'components/Login';
 
-import withGame from 'components/hoc/withGame';
+import get from 'lodash/get';
 
 class GameContainer extends React.Component {
+  static mapStateToProps = state => (
+    { game: get(state, 'entities.game') }
+  );
+
   static propTypes = {
     game: PropTypes.object
   };
@@ -34,7 +39,7 @@ class GameContainer extends React.Component {
 
         <div className='GameContainer__content'>
           <Jumbotron round={1} status='initialized' />
-          <this.EaselComponent />
+          <Easels.Artist />
         </div>
 
         <Team id={this.props.game.teamIds[1]} />
@@ -43,4 +48,4 @@ class GameContainer extends React.Component {
   }
 }
 
-export default withGame(GameContainer);
+export default connect(GameContainer.mapStateToProps)(GameContainer);

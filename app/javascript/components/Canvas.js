@@ -1,12 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Loading from 'components/Loading';
+import get from 'lodash/get';
 
-export default class Canvas extends React.Component {
+class Canvas extends React.Component {
+  static mapStateToProps = state => (
+    {
+      drawingChannel: get(state, 'websockets.drawingChannel'),
+      plots: get(state, 'entities.plots.data' )
+    }
+  );
+
   static propTypes = {
     drawable: PropTypes.bool.isRequired,
-    drawingSubscription: PropTypes.object
+    drawingChannel: PropTypes.object,
+    plots: PropTypes.array
+  };
+
+  static defaultProps = {
+    plots: []
   };
 
   constructor(props) {
@@ -45,7 +58,7 @@ export default class Canvas extends React.Component {
     this.setState(state => {
       if (state.currentPlots.length === 0) return { isDrawing: false };
 
-      this.props.drawingSubscription.draw({ plots: state.currentPlots });
+      this.props.drawingChannel.draw({ plots: state.currentPlots });
 
       return { isDrawing: false, currentPlots: [] };
     });
@@ -68,10 +81,6 @@ export default class Canvas extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.drawingSubscription && this.props.drawingSubscription) {
-      this.setState({ loading: false });
-    }
-
     if (JSON.stringify(prevProps.plots) !== JSON.stringify(this.props.plots)) {
       this.renderCanvas(this.props.plots);
     }
@@ -128,8 +137,6 @@ export default class Canvas extends React.Component {
   render () {
     return (
       <div className='Canvas'>
-        <Loading visible={this.state.loading} />
-
         <canvas
           ref={this.canvas}
           height='100%'
@@ -140,3 +147,5 @@ export default class Canvas extends React.Component {
     );
   }
 }
+
+export default connect(Canvas.mapStateToProps)(Canvas);

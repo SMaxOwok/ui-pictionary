@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import store from 'store';
 
-import { authenticationActions, entityActions } from 'store/actions';
-
 import GameContainer from 'components/GameContainer';
+import Websockets from 'components/websockets';
+
+import { authenticationActions, entityActions } from 'store/actions';
 
 export default class App extends Component {
   static propTypes = {
@@ -30,6 +31,9 @@ export default class App extends Component {
   render () {
     return (
       <Provider store={store}>
+        <Websockets.Drawing />
+        <Websockets.Game />
+
         <GameContainer />
       </Provider>
     );

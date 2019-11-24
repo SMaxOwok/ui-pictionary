@@ -1,16 +1,28 @@
-import React from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Easel from 'components/Easel';
-import subscribedToDrawingChannel from 'components/hoc/subscribedToDrawingChannel';
+import get from 'lodash/get';
 
-class Artist extends React.Component {
+class Artist extends Component {
+  static mapStateToProps = state => (
+    {
+      drawingChannel: get(state, 'websockets.drawingChannel'),
+    }
+  );
+
+  static propTypes = {
+    drawingChannel: PropTypes.object
+  };
+
   handleUndo = () => {
     // Remove last line from history
     // Redraw from response
   };
 
   handleReset = () => {
-    this.props.drawingSubscription.draw({ plots: [] });
+    this.props.drawingChannel.draw({ plots: [] });
   };
 
   handleSkip = () => {
@@ -34,11 +46,10 @@ class Artist extends React.Component {
               </button>
             </div>
           )}
-          {...this.props}
         />
       </div>
     );
   }
 }
 
-export default subscribedToDrawingChannel(Artist);
+export default connect(Artist.mapStateToProps)(Artist);

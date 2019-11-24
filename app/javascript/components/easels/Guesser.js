@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Easel from 'components/Easel';
-import subscribedToDrawingChannel from 'components/hoc/subscribedToDrawingChannel';
+import get from 'lodash/get';
 
-class Guesser extends React.Component {
+class Guesser extends Component {
+  static mapStateToProps = state => (
+    {
+      drawingChannel: get(state, 'websockets.drawingChannel')
+    }
+  );
+
+  static propTypes = {
+    drawingChannel: PropTypes.object
+  };
+
   state = { guess: '' };
 
   handleInputChange = ({ target: { value } }) => {
@@ -36,11 +48,10 @@ class Guesser extends React.Component {
               </button>
             </div>
           )}
-          {...this.props}
         />
       </div>
     );
   }
 }
 
-export default subscribedToDrawingChannel(Guesser);
+export default connect(Guesser.mapStateToProps)(Guesser);

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import hoistNonReactStatics from 'hoist-non-react-statics';
 
 import get from 'lodash/get';
 
@@ -22,5 +23,7 @@ export default function withCurrentUser(WrappedComponent) {
     }
   }
 
-  return connect(WithCurrentUser.mapStateToProps)(WithCurrentUser);
+  const ConnectedWithCurrentUser = connect(WithCurrentUser.mapStateToProps)(WithCurrentUser);
+
+  return hoistNonReactStatics(ConnectedWithCurrentUser, WrappedComponent);
 }
