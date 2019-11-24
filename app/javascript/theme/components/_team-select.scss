@@ -43,7 +43,6 @@
     &__button {
       border: 1px solid $neutral40;
       border-radius: $border-radius-tight;
-      padding: 2.5rem 3.125rem;
       margin: 0.625rem 0;
       transition: border-color $timing $duration, background-color $timing $duration;
 
@@ -74,7 +73,7 @@
       color: $neutral80;
     }
 
-    + .TeamSelect__team {
+    + #{$block} {
       margin-left: 2.5rem;
     }
   }

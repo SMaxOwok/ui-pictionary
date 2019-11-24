@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
+import TeamIcon from 'components/TeamIcon';
+
 export default class TeamOption extends PureComponent {
   static propTypes = {
     team: PropTypes.object.isRequired,
@@ -48,7 +50,7 @@ export default class TeamOption extends PureComponent {
         </span>
 
         <div className='TeamSelect__team__button' onClick={this.handleTeamSelect}>
-          {`${this.team.name}`}
+          <TeamIcon team={this.team} />
         </div>
 
         <span className='TeamSelect__team__player-count'>

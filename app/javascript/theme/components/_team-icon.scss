@@ -1,0 +1,11 @@
+.TeamIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 5.5rem;
+
+  &__icon {
+    margin-bottom: 1.5rem;
+  }
+}

@@ -9,7 +9,7 @@ import get from 'lodash/get';
 import withCurrentUser from 'components/hoc/withCurrentUser';
 
 import Modal from 'components/Modal';
-import Team from './Team';
+import TeamOption from './TeamOption';
 
 class TeamSelect extends Component {
   static mapStateToProps = state => (
@@ -52,7 +52,7 @@ class TeamSelect extends Component {
           <form onSubmit={this.handleSubmit}>
             <div className='TeamSelect__teams'>
               {Object.keys(this.props.teams).map(id => (
-                <Team
+                <TeamOption
                   key={id}
                   team={this.props.teams[id]}
                   selectedId={this.state.selectedId}
