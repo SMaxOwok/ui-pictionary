@@ -6,7 +6,9 @@ import { authenticationActions } from 'store/actions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy, faSignOutAlt, faBook, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+
 import Icon from 'components/icons/Icon';
+import { Leaderboard, Rules } from 'components/modals';
 
 import withCurrentUser from 'components/hoc/withCurrentUser';
 
@@ -25,6 +27,8 @@ class ActionOverlay extends Component {
     dispatch: PropTypes.func.isRequired
   };
 
+  state = { modal: null };
+
   get canExitGame() {
     const { currentState } = this.props.game;
 
@@ -36,20 +40,27 @@ class ActionOverlay extends Component {
   };
 
   handleShowLeaderboard = () => {
-
+    this.setState({ modal: 'leaderboard' });
   };
 
   handleShowRules = () => {
-
+    this.setState({ modal: 'rules' });
   };
 
   handleEndGame = () => {
     this.props.gameChannel.transition('completed');
   };
 
+  handleModalClose = () => {
+    this.setState({ modal: null });
+  };
+
   render () {
     return (
       <Fragment>
+        <Leaderboard visible={this.state.modal === 'leaderboard'} onClose={this.handleModalClose} />
+        <Rules visible={this.state.modal === 'rules'} onClose={this.handleModalClose} />
+
         <div className='ActionOverlay ActionOverlay__logo'>
           <Icon name='UILogo' className='ActionOverlay__logo__icon' /> UI Pictionary
         </div>

@@ -62,7 +62,7 @@ class TeamSelect extends Component {
             </div>
 
             <div className='TeamSelect__actions'>
-              <button type='submit' className='Button' disabled={!this.state.selectedId}>
+              <button type='submit' className='Button Button--primary' disabled={!this.state.selectedId}>
                 Join game
               </button>
             </div>

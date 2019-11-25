@@ -6,7 +6,7 @@ import { authenticationActions } from 'store/actions';
 
 import withCurrentUser from 'components/hoc/withCurrentUser';
 
-import Modal from './Modal';
+import Modal from 'components/Modal';
 
 class Login extends Component {
   static propTypes = {

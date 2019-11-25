@@ -6,8 +6,7 @@ import ActionOverlay from 'components/ActionOverlay';
 import Jumbotron from 'components/Jumbotron';
 import GameState from 'components/GameState';
 import Team from 'components/Team';
-import TeamSelect from 'components/TeamSelect';
-import Login from 'components/Login';
+import { Login, TeamSelect } from 'components/modals';
 
 import get from 'lodash/get';
 
