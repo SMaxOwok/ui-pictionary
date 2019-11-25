@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { entityActions, websocketActions } from 'store/actions';
 
 import get from 'lodash/get';
 
-class Game extends React.Component {
+class Game extends Component {
   static mapStateToProps = state => (
     { gameChannel: get(state, 'websockets.gameChannel') }
   );

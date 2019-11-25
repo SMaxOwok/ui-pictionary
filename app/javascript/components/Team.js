@@ -4,15 +4,12 @@ import PropTypes from 'prop-types';
 
 import get from 'lodash/get';
 
-import { entityActions } from 'store/actions';
-
 class Team extends React.Component {
   static mapStateToProps = (state, ownProps) => (
     { team: get(state, `entities.team[${ownProps.id}]`) }
   );
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
     team: PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
@@ -20,23 +17,6 @@ class Team extends React.Component {
       players: PropTypes.array.isRequired
     })
   };
-
-  initializeWebsocket() {
-    App.cable.subscriptions.create(
-      { channel: 'TeamChannel', id: this.props.id },
-      {
-        received: data => this.handleTeamUpdate(data)
-      }
-    );
-  }
-
-  handleTeamUpdate = team => {
-    this.props.dispatch(entityActions.setEntities([team]));
-  };
-
-  componentDidMount() {
-    this.initializeWebsocket();
-  }
 
   render () {
     if (!this.props.team) return null;

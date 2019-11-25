@@ -33,6 +33,9 @@ export default class App extends Component {
       <Provider store={store}>
         <Websockets.Drawing />
         <Websockets.Game />
+        {this.props.teams.map(team => (
+          <Websockets.Team key={team.id} id={team.id} />
+        ))}
 
         <GameContainer />
       </Provider>
