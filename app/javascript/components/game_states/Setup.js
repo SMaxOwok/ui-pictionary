@@ -41,6 +41,12 @@ export default class Setup extends Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentUser && !this.props.currentUser) {
+      this.setState({ wordList: [] });
+    }
+  }
+
   render () {
     return (
       <div className='Setup'>
