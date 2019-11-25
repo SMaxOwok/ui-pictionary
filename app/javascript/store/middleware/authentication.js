@@ -1,7 +1,9 @@
 import Routes from 'routes';
 
-import { authenticationActions as actions } from 'store/actions';
+import { authenticationActions as actions, themeActions } from 'store/actions';
 import { request } from 'store/utilities';
+
+import get from 'lodash/get';
 
 function authenticate(email, dispatch) {
   return request(
@@ -19,9 +21,26 @@ function destroySession(dispatch) {
   ).then(() => dispatch(actions.setCurrentUser(null))).catch(() => null);
 }
 
-export default function authenticationMiddleware({ dispatch }) {
+function updateUIFromUser(currentUser, state, dispatch) {
+  if (!currentUser) {
+    return dispatch(themeActions.setPalette(null));
+  }
+
+  const teams = get(state, 'entities.team');
+
+  if (currentUser.teamId) {
+    dispatch(themeActions.setPalette(teams[currentUser.teamId].palette));
+  }
+}
+
+export default function authenticationMiddleware({ getState, dispatch }) {
   return next => action => {
+    const state = getState();
     const payload = action.payload;
+
+    if (action.type === 'SET_CURRENT_USER') {
+      updateUIFromUser(payload, state, dispatch);
+    }
 
     if (action.type === 'LOGIN') {
       return authenticate(payload.email, dispatch);

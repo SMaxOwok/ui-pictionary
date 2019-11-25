@@ -15,16 +15,16 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    if (this.props.currentUser) {
-      store.dispatch(authenticationActions.setCurrentUser(this.props.currentUser));
-    }
-
     if (this.props.game) {
       store.dispatch(entityActions.setEntity(this.props.game));
     }
 
     if (this.props.teams) {
       store.dispatch(entityActions.setEntities(this.props.teams));
+    }
+
+    if (this.props.currentUser) {
+      store.dispatch(authenticationActions.setCurrentUser(this.props.currentUser));
     }
   }
 
