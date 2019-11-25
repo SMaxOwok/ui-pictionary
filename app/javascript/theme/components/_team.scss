@@ -10,7 +10,7 @@
   &__scoreboard {
     color: $neutralWhite;
     border-radius: $border-radius;
-    padding: 1rem 3rem;
+    padding: 1rem;
     text-align: center;
 
     @include themedParent(Team, primary) {
