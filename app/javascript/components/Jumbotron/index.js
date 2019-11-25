@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import Round from './Round';
+import Timer from './Timer';
+
 import get from 'lodash/get';
 
 class Jumbotron extends Component {
   static mapStateToProps = state => (
-    { game: get(state, 'entities.game') }
+    {
+      game: get(state, 'entities.game'),
+      gameChannel: get(state, 'websockets.gameChannel')
+    }
   );
 
   static propTypes = {
@@ -32,13 +39,13 @@ class Jumbotron extends Component {
   render () {
     return (
       <div className='Jumbotron'>
-        <div className='Jumbotron__round'>
-          {this.props.game.roundCount && `Round ${this.props.game.roundCount} of 10`}
-        </div>
+        <Round { ...this.props } />
 
-        <div className='Jumbotron__status'>
+        <div className='Jumbotron__direction'>
           {this.status}
         </div>
+
+        <Timer { ...this.props } />
       </div>
     );
   }

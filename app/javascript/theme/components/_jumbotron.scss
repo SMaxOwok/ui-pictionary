@@ -1,14 +1,38 @@
 .Jumbotron {
   display: flex;
-  flex-direction: column;
-  background-color: $neutralWhite;
-  border-radius: $border-radius;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  padding: 0.5rem 1rem;
   margin-bottom: 1rem;
 
-  &__status {
-    margin-top: 0.5rem;
+  > * {
+    background-color: $neutralWhite;
+    border-radius: $border-radius;
+  }
+
+  &__direction {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: $weight-bold;
+    text-align: center;
+    margin: 0 1rem;
+    padding: 1.75rem 2.25rem;
+    height: 100%;
+  }
+
+  &__round, &__timer {
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: $weight-bold;
+    padding: 1.75rem 2.25rem;
+    height: 100%;
+
+    &__number {
+      display: block;
+      font-size: 2rem;
+      margin-top: 0.25rem;
+    }
   }
 }
