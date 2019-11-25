@@ -5,16 +5,31 @@ import { connect } from 'react-redux';
 import { authenticationActions } from 'store/actions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrophy, faSignOutAlt, faBook } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faSignOutAlt, faBook, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import Icon from 'components/icons/Icon';
 
 import withCurrentUser from 'components/hoc/withCurrentUser';
 
+import get from 'lodash/get';
+
 class ActionOverlay extends Component {
+  static mapStateToProps = state => (
+    {
+      game: get(state, 'entities.game'),
+      gameChannel: get(state, 'websockets.gameChannel')
+    }
+  );
+
   static propTypes = {
     currentUser: PropTypes.object,
     dispatch: PropTypes.func.isRequired
   };
+
+  get canExitGame() {
+    const { currentState } = this.props.game;
+
+    return !['initialized', 'completed'].includes(currentState);
+  }
 
   handleSignOut = () => {
     this.props.dispatch(authenticationActions.logout());
@@ -26,6 +41,10 @@ class ActionOverlay extends Component {
 
   handleShowRules = () => {
 
+  };
+
+  handleEndGame = () => {
+    this.props.gameChannel.transition('completed');
   };
 
   render () {
@@ -48,6 +67,15 @@ class ActionOverlay extends Component {
             Rules
           </button>
         </div>
+
+        {this.canExitGame && (
+          <div className='ActionOverlay ActionOverlay__end-game'>
+            <button type='button' className='Button Button--icon' onClick={this.handleEndGame}>
+              <FontAwesomeIcon icon={faTimesCircle} />
+              End game
+            </button>
+          </div>
+        )}
 
         {this.props.currentUser && (
           <div className='ActionOverlay ActionOverlay__sign-out'>

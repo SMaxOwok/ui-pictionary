@@ -11,13 +11,25 @@ class Jumbotron extends Component {
   static mapStateToProps = state => (
     {
       game: get(state, 'entities.game'),
-      gameChannel: get(state, 'websockets.gameChannel')
+      gameChannel: get(state, 'websockets.gameChannel'),
+      teams: get(state, 'entities.team')
     }
   );
 
   static propTypes = {
-    game: PropTypes.object.isRequired
+    game: PropTypes.object.isRequired,
+    gameChannel: PropTypes.object.isRequired,
+    teams: PropTypes.object.isRequired
   };
+
+  get completedMessage() {
+    const { winnerId } = this.props.game;
+    if (!winnerId) return 'It\'s a draw!';
+
+    const team = this.props.teams[winnerId];
+
+    return `${team.name} wins!`;
+  }
 
   get status() {
     switch (this.props.game.currentState) {
@@ -30,7 +42,7 @@ class Jumbotron extends Component {
       case 'drawing':
         return 'Drawing';
       case 'completed':
-        return 'Completed';
+        return this.completedMessage;
       default:
         return null;
     }

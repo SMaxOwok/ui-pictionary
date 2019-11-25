@@ -18,6 +18,13 @@ class Game < ApplicationRecord
                                  ActiveModelSerializers::SerializableResource.new(self).as_json
   end
 
+  def winner
+    return nil unless teams.any?
+    return nil if teams.pluck(:score).uniq.length <= 1
+
+    teams.order(score: :desc).first
+  end
+
   def state_machine
     @state_machine ||= Games::StateMachine.new(self, transition_class: GameTransition)
   end

@@ -23,6 +23,13 @@
     }
   }
 
+  &__end-game {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   &__sign-out {
     position: absolute;
     bottom: 1.5rem;
