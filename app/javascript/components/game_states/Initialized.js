@@ -17,7 +17,7 @@ export default class Initialized extends Component {
   };
 
   handleStartGame = () => {
-    this.props.gameChannel.transition({ status: 'setup' });
+    this.props.gameChannel.transition('setup');
   };
 
   currentUserOnTeam(team) {

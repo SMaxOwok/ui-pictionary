@@ -17,7 +17,8 @@ class Game extends React.Component {
       { channel: 'GameChannel' },
       {
         received: data => this.handleDataReceived(data),
-        transition: data => this.handleTransition(data)
+        transition: data => this.handleTransition(data),
+        submitWord: data => this.handleSubmitWord(data)
       }
     );
 
@@ -37,7 +38,11 @@ class Game extends React.Component {
   };
 
   handleTransition = data => {
-    this.props.gameChannel.perform('transition_game', data);
+    this.props.gameChannel.perform('transition_game', { status: data });
+  };
+
+  handleSubmitWord = data => {
+    this.props.gameChannel.perform('submit_word', { word: data });
   };
 
   componentDidMount() {

@@ -22,9 +22,9 @@ class Jumbotron extends Component {
   get status() {
     switch (this.props.game.currentState) {
       case 'initialized':
-        return 'Initialized';
+        return 'Waiting for game to start...';
       case 'setup':
-        return 'Setup';
+        return 'Submit words to draw';
       case 'pre_draw':
         return 'Pre-draw';
       case 'drawing':

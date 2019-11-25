@@ -7,6 +7,9 @@ class Game < ApplicationRecord
   # Validations
   validates :singleton_guard, inclusion: [0], uniqueness: true
 
+  # Callbacks
+  after_commit :broadcast!
+
   delegate :can_transition_to?, :current_state, :history, :last_transition,
            :transition_to!, :transition_to, :in_state?, to: :state_machine
 

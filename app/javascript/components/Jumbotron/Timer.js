@@ -11,7 +11,7 @@ export default class Timer extends Component {
     return (
       <div className='Jumbotron__timer'>
         Timer
-        <span className='Jumbotron__timer__number'></span>
+        <span className='Jumbotron__timer__number'>:00</span>
       </div>
     );
   }

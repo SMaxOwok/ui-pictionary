@@ -1,0 +1,51 @@
+.Setup {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 5rem;
+  text-align: center;
+
+  &__word-count {
+    margin: -4rem 0 4rem;
+  }
+
+  &__submissions {
+    &__label {
+      color: $neutral80;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+
+    &__prompt {
+      font-weight: $weight-bold;
+      font-size: 1.25rem;
+    }
+
+    &__word-list {
+      margin-top: 1.5rem;
+    }
+  }
+
+  .SubmissionInput {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+
+    input[type='text'] {
+      flex-grow: 1;
+      outline: none;
+      border: none;
+      background: none;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+    }
+
+    &__button {
+      color: $neutralWhite;
+      background-color: $primary80;
+    }
+  }
+}
