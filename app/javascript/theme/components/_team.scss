@@ -7,31 +7,19 @@
   padding: 1rem;
   max-width: 15rem;
 
-  &--primary {
-    #{$block}__scoreboard {
-      background-color: $primary80;
-    }
-
-    #{$block}__player {
-      background-color: $primary10;
-    }
-  }
-
-  &--secondary {
-    #{$block}__scoreboard {
-      background-color: $secondary50;
-    }
-
-    #{$block}__player {
-      background-color: $secondary10;
-    }
-  }
-
   &__scoreboard {
     color: $neutralWhite;
     border-radius: $border-radius;
     padding: 1rem 3rem;
     text-align: center;
+
+    @include themedParent(Team, primary) {
+      background-color: $primary80;
+    }
+
+    @include themedParent(Team, secondary) {
+      background-color: $secondary50;
+    }
   }
 
   &__name {
@@ -55,6 +43,16 @@
 
     + #{&} {
       margin-top: 1rem;
+    }
+
+    @include themedParent(Team, primary) {
+      color: $primary80;
+      background-color: $primary10;
+    }
+
+    @include themedParent(Team, secondary) {
+      color: $secondary50;
+      background-color: $secondary10;
     }
   }
 }

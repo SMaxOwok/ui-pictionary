@@ -45,7 +45,15 @@
 
     &__button {
       color: $neutralWhite;
-      background-color: $primary80;
+      background-color: $neutral30;
+
+      @include themedParent(GameState, primary) {
+        background-color: $primary80;
+      }
+
+      @include themedParent(GameState, secondary) {
+        background-color: $secondary50;
+      }
     }
   }
 }

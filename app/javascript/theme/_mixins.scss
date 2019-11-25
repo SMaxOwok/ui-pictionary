@@ -9,3 +9,21 @@
     @content;
   }
 }
+
+@mixin themedParent($baseClass, $palette) {
+  .#{$baseClass}--#{$palette} & {
+    @content
+  }
+}
+
+@mixin themed($palette, $modifier: null) {
+  @if $modifier {
+    &--#{$palette}#{$modifier} {
+      @content
+    }
+  } @else {
+    &--#{$palette} {
+      @content
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 import GameStates from 'components/game_states';
 
@@ -13,7 +14,8 @@ class GameState extends Component {
   static mapStateToProps = state => (
     {
       gameChannel: get(state, 'websockets.gameChannel'),
-      teams: get(state, 'entities.team')
+      teams: get(state, 'entities.team'),
+      theme: get(state, 'theme')
     }
   );
 
@@ -21,7 +23,8 @@ class GameState extends Component {
     gameChannel: PropTypes.object.isRequired,
     currentUser: PropTypes.object,
     game: PropTypes.object.isRequired,
-    teams: PropTypes.object
+    teams: PropTypes.object,
+    theme: PropTypes.object.isRequired
   };
 
   get componentKey() {
@@ -32,10 +35,17 @@ class GameState extends Component {
     return GameStates[this.componentKey];
   }
 
+  get containerClasses() {
+    const { palette } = this.props.theme;
+
+    return classnames('GameState', {
+      [`GameState--${palette}`]: !!palette
+    })
+  }
 
   render () {
     return (
-      <div className='GameState'>
+      <div className={this.containerClasses}>
         <this.Component { ...this.props }/>
       </div>
     );

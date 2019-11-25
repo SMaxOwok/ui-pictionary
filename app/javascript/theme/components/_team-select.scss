@@ -20,7 +20,7 @@
       display: block;
     }
 
-    &--primary#{$block}--selected {
+    @include themed(primary, #{$block}--selected) {
       #{$block}__label {
         color: $primary80;
       }
@@ -31,7 +31,7 @@
       }
     }
 
-    &--secondary#{$block}--selected {
+    @include themed(secondary, #{$block}--selected) {
       #{$block}__label {
         color: $secondary50;
       }
@@ -46,13 +46,14 @@
       border: 1px solid $neutral40;
       border-radius: $border-radius-tight;
       margin: 0.625rem 0;
-      transition: border-color $timing $duration, background-color $timing $duration;
+      transition: color $duration $timing,
+        border-color $timing $duration, background-color $timing $duration;
 
       &:hover {
         cursor: pointer;
       }
 
-      #{$block}--primary & {
+      @include themedParent(TeamSelect__team, primary) {
         color: $primary80;
 
         &:hover {
@@ -61,7 +62,7 @@
         }
       }
 
-      #{$block}--secondary & {
+      @include themedParent(TeamSelect__team, secondary) {
         color: $secondary50;
 
         &:hover {
