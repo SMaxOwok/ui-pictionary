@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.7'
 
+gem 'active_interaction', '~> 3.7'
 gem 'active_model_serializers', '~> 0.10'
 gem 'js-routes', '~> 1.4'
 gem 'pg', '>= 0.18', '< 2.0'
