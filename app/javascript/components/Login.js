@@ -32,21 +32,18 @@ class Login extends Component {
     return (
       <Modal visible={!this.props.currentUser}>
         <div className='Login'>
-          <div className='Login__title'>
-            Login to play
+          <div className='Login__header'>
+            Use your UI email address to sign in
           </div>
 
           <form onSubmit={this.handleSubmit}>
             <div className='FormInput'>
-              <label>Email</label>
               <input type='text' value={this.state.email} onChange={this.handleChange} />
             </div>
 
-            <div className='Login__actions'>
-              <button type='submit' className='Button Button--primary'>
-                Login
-              </button>
-            </div>
+            <button type='submit' className='Login__button Button Button--primary'>
+              Sign in
+            </button>
           </form>
         </div>
       </Modal>

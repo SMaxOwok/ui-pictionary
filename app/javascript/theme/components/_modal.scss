@@ -10,10 +10,23 @@
   background: rgba(red($neutral70), green($neutral70), blue($neutral70), 0.4);
   transition: visibility $timing $duration, opacity $timing $duration;
 
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    color: $primary50;
+  }
+
+  &__ui-logo {
+    margin-right: 0.75rem;
+  }
+
   &__content {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     background-color: $neutralWhite;
     border-radius: $border-radius-tight;
     padding: 2.5rem;
