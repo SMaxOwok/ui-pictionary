@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy, faSignOutAlt, faBook, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 import Icon from 'components/icons/Icon';
-import { Leaderboard, Rules } from 'components/modals';
+import { Leaderboard, HowToPlay } from 'components/modals';
 
 import withCurrentUser from 'components/hoc/withCurrentUser';
 
@@ -44,7 +44,7 @@ class ActionOverlay extends Component {
   };
 
   handleShowRules = () => {
-    this.setState({ modal: 'rules' });
+    this.setState({ modal: 'how-to-play' });
   };
 
   handleEndGame = () => {
@@ -59,7 +59,7 @@ class ActionOverlay extends Component {
     return (
       <Fragment>
         <Leaderboard visible={this.state.modal === 'leaderboard'} onClose={this.handleModalClose} />
-        <Rules visible={this.state.modal === 'rules'} onClose={this.handleModalClose} />
+        <HowToPlay visible={this.state.modal === 'how-to-play'} onClose={this.handleModalClose} />
 
         <div className='ActionOverlay ActionOverlay__logo'>
           <Icon name='UILogo' className='ActionOverlay__logo__icon' /> UI Pictionary
@@ -75,7 +75,7 @@ class ActionOverlay extends Component {
         <div className='ActionOverlay ActionOverlay__rules'>
           <button type='button' className='Button Button--icon' onClick={this.handleShowRules}>
             <FontAwesomeIcon icon={faBook} />
-            Rules
+            How to play
           </button>
         </div>
 
