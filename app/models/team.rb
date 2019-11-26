@@ -2,8 +2,8 @@ class Team < ApplicationRecord
   # Associations
   belongs_to :game, inverse_of: :teams
   has_many :players,
-           dependent: :nullify,
-           after_remove: :touch_player!
+           inverse_of: :team,
+           dependent: :nullify
 
   # Validations
   validates :name, presence: true
@@ -20,9 +20,5 @@ class Team < ApplicationRecord
     Channels::BroadcastObjectJob.perform_later "team:#{id}",
                                                self,
                                                include: %w[players]
-  end
-
-  def touch_player!(player)
-    player.reload.touch
   end
 end

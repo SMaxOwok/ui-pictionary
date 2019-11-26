@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    current_user.skip_broadcast = true
     current_user.abandon_team!
 
     session[:player_id] = nil
