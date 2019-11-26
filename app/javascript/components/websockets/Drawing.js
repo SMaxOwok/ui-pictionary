@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { entityActions, websocketActions } from 'store/actions';
 
@@ -9,6 +10,11 @@ class Drawing extends React.Component {
   static mapStateToProps = state => (
     { drawingChannel: get(state, 'websockets.drawingChannel') }
   );
+
+  static propTypes = {
+    drawingChannel: PropTypes.object,
+    dispatch: PropTypes.func.isRequired
+  };
 
   initializeWebsocket() {
     this.props.dispatch(websocketActions.connect('drawingChannel'));

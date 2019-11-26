@@ -12,7 +12,9 @@ class Team extends Component {
   );
 
   static propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    teamChannel: PropTypes.object,
+    dispatch: PropTypes.func.isRequired
   };
 
   initializeWebsocket() {

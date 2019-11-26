@@ -23,12 +23,27 @@ const connected = (state, action) => {
   return newState;
 };
 
+const disconnect = (state, action) => {
+  const payload = action.payload;
+
+  if (developmentEnv) {
+    console.log(payload + ' -- disconnected.');
+  }
+
+  const newState = { ...state };
+  delete newState[payload];
+
+  return newState;
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'CONNECT':
+    case 'WEBSOCKET_CONNECT':
       return connect(state, action);
-    case 'CONNECTED':
+    case 'WEBSOCKET_CONNECTED':
       return connected(state, action);
+    case 'WEBSOCKET_DISCONNECT':
+      return disconnect(state, action);
     default:
       return state;
   }
