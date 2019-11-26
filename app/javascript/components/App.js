@@ -31,6 +31,7 @@ export default class App extends Component {
   render () {
     return (
       <Provider store={store}>
+        <Websockets.Me />
         <Websockets.Drawing />
         <Websockets.Game />
         {this.props.teams.map(team => (

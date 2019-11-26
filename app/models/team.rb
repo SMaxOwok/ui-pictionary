@@ -1,7 +1,9 @@
 class Team < ApplicationRecord
   # Associations
   belongs_to :game, inverse_of: :teams
-  has_many :players, dependent: :nullify
+  has_many :players,
+           dependent: :nullify,
+           after_remove: :touch_player!
 
   # Validations
   validates :name, presence: true
@@ -19,5 +21,9 @@ class Team < ApplicationRecord
                                  ActiveModelSerializers::SerializableResource.new(
                                    self, include: %w[players]
                                  ).as_json
+  end
+
+  def touch_player!(player)
+    player.reload.touch
   end
 end
