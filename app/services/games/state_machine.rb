@@ -14,12 +14,10 @@ module Games
     transition from: :drawing, to: [:pre_draw, :completed]
     transition from: :completed, to: [:initialized]
 
-    before_transition(from: :completed, to: :initialized) do |object|
-      object.game_transitions.destroy_all
-    end
+    after_transition { |object| object.broadcast! }
 
-    after_transition do |object|
-      object.broadcast!
+    after_transition(from: :completed, to: :initialized) do
+      Games::Reset.run!
     end
   end
 end

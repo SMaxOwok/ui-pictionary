@@ -10,6 +10,12 @@ RSpec.describe Game, type: :model do
     expect(FactoryBot.build(:game)).to_not be_valid
   end
 
+  it 'is created with two teams' do
+    game = FactoryBot.create(:game)
+
+    expect(game.teams.size).to eq 2
+  end
+
   describe '#instance' do
     context 'when Game doesn\'t exist' do
       it 'creates a new game' do
