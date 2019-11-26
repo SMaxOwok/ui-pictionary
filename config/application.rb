@@ -32,6 +32,11 @@ module UiPictionary
 
     config.active_job.queue_adapter = :sidekiq
 
+    config.eager_load_paths += %W[
+      #{config.root}/app/jobs
+      #{config.root}/app/services
+    ]
+
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end
