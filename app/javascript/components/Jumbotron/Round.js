@@ -15,7 +15,9 @@ export default class Round extends Component {
     return (
       <div className='Jumbotron__round'>
         Round
-        <span className='Jumbotron__round__number'>{this.round}</span>
+        <span className='Jumbotron__round__number'>
+          {this.round > 0 && this.round}
+        </span>
       </div>
     );
   }

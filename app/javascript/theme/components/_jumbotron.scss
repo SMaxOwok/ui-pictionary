@@ -29,10 +29,19 @@
     padding: 1.75rem 2.25rem;
     height: 100%;
 
-    &__number {
+    &__countdown, &__number {
       display: block;
       font-size: 2rem;
       margin-top: 0.25rem;
+      transition: color $duration $timing;
+
+      &--warning {
+        color: $orange20;
+      }
+
+      &--danger {
+        color: $red20;
+      }
     }
   }
 }
