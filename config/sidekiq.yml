@@ -1,0 +1,8 @@
+---
+:verbose: false
+:concurrency: 10
+:timeout: 10
+
+:queues:
+  - default
+  - timed_transition

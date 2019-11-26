@@ -12,6 +12,7 @@ gem 'rails', '~> 5.2.3'
 gem 'react-rails', '~> 2.6'
 gem 'redis', '~> 4.0'
 gem 'sass-rails', '~> 5.0'
+gem 'sidekiq', '~> 6.0'
 gem 'statesman', '~> 4.1'
 gem 'webpacker', '~> 4.2'
 

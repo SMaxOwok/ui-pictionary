@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   root to: 'application#index'
 
@@ -6,4 +8,5 @@ Rails.application.routes.draw do
   resource :sessions, only: [:create, :destroy]
 
   mount ActionCable.server, at: '/cable'
+  mount Sidekiq::Web, at: '/sidekiq'
 end
