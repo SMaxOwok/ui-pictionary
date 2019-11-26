@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { authenticationActions } from 'store/actions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrophy, faSignOutAlt, faBook, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faSignOutAlt, faBook } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 import Icon from 'components/icons/Icon';
 import { Leaderboard, HowToPlay } from 'components/modals';
