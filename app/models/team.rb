@@ -1,6 +1,6 @@
 class Team < ApplicationRecord
   # Associations
-  belongs_to :game
+  belongs_to :game, inverse_of: :teams
   has_many :players, dependent: :nullify
 
   # Validations
@@ -16,6 +16,8 @@ class Team < ApplicationRecord
 
   def broadcast!
     ActionCable.server.broadcast "team:#{id}",
-                                 ActiveModelSerializers::SerializableResource.new(self).as_json
+                                 ActiveModelSerializers::SerializableResource.new(
+                                   self, include: %w[players]
+                                 ).as_json
   end
 end

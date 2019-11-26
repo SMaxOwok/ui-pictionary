@@ -11,7 +11,7 @@ import { authenticationActions, entityActions } from 'store/actions';
 export default class App extends Component {
   static propTypes = {
     game: PropTypes.object.isRequired,
-    teams: PropTypes.array
+    teams: PropTypes.array.isRequired
   };
 
   componentDidMount() {

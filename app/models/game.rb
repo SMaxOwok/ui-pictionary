@@ -1,13 +1,14 @@
 class Game < ApplicationRecord
   # Associations
   has_many :game_transitions, autosave: false, dependent: :destroy
-  has_many :teams
+  has_many :teams, inverse_of: :game
   has_many :players, through: :teams
 
   # Validations
   validates :singleton_guard, inclusion: [0], uniqueness: true
 
   # Callbacks
+  before_create :initialize_teams!
   after_commit :broadcast!
 
   delegate :can_transition_to?, :current_state, :history, :last_transition,
@@ -15,7 +16,9 @@ class Game < ApplicationRecord
 
   def broadcast!
     ActionCable.server.broadcast 'game_channel',
-                                 ActiveModelSerializers::SerializableResource.new(self).as_json
+                                 ActiveModelSerializers::SerializableResource.new(
+                                     self, include: %w(teams teams.players)
+                                 ).as_json
   end
 
   def winner
@@ -27,6 +30,13 @@ class Game < ApplicationRecord
 
   def state_machine
     @state_machine ||= Games::StateMachine.new(self, transition_class: GameTransition)
+  end
+
+  private
+
+  def initialize_teams!
+    teams << Team.new(name: 'Researchers')
+    teams << Team.new(name: 'Participants', palette: 'secondary')
   end
 
   class << self

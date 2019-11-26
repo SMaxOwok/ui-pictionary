@@ -3,7 +3,6 @@
   {
     currentUser: ActiveModelSerializers::SerializableResource.new(current_user),
     game: ActiveModelSerializers::SerializableResource.new(Game.instance),
-    teams: ActiveModelSerializers::SerializableResource.new(Game.instance.teams),
-    players: ActiveModelSerializers::SerializableResource.new(Game.instance.players),
+    teams: ActiveModelSerializers::SerializableResource.new(Game.instance.teams, include: %w[players])
   }
 ) %>
