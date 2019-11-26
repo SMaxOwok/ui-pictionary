@@ -40,7 +40,6 @@ class Me extends Component {
   }
 
   handleDataReceived = data => {
-    console.log(data)
     this.props.dispatch(authenticationActions.setCurrentUser(data));
   };
 
