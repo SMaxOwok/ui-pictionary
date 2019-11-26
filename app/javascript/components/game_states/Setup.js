@@ -61,7 +61,7 @@ export default class Setup extends Component {
           </div>
 
           <div className='Setup__submissions__prompt'>
-            Try to be clever and unique, you sneaky devil
+            Try to be unique and clever, you sneaky devil
           </div>
 
           <div className='Setup__submissions__word-list'>
