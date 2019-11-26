@@ -3,27 +3,45 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 export default class Timer extends Component {
-
   static propTypes = {
     game: PropTypes.object.isRequired,
     gameChannel: PropTypes.object.isRequired
   };
 
-  // TODO: Just a stub so this doesn't explode while I revisit it.
-  static defaultProps = {
-    remainingTime: 0
-  };
+  state = { remaining: this.duration };
+
+  get endTime() {
+    if (!this.props.game.transitionAt) return null;
+
+    return new Date(Date.parse(this.props.game.transitionAt));
+  }
+
+  get duration() {
+    if (!this.endTime) return null;
+    const now = new Date();
+
+    if (now >= this.endTime) return null;
+
+    return Math.round((this.endTime - now) / 1000);
+  }
+
+  get remaining() {
+    if (!this.state.remaining) return '00';
+    if (this.state.remaining >= 10) return this.state.remaining;
+
+    return `0${this.state.remaining}`
+  }
 
   get isWarningTime() {
-    if (this.props.remainingTime === 0) return false;
+    if (this.remaining === 0) return false;
 
-    return this.props.remainingTime <= 10 && this.props.remainingTime > 5;
+    return this.remaining <= 10 && this.remaining > 5;
   }
 
   get isDangerTime() {
-    if (this.props.remainingTime === 0) return false;
+    if (this.remaining === 0) return false;
 
-    return this.props.remainingTime <= 5;
+    return this.remaining <= 5;
   }
 
   get countdownClasses() {
@@ -33,10 +51,27 @@ export default class Timer extends Component {
     })
   }
 
-  get remainingTime() {
-    if (this.props.remainingTime >= 10) return this.props.remainingTime;
+  resetTimer() {
+    this.setState({ remaining: this.duration });
+  }
 
-    return `0${this.props.remainingTime}`
+
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      if (this.state.remaining <= 0) return null;
+
+      this.setState(state => ({ remaining: state.remaining - 1 }))
+    }, 1000);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.game.transitionAt !== this.props.game.transitionAt) {
+      this.resetTimer();
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   render () {
@@ -44,7 +79,7 @@ export default class Timer extends Component {
       <div className='Jumbotron__timer'>
         Timer
         <span className={this.countdownClasses}>
-          :{this.remainingTime}
+          {this.remaining}
         </span>
       </div>
     );

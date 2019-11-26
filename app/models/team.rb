@@ -3,7 +3,8 @@ class Team < ApplicationRecord
   belongs_to :game, inverse_of: :teams
   has_many :players,
            inverse_of: :team,
-           dependent: :nullify
+           dependent: :nullify,
+           after_remove: :broadcast_player!
 
   # Validations
   validates :name, presence: true
@@ -15,6 +16,10 @@ class Team < ApplicationRecord
   enum palette: { primary: 0, secondary: 1 }
 
   private
+
+  def broadcast_player!(player)
+    Channels::BroadcastObjectJob.perform_later "player:#{player.id}", player
+  end
 
   def broadcast!
     Channels::BroadcastObjectJob.perform_later "team:#{id}",

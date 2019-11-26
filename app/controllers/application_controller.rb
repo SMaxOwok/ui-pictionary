@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
     else
       @current_user = nil
     end
+  rescue ActiveRecord::RecordNotFound
+    @current_user = nil
   end
   helper_method :current_user
 end

@@ -5,6 +5,7 @@ ruby '2.5.7'
 
 gem 'active_interaction', '~> 3.7'
 gem 'active_model_serializers', '~> 0.10'
+gem 'clockwork', '~> 2.0'
 gem 'js-routes', '~> 1.4'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'

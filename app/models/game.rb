@@ -3,6 +3,10 @@ class Game < ApplicationRecord
   has_many :game_transitions, autosave: false, dependent: :destroy
   has_many :teams, inverse_of: :game
   has_many :players, through: :teams
+  has_many :game_transition_events,
+           -> { order(transition_at: :desc) }
+  has_one :next_transition,
+          class_name: 'GameTransitionEvent'
 
   # Validations
   validates :singleton_guard, inclusion: [0], uniqueness: true
@@ -13,12 +17,6 @@ class Game < ApplicationRecord
 
   delegate :can_transition_to?, :current_state, :history, :last_transition,
            :transition_to!, :transition_to, :in_state?, to: :state_machine
-
-  def broadcast!
-    Channels::BroadcastObjectJob.perform_later 'game_channel',
-                                               self,
-                                               include: %w[teams teams.players]
-  end
 
   def final_round?
     round_count == 10
@@ -36,6 +34,12 @@ class Game < ApplicationRecord
   end
 
   private
+
+  def broadcast!
+    Channels::BroadcastObjectJob.perform_later 'game_channel',
+                                               self,
+                                               include: %w[teams teams.players]
+  end
 
   def initialize_teams!
     teams << Team.new(name: 'Researchers')

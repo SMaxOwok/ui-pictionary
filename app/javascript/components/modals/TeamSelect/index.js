@@ -13,7 +13,7 @@ import TeamOption from './TeamOption';
 
 class TeamSelect extends Component {
   static mapStateToProps = state => (
-    { teams: get(state, 'entities.team') }
+    { teamIds: Object.keys(get(state, 'entities.team')) }
   );
 
   static propTypes = {
@@ -42,6 +42,7 @@ class TeamSelect extends Component {
   };
 
   render() {
+    console.log(this.props.teams)
     return (
       <Modal visible={!this.hasTeam}>
         <div className='TeamSelect'>
@@ -51,10 +52,10 @@ class TeamSelect extends Component {
 
           <form onSubmit={this.handleSubmit}>
             <div className='TeamSelect__teams'>
-              {Object.keys(this.props.teams).map(id => (
+              {this.props.teamIds.map(id => (
                 <TeamOption
                   key={id}
-                  team={this.props.teams[id]}
+                  id={id}
                   selectedId={this.state.selectedId}
                   onTeamSelect={this.handleTeamSelect}
                 />

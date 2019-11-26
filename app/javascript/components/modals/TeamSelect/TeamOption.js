@@ -1,12 +1,19 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
+import get from 'lodash/get';
+
 import TeamIcon from 'components/TeamIcon';
 
-export default class TeamOption extends PureComponent {
+class TeamOption extends Component {
+  static mapStateToProps = (state, ownProps) => (
+    { team: get(state, `entities.team.${ownProps.id}`) }
+  );
+
   static propTypes = {
-    team: PropTypes.object.isRequired,
+    id: PropTypes.object.isRequired,
     selectedId: PropTypes.string,
     onTeamSelect: PropTypes.func.isRequired
   };
@@ -60,3 +67,5 @@ export default class TeamOption extends PureComponent {
     );
   }
 }
+
+export default connect(TeamOption.mapStateToProps)(TeamOption);

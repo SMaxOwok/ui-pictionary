@@ -13,6 +13,7 @@ module Games
       reset_teams!
       reset_attributes!
       reset_state!
+      reset_events!
 
       game.save
     end
@@ -21,6 +22,10 @@ module Games
       game.teams.each do |team|
         compose Teams::Reset, team: team
       end
+    end
+
+    def reset_events!
+      GameTransitionEvent.destroy_all
     end
 
     def reset_attributes!

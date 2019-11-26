@@ -11,31 +11,40 @@ module Games
     state :completed
 
     transition from: :initialized, to: :setup
-    transition from: :setup, to: [:pre_draw, :completed]
-    transition from: :pre_draw, to: [:drawing, :completed]
-    transition from: :drawing, to: [:pre_draw, :completed]
+    transition from: :setup, to: %i[pre_draw completed]
+    transition from: :pre_draw, to: %i[drawing completed]
+    transition from: :drawing, to: %i[pre_draw completed]
     transition from: :completed, to: [:initialized]
 
-    after_transition { |object| object.broadcast! }
+    before_transition do |object|
+      object.game_transition_events.destroy_all
+    end
 
     after_transition(from: :completed, to: :initialized) do
       Games::Reset.run!
     end
 
     after_transition(to: :setup) do
-      # TODO: timer
+      Games::Transition.run! state: :pre_draw, at: Time.current + 30.seconds
     end
 
     after_transition(to: :pre_draw) do |object|
-      object.update round_count: object.round_count + 1
-
-      # TODO: timer
+      Games::Transition.run! state: :drawing,
+                             at: Time.current + 15.seconds,
+                             game_attributes: {
+                               round_count: object.round_count + 1
+                             }
     end
 
     after_transition(to: :drawing) do |object|
-      # object.final_round? ? 'completed' : 'pre_draw'
+      next_state = object.final_round? ? :completed : :pre_draw
+      Games::Transition.run! state: next_state, at: Time.current + 60.seconds
+    end
 
-      # TODO: timer
+    # Not sure if this is needed yet, but it will clear the timers for now.
+    after_transition(to: :completed) do |object|
+      object.game_transition_events.destroy_all
+      object.reload.touch
     end
   end
 end
