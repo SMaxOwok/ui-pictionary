@@ -17,10 +17,9 @@ class Team < ApplicationRecord
   private
 
   def broadcast!
-    ActionCable.server.broadcast "team:#{id}",
-                                 ActiveModelSerializers::SerializableResource.new(
-                                   self, include: %w[players]
-                                 ).as_json
+    Channels::BroadcastObjectJob.perform_later "team:#{id}",
+                                               self,
+                                               include: %w[players]
   end
 
   def touch_player!(player)

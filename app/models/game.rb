@@ -15,10 +15,13 @@ class Game < ApplicationRecord
            :transition_to!, :transition_to, :in_state?, to: :state_machine
 
   def broadcast!
-    ActionCable.server.broadcast 'game_channel',
-                                 ActiveModelSerializers::SerializableResource.new(
-                                     self, include: %w(teams teams.players)
-                                 ).as_json
+    Channels::BroadcastObjectJob.perform_later 'game_channel',
+                                               self,
+                                               include: %w[teams teams.players]
+  end
+
+  def final_round?
+    round_count == 10
   end
 
   def winner

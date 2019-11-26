@@ -16,9 +16,6 @@ class Player < ApplicationRecord
   private
 
   def broadcast!
-    ActionCable.server.broadcast "player:#{id}",
-                                 ActiveModelSerializers::SerializableResource.new(
-                                   self
-                                 ).as_json
+    Channels::BroadcastObjectJob.perform_later "player:#{id}", self
   end
 end
