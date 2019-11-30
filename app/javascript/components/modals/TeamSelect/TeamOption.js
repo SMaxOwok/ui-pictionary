@@ -13,7 +13,7 @@ class TeamOption extends Component {
   );
 
   static propTypes = {
-    id: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
     selectedId: PropTypes.string,
     onTeamSelect: PropTypes.func.isRequired
   };

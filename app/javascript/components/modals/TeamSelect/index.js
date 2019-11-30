@@ -42,7 +42,6 @@ class TeamSelect extends Component {
   };
 
   render() {
-    console.log(this.props.teams)
     return (
       <Modal visible={!this.hasTeam}>
         <div className='TeamSelect'>
