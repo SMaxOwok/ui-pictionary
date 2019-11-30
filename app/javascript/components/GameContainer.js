@@ -31,7 +31,7 @@ class GameContainer extends React.Component {
         <Team id={this.props.game.teamIds[0]} />
 
         <div className='GameContainer__content'>
-          <Jumbotron round={1} status='initialized' />
+          <Jumbotron game={this.props.game} />
           <GameState game={this.props.game} />
         </div>
 

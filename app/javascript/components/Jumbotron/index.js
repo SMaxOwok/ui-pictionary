@@ -2,50 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import Prompts from './prompts';
 import Round from './Round';
 import Timer from './Timer';
 
+import humps from 'humps';
 import get from 'lodash/get';
+
+import withCurrentUser from 'components/hoc/withCurrentUser';
 
 class Jumbotron extends Component {
   static mapStateToProps = state => (
     {
-      game: get(state, 'entities.game'),
       gameChannel: get(state, 'websockets.gameChannel'),
       teams: get(state, 'entities.team')
     }
   );
 
   static propTypes = {
+    currentUser: PropTypes.object,
     game: PropTypes.object.isRequired,
     gameChannel: PropTypes.object.isRequired,
     teams: PropTypes.object.isRequired
   };
 
-  get completedMessage() {
-    const { winnerId } = this.props.game;
-    if (!winnerId) return 'It\'s a draw!';
-
-    const team = this.props.teams[winnerId];
-
-    return `${team.name} wins!`;
-  }
-
-  get status() {
-    switch (this.props.game.currentState) {
-      case 'initialized':
-        return 'Waiting for game to start...';
-      case 'setup':
-        return 'Submit words to draw';
-      case 'pre_draw':
-        return 'Pre-draw';
-      case 'drawing':
-        return 'Drawing';
-      case 'completed':
-        return this.completedMessage;
-      default:
-        return null;
-    }
+  get PromptComponent() {
+    return Prompts[humps.pascalize(this.props.game.currentState)];
   }
 
   render () {
@@ -53,9 +35,7 @@ class Jumbotron extends Component {
       <div className='Jumbotron'>
         <Round { ...this.props } />
 
-        <div className='Jumbotron__direction'>
-          {this.status}
-        </div>
+        <this.PromptComponent { ...this.props } />
 
         <Timer { ...this.props } />
       </div>
@@ -63,4 +43,4 @@ class Jumbotron extends Component {
   }
 }
 
-export default connect(Jumbotron.mapStateToProps)(Jumbotron);
+export default withCurrentUser(connect(Jumbotron.mapStateToProps)(Jumbotron));
