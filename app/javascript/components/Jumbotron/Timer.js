@@ -26,7 +26,7 @@ export default class Timer extends Component {
   }
 
   get remaining() {
-    if (!this.state.remaining) return '00';
+    if (!this.state.remaining) return '-';
     if (this.state.remaining >= 10) return this.state.remaining;
 
     return `0${this.state.remaining}`
