@@ -4,7 +4,7 @@ class Team < ApplicationRecord
   has_many :players,
            inverse_of: :team,
            dependent: :nullify,
-           after_remove: :broadcast_player!
+           after_remove: :touch_player!
 
   # Validations
   validates :name, presence: true
@@ -17,8 +17,10 @@ class Team < ApplicationRecord
 
   private
 
-  def broadcast_player!(player)
-    Channels::BroadcastObjectJob.perform_later "player:#{player.id}", player
+  # TODO: Not the most efficient right now, but we have to make sure the player is
+  # rebroadcast _after_ the :team_id has been cleared.
+  def touch_player!(player)
+    player.touch
   end
 
   def broadcast!
