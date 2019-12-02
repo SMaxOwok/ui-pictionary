@@ -1,7 +1,10 @@
 class Game < ApplicationRecord
   # Associations
   has_many :game_transitions, autosave: false, dependent: :destroy
-  has_many :teams, inverse_of: :game
+  has_many :teams,
+           -> { order(position: :asc) },
+           inverse_of: :game,
+           dependent: :destroy
   has_many :players, through: :teams
   has_many :game_transition_events,
            -> { order(transition_at: :desc) }
@@ -13,13 +16,14 @@ class Game < ApplicationRecord
 
   # Callbacks
   before_create :initialize_teams!
+  before_save :set_round_defaults!
   after_commit :broadcast!
 
   delegate :can_transition_to?, :current_state, :history, :last_transition,
            :transition_to!, :transition_to, :in_state?, to: :state_machine
 
   def final_round?
-    round_count == 10
+    round_count == 9
   end
 
   def winner
@@ -33,6 +37,12 @@ class Game < ApplicationRecord
     @state_machine ||= Games::StateMachine.new(self, transition_class: GameTransition)
   end
 
+  def reset_round(round_key)
+    self[round_key] = {
+      artist: nil, team: nil, word: nil, guessed_words: []
+    }
+  end
+
   private
 
   def broadcast!
@@ -44,6 +54,11 @@ class Game < ApplicationRecord
   def initialize_teams!
     teams << Team.new(name: 'Researchers')
     teams << Team.new(name: 'Participants', palette: 'secondary')
+  end
+
+  def set_round_defaults!
+    reset_round(:current_round) if current_round.blank?
+    reset_round(:previous_round) if previous_round.blank?
   end
 
   class << self

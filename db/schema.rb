@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_222806) do
+ActiveRecord::Schema.define(version: 2019_12_02_182531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 2019_11_26_222806) do
     t.integer "singleton_guard", default: 0, null: false
     t.string "words", default: [], array: true
     t.integer "round_count", default: 0, null: false
+    t.jsonb "current_round", default: {}, null: false
+    t.jsonb "previous_round", default: {}, null: false
     t.index ["singleton_guard"], name: "index_games_on_singleton_guard", unique: true
   end
 
@@ -61,6 +63,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_222806) do
     t.text "draw_order", default: [], array: true
     t.string "name", null: false
     t.integer "palette", default: 0, null: false
+    t.integer "position", null: false
     t.index ["game_id"], name: "index_teams_on_game_id"
   end
 

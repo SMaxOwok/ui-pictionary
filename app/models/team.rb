@@ -10,6 +10,7 @@ class Team < ApplicationRecord
   validates :name, presence: true
 
   # Callbacks
+  before_create :set_position!
   after_commit :broadcast!
 
   # Enums
@@ -27,5 +28,12 @@ class Team < ApplicationRecord
     Channels::BroadcastObjectJob.perform_later "team:#{id}",
                                                self,
                                                include: %w[players]
+  end
+
+  # Zero-indexed position so we can do even/odd round assignments
+  def set_position!
+    return if position.present?
+
+    self.position = self.class.count
   end
 end

@@ -16,6 +16,31 @@ RSpec.describe Game, type: :model do
     expect(game.teams.size).to eq 2
   end
 
+  describe '#set_default_rounds!' do
+    context 'when round info is present' do
+      let(:subject) do
+        FactoryBot.create(:game).tap do |game|
+          game.current_round = { artist: '2', current_word: 'word', guessed_words: [] }
+          game.previous_round = { artist: '1', current_word: 'word', guessed_words: %w(one two) }
+        end
+      end
+
+      it 'does not change the rounds' do
+        expect { subject.__send__(:set_round_defaults!) }.to not_change(subject, :current_round)
+                                                               .and not_change(subject, :previous_round)
+      end
+    end
+
+    context 'when rounds are blank' do
+      let(:subject) { FactoryBot.build(:game, current_round: {}, previous_round: {}) }
+
+      it 'sets the correct keys' do
+        expect { subject.__send__(:set_round_defaults!) }.to change(subject, :current_round)
+                                                               .and change(subject, :previous_round)
+      end
+    end
+  end
+
   describe '#instance' do
     context 'when Game doesn\'t exist' do
       it 'creates a new game' do

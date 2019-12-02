@@ -24,20 +24,25 @@ module Games
       Games::Reset.run!
     end
 
-    after_transition(to: :setup) do
-      Games::Transition.run! state: :pre_draw, at: Time.current + 30.seconds
+    # Need at least 4 people to play
+    #guard_transition(to: :setup) do |object|
+    #  object.teams.all? { |team| team.players.size >= 2 }
+    #end
+
+    after_transition(to: :setup) do |object|
+      # TODO: Almost definitely can do this nicer
+      object.teams.each { |team| Teams::SetDrawOrder.run! team: team }
+
+      Games::Transition.run! state: 'pre_draw', at: Time.current + 30.seconds
     end
 
-    after_transition(to: :pre_draw) do |object|
-      Games::Transition.run! state: :drawing,
-                             at: Time.current + 15.seconds,
-                             game_attributes: {
-                               round_count: object.round_count + 1
-                             }
+    after_transition(to: :pre_draw) do
+      Games::Transition.run! state: 'drawing',
+                             at: Time.current + 15.seconds
     end
 
     after_transition(to: :drawing) do |object|
-      next_state = object.final_round? ? :completed : :pre_draw
+      next_state = object.final_round? ? 'completed' : 'pre_draw'
       Games::Transition.run! state: next_state, at: Time.current + 60.seconds
     end
 

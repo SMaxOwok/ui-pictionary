@@ -8,20 +8,19 @@ export default class Drawing extends Component {
   };
 
   get currentRound() {
-    return {};
-    // return this.props.game.currentRound;
+    return this.props.game.currentRound;
   }
 
   get isArtist() {
     if (!this.props.currentUser) return false;
 
-    return this.currentRound.artistId === this.props.currentUser.id;
+    return this.currentRound.artist === this.props.currentUser.id;
   }
 
   get isOnDrawingTeam() {
     if (!this.props.currentUser) return false;
 
-    return this.currentRound.drawTeamId === this.props.currentUser.teamId;
+    return this.currentRound.team === this.props.currentUser.teamId;
   }
 
   get isOnTeam() {
