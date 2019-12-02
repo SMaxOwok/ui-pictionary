@@ -3,8 +3,6 @@ import Routes from 'routes';
 import { themeActions } from 'store/actions';
 import { request } from 'store/utilities';
 
-import get from 'lodash/get';
-
 function joinTeam(payload, state, dispatch) {
   return request(
     Routes.me_path(),

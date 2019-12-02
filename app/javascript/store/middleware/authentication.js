@@ -19,12 +19,23 @@ function destroySession(dispatch) {
     'DELETE',
     null
   ).then(() => {
-    dispatch(themeActions.setPalette(null));
     dispatch(actions.setCurrentUser(null));
   }).catch(() => null);
 }
 
-export default function authenticationMiddleware({ dispatch }) {
+function setCurrentUser(user, state, dispatch) {
+  const teamId = get(user, 'teamId');
+
+  if (teamId) {
+    const team = get(state, `entities.team.${teamId}`);
+
+    dispatch(themeActions.setPalette(team.palette));
+  } else {
+    dispatch(themeActions.setPalette(null));
+  }
+}
+
+export default function authenticationMiddleware({ getState, dispatch }) {
   return next => action => {
     const payload = action.payload;
 
@@ -34,6 +45,10 @@ export default function authenticationMiddleware({ dispatch }) {
 
     if (action.type === 'LOGOUT') {
       return destroySession(dispatch);
+    }
+
+    if (action.type === 'SET_CURRENT_USER') {
+      setCurrentUser(payload, getState(), dispatch);
     }
 
     return next(action);
