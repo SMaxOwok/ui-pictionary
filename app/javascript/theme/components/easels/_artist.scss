@@ -1,9 +1,44 @@
 .Artist {
   height: 100%;
 
+  .Canvas {
+    @include themedParent(GameState, primary) {
+      cursor: url('assets/icons/pencil-primary.svg') 0 24, pointer;
+    }
+
+    @include themedParent(GameState, secondary) {
+      cursor: url('assets/icons/pencil-secondary.svg') 0 24, pointer;
+    }
+  }
+
   &__toolbar {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     padding: 1rem;
+
+    button {
+      border-radius: $border-radius;
+      flex-basis: 33%;
+
+      + button {
+        margin-left: 1rem;
+      }
+    }
+
+    @include themedParent(GameState, primary) {
+      background-color: $primary10;
+
+      button {
+        background-color: $primary80;
+      }
+    }
+
+    @include themedParent(GameState, secondary) {
+      background-color: $secondary10;
+
+      button {
+        background-color: $secondary50;
+      }
+    }
   }
 }

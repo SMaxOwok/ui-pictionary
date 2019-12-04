@@ -21,7 +21,7 @@ class Artist extends Component {
     // Redraw from response
   };
 
-  handleReset = () => {
+  handleClear = () => {
     this.props.drawingChannel.draw({ plots: [] });
   };
 
@@ -38,11 +38,11 @@ class Artist extends Component {
               <button className='Button Button--primary' onClick={this.handleUndo}>
                 Undo
               </button>
-              <button className='Button Button--primary' onClick={this.handleReset}>
-                Reset
-              </button>
               <button className='Button Button--primary' onClick={this.handleSkip}>
                 Skip
+              </button>
+              <button className='Button Button--primary' onClick={this.handleClear}>
+                Clear
               </button>
             </div>
           )}
