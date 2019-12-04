@@ -34,9 +34,8 @@ class Guesser extends Component {
           footer={(
             <div className='Guesser__toolbar'>
               <input
-                className='Guesser__input'
                 type='text'
-                placeholder='Type here...'
+                placeholder='Enter a word...'
                 value={this.state.guess}
                 onChange={this.handleInputChange}
               />
@@ -44,7 +43,7 @@ class Guesser extends Component {
                 className='Button Button--primary'
                 onClick={this.handleSubmit}
               >
-                Submit
+                Guess
               </button>
             </div>
           )}
