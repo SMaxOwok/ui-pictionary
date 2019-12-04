@@ -39,8 +39,6 @@ export default class Drawing extends Component {
   render () {
     return (
       <div className='Drawing'>
-        <this.Component />
-
         <button
           type='button'
           className='Button Button--primary'
@@ -48,6 +46,7 @@ export default class Drawing extends Component {
         >
           Next state
         </button>
+        <this.Component />
       </div>
     );
   }

@@ -7,6 +7,8 @@ import get from 'lodash/get';
 class Canvas extends React.Component {
   static mapStateToProps = state => (
     {
+      drawTeamId: get(state, 'entities.game.currentRound.team'),
+      teams: get(state, 'entities.team'),
       drawingChannel: get(state, 'websockets.drawingChannel'),
       plots: get(state, 'entities.plots.data' )
     }
@@ -15,7 +17,8 @@ class Canvas extends React.Component {
   static propTypes = {
     drawable: PropTypes.bool.isRequired,
     drawingChannel: PropTypes.object,
-    plots: PropTypes.array
+    plots: PropTypes.array,
+    palette: PropTypes.string
   };
 
   static defaultProps = {
@@ -42,11 +45,21 @@ class Canvas extends React.Component {
     }
   }
 
+  get color() {
+    if (!this.props.drawTeamId) return null;
+    const team = this.props.teams[this.props.drawTeamId];
+
+    if (!team) return null;
+    const palette =team.palette;
+
+    if (palette === 'primary') return '#1dad63';
+    if (palette === 'secondary') return '#2166d7';
+
+    return '#000';
+  }
+
   initializeCanvas() {
     this.ctx = this.canvas.current.getContext('2d');
-    this.ctx.lineWidth = 3;
-    this.ctx.lineCap = 'round';
-    this.ctx.lineJoin = 'round';
     this.setCanvasSize();
   }
 
@@ -116,6 +129,12 @@ class Canvas extends React.Component {
     let pointTwo = plots[1];
 
     this.ctx.beginPath();
+
+    this.ctx.lineWidth = 8;
+    this.ctx.strokeStyle = this.color;
+    this.ctx.lineCap = 'round';
+    this.ctx.lineJoin = 'round';
+
     this.ctx.moveTo(pointOne.x, pointOne.y);
 
     for (let i = 1, len = plots.length; i < len; i++) {
