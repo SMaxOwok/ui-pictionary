@@ -16,6 +16,39 @@ RSpec.describe Game, type: :model do
     expect(game.teams.size).to eq 2
   end
 
+  describe '#initialize_teams!' do
+    let(:game) { FactoryBot.create(:game) }
+
+    context 'when teams present' do
+      it 'does nothing' do
+        expect { game.__send__(:initialize_teams!) }.to not_change(game.teams, :size)
+      end
+    end
+
+    context 'when no teams' do
+      before(:each) { game.update team_ids: [] }
+
+      it 'creates two teams' do
+        expect { game.__send__(:initialize_teams!) }.to change(game.teams, :size).from(0).to(2)
+      end
+
+      describe 'the created teams' do
+        before(:each) do
+          game.__send__(:initialize_teams!)
+          game.save
+        end
+
+        it 'creates a \'Researchers\' team' do
+          expect(game.teams.find_by(name: 'Researchers')).to be_present
+        end
+
+        it 'creates a \'Participants\' team' do
+          expect(game.teams.find_by(name: 'Participants')).to be_present
+        end
+      end
+    end
+  end
+
   describe '#set_default_rounds!' do
     context 'when round info is present' do
       let(:subject) do

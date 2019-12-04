@@ -2,13 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Games::Reset do
   let!(:game) do
-    game = FactoryBot.create(:game).tap do |object|
-      object.words = %w[one two three]
-      object.round_count = 9
-    end
+    game = FactoryBot.create(:game, words: %w[one two three], round_count: 8)
 
     game.transition_to! :setup
-    game
+    game.transition_to! :pre_draw
+    game.reload
   end
 
   def running_the_interaction!
@@ -30,21 +28,21 @@ RSpec.describe Games::Reset do
     end
   end
 
-  describe 'the teams' do
-    it 'has two teams' do
-      expect { running_the_interaction! }.to_not change(game.teams, :size).from(2)
+  describe 'its rounds' do
+    let(:expected) do
+      { 'artist' => nil, 'team' => nil, 'word' => nil, 'guessed_words' => [] }
     end
 
-    it 'has a "Researchers" team' do
-      running_the_interaction!
-
-      expect(game.teams.find_by(name: 'Researchers')).to be_present
+    it 'resets :current_round to defaults' do
+      expect { running_the_interaction! }.to change(game, :current_round).to(expected)
     end
 
-    it 'has a "Participants" team' do
-      running_the_interaction!
+    it 'resets :previous_round to defaults' do
+      game.transition_to! :drawing
+      game.transition_to! :pre_draw
+      game.reload
 
-      expect(game.teams.find_by(name: 'Participants')).to be_present
+      expect { running_the_interaction! }.to change(game, :previous_round).to(expected)
     end
   end
 

@@ -52,6 +52,8 @@ class Game < ApplicationRecord
   end
 
   def initialize_teams!
+    return if teams.any?
+
     teams << Team.new(name: 'Researchers')
     teams << Team.new(name: 'Participants', palette: 'secondary')
   end

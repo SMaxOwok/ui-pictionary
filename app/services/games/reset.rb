@@ -1,5 +1,6 @@
 module Games
   class Reset < ActiveInteraction::Base
+    record :game, default: -> { Game.instance }
 
     def execute
       ActiveRecord::Base.transaction do
@@ -37,10 +38,6 @@ module Games
 
     def reset_state!
       game.game_transitions.destroy_all
-    end
-
-    def game
-      @game ||= Game.instance
     end
   end
 end
