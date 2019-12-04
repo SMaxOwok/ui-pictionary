@@ -5,13 +5,31 @@
     display: flex;
     justify-content: flex-end;
     padding: 1rem;
-  }
 
-  &__input {
-    flex-grow: 1;
-    background: none;
-    outline: none;
-    border: none;
-    margin-right: 1rem;
+    button {
+      padding: 1rem 4rem;
+      border-radius: $border-radius;
+    }
+
+    input[type='text'] {
+      flex-grow: 1;
+      outline: none;
+      border: none;
+      background: none;
+      font-size: 1.5rem;
+      margin-right: 1rem;
+    }
+
+    @include themedParent(GameState, primary) {
+      button {
+        background-color: $primary80;
+      }
+    }
+
+    @include themedParent(GameState, secondary) {
+      button {
+        background-color: $secondary50;
+      }
+    }
   }
 }
