@@ -8,7 +8,7 @@ module Rounds
       {
         team: team.id,
         artist: artist,
-        current_word: current_word,
+        current_word: nil,
         guessed_words: []
       }.with_indifferent_access
     end
@@ -29,10 +29,6 @@ module Rounds
 
     def team
       @team ||= Team.find_by(position: round_count % 2)
-    end
-
-    def current_word
-      words.sample
     end
   end
 end

@@ -40,8 +40,8 @@ module Games
       # Push the word to correct guesses
       game.current_round['guessed_words'] << word
 
-      # Subtract the word from the remaining words
-      game.words = game.words - game.current_round['guessed_words']
+      # Subtract guessed words from list and fill to 20
+      fill_words!
 
       # Set a new current word for the round
       game.current_round['current_word'] = game.words.sample
@@ -68,6 +68,19 @@ module Games
       return unless artist.present?
 
       artist.update draw_count: artist.draw_count + 1
+    end
+
+    def fill_words!
+      game.words = remaining_words
+      game.words << (word_list - game.words).sample while game.words.length < 20
+    end
+
+    def remaining_words
+      @remaining_words ||= game.words - game.current_round['guessed_words']
+    end
+
+    def word_list
+      @word_list ||= YAML.load_file Rails.root.join('app', 'services', 'games', 'word_list.yml')
     end
   end
 end
