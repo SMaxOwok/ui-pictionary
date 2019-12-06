@@ -20,6 +20,7 @@ export default class SubmissionInput extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    if (!this.state.value) return null;
 
     this.props.onSubmit(this.state.value);
     this.setState({ value: '' });
@@ -37,7 +38,7 @@ export default class SubmissionInput extends Component {
 
         <button
           type='submit'
-          className='SubmissionInput__button Button'
+          className='SubmissionInput__button Button Button--primary'
         >
           {this.props.buttonText}
         </button>
