@@ -3,7 +3,6 @@ export const guessWord = (payload) => ({
   payload
 });
 
-
 export default {
   guessWord
 }
