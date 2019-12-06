@@ -2,6 +2,7 @@
   height: 100%;
 
   &__toolbar {
+    border-top: 1px solid $neutral30;
     padding: 1rem;
 
     .SubmissionInput {

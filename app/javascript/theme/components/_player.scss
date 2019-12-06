@@ -13,7 +13,7 @@
     padding: 0.5rem 0.75rem;
     border-radius: $border-radius;
     background: $neutralWhite;
-    border: 1px solid $neutral50;
+    box-shadow: 2px 4px 8px -2px rgba(0,0,0,0.2);
     color: $neutral80;
     animation: fadeInOut 1750ms linear forwards;
   }
@@ -26,9 +26,11 @@
       right: -1.75rem;
 
       &--correct {
-        border: 1px solid $neutral50;
+        background: $primary80;
+        border: 1px solid $primary10;
+        color: $neutralWhite;
         animation: blink-primary 200ms step-end infinite alternate,
-                   fadeInOut 5000ms linear forwards;
+                   fadeInOut 2000ms linear forwards;
       }
     }
   }
@@ -41,9 +43,11 @@
       left: -1.75rem;
 
       &--correct {
-        border: 1px solid $neutral50;
+        background: $secondary50;
+        border: 1px solid $secondary10;
+        color: $neutralWhite;
         animation: blink-secondary 200ms step-end infinite alternate,
-                   fadeInOut 5000ms linear forwards;
+                   fadeInOut 2000ms linear forwards;
       }
     }
   }
