@@ -10,6 +10,6 @@ class MeController < ApplicationController
   private
 
   def user_params
-    params.require(:me).permit(:team_id)
+    params.require(:me).permit(:team_id, :name)
   end
 end

@@ -1,6 +1,6 @@
 import Routes from 'routes';
 
-import { themeActions } from 'store/actions';
+import { themeActions, authenticationActions } from 'store/actions';
 import { request } from 'store/utilities';
 
 function joinTeam(payload, state, dispatch) {
@@ -15,6 +15,14 @@ function joinTeam(payload, state, dispatch) {
   }).catch(() => null);
 }
 
+function setName(payload, dispatch) {
+  return request(
+    Routes.me_path(),
+    'PUT',
+    { name: payload.name }
+  ).then(payload => dispatch(authenticationActions.setCurrentUser(payload))).catch(() => null);
+}
+
 export default function playerMiddleware({ getState, dispatch }) {
   return next => action => {
     const state = getState();
@@ -22,6 +30,10 @@ export default function playerMiddleware({ getState, dispatch }) {
 
     if (action.type === 'JOIN_TEAM') {
       return joinTeam(payload, state, dispatch);
+    }
+
+    if (action.type === 'SET_NAME') {
+      return setName(payload, dispatch);
     }
 
     return next(action);

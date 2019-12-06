@@ -11,7 +11,7 @@ class Team < ApplicationRecord
 
   # Callbacks
   before_create :set_position!
-  after_commit :broadcast!
+  after_commit :broadcast!, if: :persisted?
 
   # Enums
   enum palette: { primary: 0, secondary: 1 }

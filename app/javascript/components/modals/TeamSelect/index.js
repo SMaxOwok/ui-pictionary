@@ -29,6 +29,12 @@ class TeamSelect extends Component {
     return !!this.props.currentUser.teamId;
   }
 
+  get hasName() {
+    if (!this.props.currentUser) return true;
+
+    return !!this.props.currentUser.name;
+  }
+
   handleSubmit = event => {
     event.preventDefault();
 
@@ -43,7 +49,7 @@ class TeamSelect extends Component {
 
   render() {
     return (
-      <Modal visible={!this.hasTeam}>
+      <Modal visible={!this.hasTeam && this.hasName}>
         <div className='TeamSelect'>
           <div className='TeamSelect__title'>
             Select a team

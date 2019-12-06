@@ -3,7 +3,12 @@ export const joinTeam = (payload) => ({
   payload
 });
 
+export const setName = (payload) => ({
+  type: 'SET_NAME',
+  payload
+});
 
 export default {
-  joinTeam
+  joinTeam,
+  setName
 }

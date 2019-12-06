@@ -9,7 +9,7 @@ class Player < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   # Callbacks
-  after_commit :broadcast!, unless: :skip_broadcast
+  after_commit :broadcast!, unless: :skip_broadcast, if: :persisted?
 
   attr_accessor :skip_broadcast
 

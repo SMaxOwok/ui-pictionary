@@ -6,7 +6,7 @@ import ActionOverlay from 'components/ActionOverlay';
 import Jumbotron from 'components/Jumbotron';
 import GameState from 'components/GameState';
 import Team from 'components/Team';
-import { Login, TeamSelect } from 'components/modals';
+import { Login, TeamSelect, NameEntry } from 'components/modals';
 
 import get from 'lodash/get';
 
@@ -26,6 +26,7 @@ class GameContainer extends React.Component {
       <main className='GameContainer'>
         <ActionOverlay />
         <Login />
+        <NameEntry />
         <TeamSelect />
 
         <Team id={this.props.game.teamIds[0]} />
