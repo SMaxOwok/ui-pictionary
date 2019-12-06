@@ -30,7 +30,6 @@ module Games
       {}.tap do |hash|
         hash[:round_count] = game.round_count + 1
         hash[:previous_round] = game.current_round
-        hash[:words] = game.words - game.current_round['guessed_words']
         hash[:current_round] = compose(Rounds::Initialize, game: game)
       end
     end

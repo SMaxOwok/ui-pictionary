@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { entityActions, websocketActions } from 'store/actions';
+import { entityActions, gameActions, websocketActions } from 'store/actions';
 
 import get from 'lodash/get';
 
@@ -24,7 +24,8 @@ class Game extends Component {
       {
         received: data => this.handleDataReceived(data),
         transition: data => this.handleTransition(data),
-        submitWord: data => this.handleSubmitWord(data)
+        submitWord: data => this.handleSubmitWord(data),
+        guessWord: data => this.handleGuessWord(data)
       }
     );
 
@@ -40,7 +41,12 @@ class Game extends Component {
   }
 
   handleDataReceived = data => {
-    this.props.dispatch(entityActions.setEntity(data));
+    switch (data['type']) {
+      case 'guess':
+        this.props.dispatch(gameActions.guessWord(data));
+      default:
+        this.props.dispatch(entityActions.setEntity(data));
+    }
   };
 
   handleTransition = data => {
@@ -49,6 +55,10 @@ class Game extends Component {
 
   handleSubmitWord = data => {
     this.props.gameChannel.perform('submit_word', { word: data });
+  };
+
+  handleGuessWord = data => {
+    this.props.gameChannel.perform('guess_word', data);
   };
 
   componentDidMount() {
