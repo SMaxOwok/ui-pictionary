@@ -7,6 +7,12 @@
     margin-top: 1rem;
   }
 
+  .svg-inline--fa {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
   &__guess {
     position: absolute;
     top: -0.5rem;
@@ -21,6 +27,11 @@
   @include themedParent(Team, primary) {
     color: $primary80;
     background-color: $primary10;
+
+    &--artist {
+      color: $neutralWhite;
+      background-color: $primary80;
+    }
 
     &__guess {
       right: -1.75rem;
@@ -38,6 +49,11 @@
   @include themedParent(Team, secondary) {
     color: $secondary50;
     background-color: $secondary10;
+
+    &--artist {
+      color: $neutralWhite;
+      background-color: $secondary50;
+    }
 
     &__guess {
       left: -1.75rem;
