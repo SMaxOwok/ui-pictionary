@@ -3,27 +3,28 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Easel from 'components/Easel';
+import SubmissionInput from 'components/SubmissionInput';
+import withCurrentUser from 'components/hoc/withCurrentUser';
+
 import get from 'lodash/get';
 
 class Guesser extends Component {
   static mapStateToProps = state => (
     {
-      drawingChannel: get(state, 'websockets.drawingChannel')
+      gameChannel: get(state, 'websockets.gameChannel')
     }
   );
 
   static propTypes = {
-    drawingChannel: PropTypes.object
+    gameChannel: PropTypes.object,
+    currentUser: PropTypes.object.isRequired
   };
 
-  state = { guess: '' };
-
-  handleInputChange = ({ target: { value } }) => {
-    this.setState({ guess: value });
-  };
-
-  handleSubmit = () => {
-    // Send message through game channel
+  handleSubmit = word => {
+    this.props.gameChannel.guessWord({
+      word,
+      player_id: this.props.currentUser.id
+    });
   };
 
   render () {
@@ -33,18 +34,10 @@ class Guesser extends Component {
           drawable={false}
           footer={(
             <div className='Guesser__toolbar'>
-              <input
-                type='text'
-                placeholder='Enter a word...'
-                value={this.state.guess}
-                onChange={this.handleInputChange}
+              <SubmissionInput
+                buttonText='Guess'
+                onSubmit={this.handleSubmit}
               />
-              <button
-                className='Button Button--primary'
-                onClick={this.handleSubmit}
-              >
-                Guess
-              </button>
             </div>
           )}
         />
@@ -53,4 +46,4 @@ class Guesser extends Component {
   }
 }
 
-export default connect(Guesser.mapStateToProps)(Guesser);
+export default withCurrentUser(connect(Guesser.mapStateToProps)(Guesser));
