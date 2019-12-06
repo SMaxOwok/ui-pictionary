@@ -36,23 +36,4 @@
 
     margin-top: 1.5rem;
   }
-
-  &__player {
-    border-radius: $border-radius;
-    padding: 0.5rem;
-
-    + #{&} {
-      margin-top: 1rem;
-    }
-
-    @include themedParent(Team, primary) {
-      color: $primary80;
-      background-color: $primary10;
-    }
-
-    @include themedParent(Team, secondary) {
-      color: $secondary50;
-      background-color: $secondary10;
-    }
-  }
 }

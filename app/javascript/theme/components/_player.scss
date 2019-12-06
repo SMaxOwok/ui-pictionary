@@ -1,0 +1,64 @@
+.Player {
+  position: relative;
+  border-radius: $border-radius;
+  padding: 0.5rem;
+
+  + #{&} {
+    margin-top: 1rem;
+  }
+
+  &__guess {
+    position: absolute;
+    top: -0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: $border-radius;
+    background: $neutralWhite;
+    border: 1px solid $neutral50;
+    color: $neutral80;
+    animation: fadeInOut 1750ms linear forwards;
+  }
+
+  @include themedParent(Team, primary) {
+    color: $primary80;
+    background-color: $primary10;
+
+    &__guess {
+      right: -1.75rem;
+
+      &--correct {
+        border: 1px solid $neutral50;
+        animation: blink-primary 200ms step-end infinite alternate,
+                   fadeInOut 5000ms linear forwards;
+      }
+    }
+  }
+
+  @include themedParent(Team, secondary) {
+    color: $secondary50;
+    background-color: $secondary10;
+
+    &__guess {
+      left: -1.75rem;
+
+      &--correct {
+        border: 1px solid $neutral50;
+        animation: blink-secondary 200ms step-end infinite alternate,
+                   fadeInOut 5000ms linear forwards;
+      }
+    }
+  }
+}
+
+
+@keyframes blink-primary {
+  50% { border-color: $primary80; }
+}
+
+@keyframes blink-secondary {
+  50% { border-color: $secondary50; }
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0 }
+  35%, 75% { opacity: 1 }
+}

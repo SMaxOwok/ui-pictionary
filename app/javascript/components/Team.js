@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import get from 'lodash/get';
 
+import Player from 'components/Player';
+
 class Team extends React.Component {
   static mapStateToProps = (state, ownProps) => (
     { team: get(state, `entities.team[${ownProps.id}]`) }
@@ -34,9 +36,7 @@ class Team extends React.Component {
 
         <ul className='Team__player-list'>
           {this.props.team.players.map(player => (
-            <li className='Team__player' key={player.id}>
-              {player.name}
-            </li>
+            <Player key={player.id} player={player} />
           ))}
         </ul>
       </div>
