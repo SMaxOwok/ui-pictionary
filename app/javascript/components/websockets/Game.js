@@ -25,7 +25,8 @@ class Game extends Component {
         received: data => this.handleDataReceived(data),
         transition: data => this.handleTransition(data),
         submitWord: data => this.handleSubmitWord(data),
-        guessWord: data => this.handleGuessWord(data)
+        guessWord: data => this.handleGuessWord(data),
+        skipWord: () => this.handleSkipWord()
       }
     );
 
@@ -59,6 +60,10 @@ class Game extends Component {
 
   handleGuessWord = data => {
     this.props.gameChannel.perform('guess_word', data);
+  };
+
+  handleSkipWord = () => {
+    this.props.gameChannel.perform('skip_word');
   };
 
   componentDidMount() {

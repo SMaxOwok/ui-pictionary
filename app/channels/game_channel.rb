@@ -19,5 +19,9 @@ class GameChannel < ApplicationCable::Channel
     Games::GuessWord.run! word: data['word'], player: data['player_id']
   end
 
+  def skip_word
+    Games::SkipWord.run!
+  end
+
   def unsubscribed; end
 end

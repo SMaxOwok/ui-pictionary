@@ -9,6 +9,7 @@ class Artist extends Component {
   static mapStateToProps = state => (
     {
       drawingChannel: get(state, 'websockets.drawingChannel'),
+      gameChannel: get(state, 'websockets.gameChannel'),
     }
   );
 
@@ -16,17 +17,12 @@ class Artist extends Component {
     drawingChannel: PropTypes.object
   };
 
-  handleUndo = () => {
-    // Remove last line from history
-    // Redraw from response
-  };
-
   handleClear = () => {
     this.props.drawingChannel.draw({ plots: [] });
   };
 
   handleSkip = () => {
-    // Change the current word
+    this.props.gameChannel.skipWord();
   };
 
   render () {
@@ -35,9 +31,6 @@ class Artist extends Component {
         <Easel
           footer={(
             <div className='Artist__toolbar'>
-              <button className='Button Button--primary' onClick={this.handleUndo}>
-                Undo
-              </button>
               <button className='Button Button--primary' onClick={this.handleSkip}>
                 Skip
               </button>
