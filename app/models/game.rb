@@ -23,7 +23,7 @@ class Game < ApplicationRecord
            :transition_to!, :transition_to, :in_state?, to: :state_machine
 
   def final_round?
-    round_count == 9
+    round_count == 10
   end
 
   def winner
