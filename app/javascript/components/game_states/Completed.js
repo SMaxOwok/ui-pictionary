@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { gameActions } from 'store/actions';
+
 export default class Completed extends Component {
   static propTypes = {
-    gameChannel: PropTypes.object.isRequired,
-    game: PropTypes.object.isRequired,
-    currentUser: PropTypes.object,
-    teams: PropTypes.object
+    dispatch: PropTypes.func.isRequired
   };
 
   handleResetGame = () => {
     this.props.gameChannel.transition('initialized');
   };
+
+  componentDidMount() {
+    this.props.dispatch(gameActions.flushGuesses());
+  }
 
   render () {
     return (

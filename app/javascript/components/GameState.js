@@ -24,7 +24,8 @@ class GameState extends Component {
     currentUser: PropTypes.object,
     game: PropTypes.object.isRequired,
     teams: PropTypes.object,
-    theme: PropTypes.object.isRequired
+    theme: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
   };
 
   get componentKey() {

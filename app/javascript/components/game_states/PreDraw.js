@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { gameActions } from 'store/actions';
+
 import Word from 'components/Word';
 
 export default class PreDraw extends Component {
   static propTypes = {
     gameChannel: PropTypes.object.isRequired,
     game: PropTypes.object.isRequired,
-    teams: PropTypes.array.isRequired
+    teams: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
   };
 
   handleTransition = () => {
@@ -32,6 +35,10 @@ export default class PreDraw extends Component {
 
   get guessedWords() {
     return this.props.game.previousRound.guessedWords;
+  }
+
+  componentDidMount() {
+    this.props.dispatch(gameActions.flushGuesses());
   }
 
   render () {

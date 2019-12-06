@@ -11,6 +11,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case 'GUESS_WORD':
       return setPlayerGuess(state, action);
+    case 'FLUSH_GUESSES':
+      return initialState;
     default:
       return state;
   }

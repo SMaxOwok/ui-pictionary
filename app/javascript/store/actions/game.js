@@ -3,6 +3,11 @@ export const guessWord = (payload) => ({
   payload
 });
 
+export const flushGuesses = () => ({
+  type: 'FLUSH_GUESSES'
+});
+
 export default {
-  guessWord
+  guessWord,
+  flushGuesses
 }
