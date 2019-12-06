@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_182531) do
+ActiveRecord::Schema.define(version: 2019_12_06_231252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2019_12_02_182531) do
   create_table "players", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "team_id"
     t.citext "email", null: false
-    t.string "name", null: false
+    t.string "name"
     t.integer "guess_count", default: 0, null: false
     t.integer "draw_count", default: 0, null: false
     t.index ["team_id"], name: "index_players_on_team_id"

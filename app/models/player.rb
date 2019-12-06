@@ -7,7 +7,6 @@ class Player < ApplicationRecord
 
   # Validations
   validates :email, presence: true, uniqueness: true
-  validates :name, presence: true
 
   # Callbacks
   after_commit :broadcast!, unless: :skip_broadcast
@@ -22,5 +21,11 @@ class Player < ApplicationRecord
 
   def broadcast!
     Channels::BroadcastObjectJob.perform_later "player:#{id}", self
+  end
+
+  class << self
+    def fetch(email)
+      find_or_create_by(email: email) if email.present?
+    end
   end
 end

@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def create
-    player = Player.find_by(email: params[:email])
+    player = Player.fetch(params[:email])
 
     if player.present?
       session[:player_id] = player.id

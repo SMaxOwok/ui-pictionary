@@ -11,14 +11,6 @@ RSpec.describe SessionsController, type: :controller do
         end.to change { session[:player_id] }.to(player.id)
       end
     end
-
-    context 'when invalid email' do
-      it 'does not change the session' do
-        expect do
-          post :create, params: { email: 'some@thing.else' }
-        end.to_not change { session[:player_id] }
-      end
-    end
   end
 
   describe '#destroy' do
