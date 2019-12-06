@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import get from 'lodash/get';
+import sortBy from 'lodash/sortBy';
 
 import Player from 'components/Player';
 
@@ -20,6 +21,14 @@ class Team extends React.Component {
     })
   };
 
+  get players() {
+    if (this.props.team.drawOrder === 0) return this.props.team.players;
+
+    return sortBy(this.props.team.players, player => (
+      this.props.team.drawOrder.indexOf(player.id)
+    ));
+  }
+
   render () {
     if (!this.props.team) return null;
 
@@ -35,7 +44,7 @@ class Team extends React.Component {
         </div>
 
         <ul className='Team__player-list'>
-          {this.props.team.players.map(player => (
+          {this.players.map(player => (
             <Player key={player.id} player={player} />
           ))}
         </ul>
