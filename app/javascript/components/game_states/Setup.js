@@ -68,11 +68,11 @@ export default class Setup extends Component {
             Try to be unique and clever, you sneaky devil
           </div>
 
-          <div className='Setup__submissions__word-list'>
+          <ul className='Setup__submissions__word-list'>
             {this.state.wordList.map(word => (
               <Word key={word} word={word} />
             ))}
-          </div>
+          </ul>
         </div>
 
         <button
