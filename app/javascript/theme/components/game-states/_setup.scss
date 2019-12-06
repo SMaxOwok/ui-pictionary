@@ -22,6 +22,8 @@
     }
 
     &__word-list {
+      @include list-unstyled;
+
       margin-top: 1.5rem;
     }
   }
