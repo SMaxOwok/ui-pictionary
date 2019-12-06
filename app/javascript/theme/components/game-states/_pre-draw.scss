@@ -1,0 +1,37 @@
+.PreDraw {
+  text-align: center;
+  color: $neutral100;
+  padding: 1.5rem;
+
+  &__round {
+    margin-bottom: 4rem;
+  }
+
+  &__words {
+    &__header {
+      font-size: 1.5rem;
+      font-weight: $weight-bold;
+    }
+
+    &__list {
+      @include list-unstyled;
+
+      margin-top: 0.5rem;
+    }
+
+    .Word {
+      font-size: 0.825rem;
+      font-weight: $weight-bold;
+
+      @include themedParent(PreDraw, primary) {
+        color: $primary80;
+        background-color: $primary10;
+      }
+
+      @include themedParent(PreDraw, secondary) {
+        color: $secondary50;
+        background-color: $secondary10;
+      }
+    }
+  }
+}
