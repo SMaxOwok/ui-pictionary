@@ -130,7 +130,7 @@ class Canvas extends React.Component {
 
     this.ctx.beginPath();
 
-    this.ctx.lineWidth = 8;
+    this.ctx.lineWidth = 6;
     this.ctx.strokeStyle = this.color;
     this.ctx.lineCap = 'round';
     this.ctx.lineJoin = 'round';
