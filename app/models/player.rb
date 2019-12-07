@@ -14,7 +14,16 @@ class Player < ApplicationRecord
   attr_accessor :skip_broadcast
 
   def abandon_team!
-    update team_id: nil
+    team.remove_player!(self)
+  end
+
+  # Hack to force after_add method to be called, obviously not the most efficient.
+  def team_id=(team_id)
+    if team_id.nil?
+      self.team_id = nil
+    else
+      Team.find(team_id).players << self
+    end
   end
 
   private

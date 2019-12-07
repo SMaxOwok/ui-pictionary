@@ -19,7 +19,7 @@ module Rounds
       position = round_count / 2
 
       if position >= team.draw_order.length
-        adjusted = (position - team.draw_order.length) - 1
+        adjusted = (team.draw_order.length % position) - 1
 
         team.draw_order[adjusted]
       else

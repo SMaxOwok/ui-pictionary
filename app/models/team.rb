@@ -4,7 +4,8 @@ class Team < ApplicationRecord
   has_many :players,
            inverse_of: :team,
            dependent: :nullify,
-           after_remove: :touch_player!
+           after_add: :append_player_to_draw_order!,
+           after_remove: :remove_player_from_draw_order!
 
   # Validations
   validates :name, presence: true
@@ -16,12 +17,24 @@ class Team < ApplicationRecord
   # Enums
   enum palette: { primary: 0, secondary: 1 }
 
+  def remove_player!(player)
+    players.delete player
+  end
+
   private
 
-  # TODO: Not the most efficient right now, but we have to make sure the player is
-  # rebroadcast _after_ the :team_id has been cleared.
-  def touch_player!(player)
-    player.touch
+  def remove_player_from_draw_order!(player)
+    draw_order.delete player.id
+
+    save
+    reload
+  end
+
+  def append_player_to_draw_order!(player)
+    draw_order << player.id
+
+    save
+    reload
   end
 
   def broadcast!
