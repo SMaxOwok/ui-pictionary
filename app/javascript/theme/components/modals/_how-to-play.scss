@@ -1,41 +1,6 @@
-.HowToPlay {
+.HowToPlayModal {
   height: 100%;
   width: 100%;
-
-  &__title {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: $weight-bold;
-
-    .svg-inline--fa {
-      margin-right: 1rem;
-    }
-  }
-
-  &__list {
-    @include list-unstyled;
-
-    margin-bottom: 2.5rem;
-  }
-
-  &__list-item {
-    &__header {
-      font-weight: $weight-bold;
-
-      .svg-inline--fa {
-        margin-right: 0.5rem;
-      }
-    }
-
-    &__copy {
-      margin-top: 0.5rem;
-    }
-
-    + #{&} {
-      margin-top: 1.5rem;
-    }
-  }
 
   &__button {
     margin-top: 1rem;
