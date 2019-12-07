@@ -7,14 +7,9 @@ import Word from 'components/Word';
 
 export default class PreDraw extends Component {
   static propTypes = {
-    gameChannel: PropTypes.object.isRequired,
     game: PropTypes.object.isRequired,
     teams: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
-  };
-
-  handleTransition = () => {
-    this.props.gameChannel.transition('drawing');
   };
 
   get drawingTeam() {
@@ -42,15 +37,7 @@ export default class PreDraw extends Component {
   }
 
   render () {
-    if (this.roundCount === 1) return (
-      <button
-        type='button'
-        className='Button Button--primary'
-        onClick={this.handleTransition}
-      >
-        Next state
-      </button>
-    );
+    if (this.roundCount === 1) return null;
 
     return (
       <div className={`PreDraw PreDraw--${this.theme}`}>
@@ -69,14 +56,6 @@ export default class PreDraw extends Component {
             ))}
           </ul>
         </div>
-
-        <button
-          type='button'
-          className='Button Button--primary'
-          onClick={this.handleTransition}
-        >
-          Next state
-        </button>
       </div>
     );
   }

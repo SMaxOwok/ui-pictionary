@@ -16,10 +16,6 @@ export default class Initialized extends Component {
     teams: {}
   };
 
-  handleStartGame = () => {
-    this.props.gameChannel.transition('setup');
-  };
-
   currentUserOnTeam(team) {
     if (!this.props.currentUser) return null;
 
@@ -31,6 +27,9 @@ export default class Initialized extends Component {
       'TeamIcon--selected': this.currentUserOnTeam(team)
     })
   }
+  handleStartGame = () => {
+    this.props.gameChannel.transition('setup');
+  };
 
   render () {
     return (

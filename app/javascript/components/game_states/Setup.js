@@ -41,10 +41,6 @@ export default class Setup extends Component {
     });
   }
 
-  handleTransition = () => {
-    this.props.gameChannel.transition('pre_draw');
-  };
-
   componentDidUpdate(prevProps) {
     if (prevProps.currentUser && !this.props.currentUser) {
       this.setState({ wordList: [] });
@@ -74,14 +70,6 @@ export default class Setup extends Component {
             ))}
           </ul>
         </div>
-
-        <button
-          type='button'
-          className='Button Button--primary'
-          onClick={this.handleTransition}
-        >
-          Next state
-        </button>
 
         <SubmissionInput onSubmit={this.handleWordSubmit} />
       </div>

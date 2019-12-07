@@ -5,6 +5,7 @@ import { gameActions } from 'store/actions';
 
 export default class Completed extends Component {
   static propTypes = {
+    gameChannel: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
@@ -25,7 +26,7 @@ export default class Completed extends Component {
           className='Completed__button Button Button--primary'
           onClick={this.handleResetGame}
         >
-          Reset Game
+          Start a new game
         </button>
       </div>
     );
