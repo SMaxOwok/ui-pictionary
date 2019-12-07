@@ -16,19 +16,17 @@ module Rounds
     private
 
     def artist
-      position = round_count / 2
+      position = (round_count / 2)
+      position -= 1 if round_count.even?
 
-      if position >= team.draw_order.length
-        adjusted = (team.draw_order.length % position) - 1
+      return team.draw_order[position] if position < team.draw_order.length
 
-        team.draw_order[adjusted]
-      else
-        team.draw_order[position]
-      end
+      position -= ((position / team.draw_order.length) * team.draw_order.length)
+      team.draw_order[position]
     end
 
     def team
-      @team ||= Team.find_by(position: round_count % 2)
+      @team ||= Team.find_by(position: round_count.even? ? 1 : 0)
     end
   end
 end

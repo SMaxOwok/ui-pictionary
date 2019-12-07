@@ -8,13 +8,15 @@ module Games
       # TODO: This is horrible, but it's working.  Make sure to improve these
       # attribute assignments.
       ActiveRecord::Base.transaction do
-        game.tap do |obj|
-          obj.assign_attributes(attributes(obj)) if new_round?
-          obj.current_round['current_word'] = current_word if drawing?
-          obj.game_transition_events.new transition_to: state,
-                                         transition_at: at
-        end.save
+        if new_round?
+          assign_game_attributes!
+          assign_round_attributes!
+        end
 
+        set_current_word! if drawing?
+        build_transition_event!
+
+        game.save
         game
       end
     end
@@ -29,17 +31,24 @@ module Games
       game.current_state == 'drawing'
     end
 
-    def attributes(object)
-      {}.tap do |hash|
-        hash[:round_count] = object.round_count + 1
-        hash[:previous_round] = object.current_round
-        hash[:current_round] = compose(Rounds::Initialize, game: object)
-      end
+    def assign_game_attributes!
+      game.round_count += 1
     end
 
-    def current_word
+    def assign_round_attributes!
+      game.previous_round = game.current_round
+      game.current_round = compose(Rounds::Initialize, game: game)
+    end
+
+    def set_current_word!
       game.words << (word_list - game.words).sample while game.words.length < 20
-      game.words.sample
+
+      game.current_round['current_word'] = game.words.sample
+    end
+
+    def build_transition_event!
+      game.game_transition_events.new transition_to: state,
+                                      transition_at: at
     end
 
     def word_list
