@@ -50,7 +50,7 @@ export default class HowToPlay extends Component {
                 and new word will appear for you to draw.`}
               </div>
               <div className='HowToPlay__list-item__copy'>
-                You can also undo your last stroke, clear your canvas, and skip as many words as you need.
+                You can also clear your canvas and skip as many words as you need.
               </div>
             </li>
             <li className='HowToPlay__list-item'>
