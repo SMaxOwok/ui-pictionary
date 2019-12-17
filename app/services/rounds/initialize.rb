@@ -16,6 +16,8 @@ module Rounds
     private
 
     def artist
+      return nil unless team.draw_order.length.positive?
+
       position = (round_count / 2)
       position -= 1 if round_count.even?
 
