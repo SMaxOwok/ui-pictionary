@@ -8,7 +8,17 @@ export const setName = (payload) => ({
   payload
 });
 
+export const setReady = () => ({
+  type: 'SET_PLAYER_READY'
+});
+
+export const setUnready = () => ({
+  type: 'SET_PLAYER_UNREADY'
+});
+
 export default {
   joinTeam,
-  setName
+  setName,
+  setReady,
+  setUnready
 }

@@ -9,9 +9,33 @@ class MeController < ApplicationController
     end
   end
 
+  def set_ready
+    game.ready_player_ids << current_user.id
+
+    if game.save
+      render json: {}, status: :ok
+    else
+      render json: { errors: 'Could not set player ready' }, status: :unprocessable_entity
+    end
+  end
+
+  def set_unready
+    game.ready_player_ids.delete current_user.id
+
+    if game.save
+      render json: {}, status: :ok
+    else
+      render json: { errors: 'Could not set player unready' }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def user_params
     params.require(:me).permit(:team_id, :name)
+  end
+
+  def game
+    @game ||= Game.instance
   end
 end

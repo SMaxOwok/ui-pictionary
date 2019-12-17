@@ -2,6 +2,7 @@ class JsRoutesGenerator < Rails::Generators::Base
   ROUTES = [
     /^sessions$/,
     /^me$/,
+    /^.+ready$/,
   ]
 
   def build

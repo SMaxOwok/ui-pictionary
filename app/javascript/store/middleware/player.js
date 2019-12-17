@@ -23,6 +23,20 @@ function setName(payload, dispatch) {
   ).then(payload => dispatch(authenticationActions.setCurrentUser(payload))).catch(() => null);
 }
 
+function setReady() {
+  return request(
+    Routes.set_ready_path(),
+    'POST'
+  );
+}
+
+function setUnready() {
+  return request(
+    Routes.set_unready_path(),
+    'POST'
+  );
+}
+
 export default function playerMiddleware({ getState, dispatch }) {
   return next => action => {
     const state = getState();
@@ -34,6 +48,14 @@ export default function playerMiddleware({ getState, dispatch }) {
 
     if (action.type === 'SET_NAME') {
       return setName(payload, dispatch);
+    }
+
+    if (action.type === 'SET_PLAYER_READY') {
+      return setReady();
+    }
+
+    if (action.type === 'SET_PLAYER_UNREADY') {
+      return setUnready();
     }
 
     return next(action);

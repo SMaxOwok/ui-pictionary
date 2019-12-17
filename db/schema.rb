@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_231252) do
+ActiveRecord::Schema.define(version: 2019_12_17_032423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2019_12_06_231252) do
     t.integer "round_count", default: 0, null: false
     t.jsonb "current_round", default: {}, null: false
     t.jsonb "previous_round", default: {}, null: false
+    t.text "ready_player_ids", default: [], null: false, array: true
     t.index ["singleton_guard"], name: "index_games_on_singleton_guard", unique: true
   end
 

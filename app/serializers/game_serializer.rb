@@ -1,6 +1,7 @@
 class GameSerializer < ActiveModel::Serializer
   attributes :id, :current_state, :words, :round_count, :type, :winner_id,
-             :team_ids, :transition_to, :transition_at, :current_round, :previous_round
+             :team_ids, :transition_to, :transition_at, :current_round, :previous_round,
+             :ready_player_ids
 
   delegate :next_transition, to: :object
   delegate :transition_to, :transition_at, to: :next_transition, allow_nil: true

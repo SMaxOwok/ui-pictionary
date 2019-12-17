@@ -1,22 +1,47 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { playerActions } from 'store/actions';
+
 import HowToPlay from 'components/HowToPlay';
 
 export default class Initialized extends Component {
   static propTypes = {
-    gameChannel: PropTypes.object.isRequired,
     game: PropTypes.object.isRequired,
     currentUser: PropTypes.object,
-    teams: PropTypes.object
+    teams: PropTypes.object,
+    dispatch: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     teams: {}
   };
 
-  handleStartGame = () => {
-    this.props.gameChannel.transition('setup');
+  get isReady() {
+    const { id } = this.props.currentUser;
+    const { readyPlayerIds } = this.props.game;
+
+    return readyPlayerIds.includes(id);
+  }
+
+  get buttonText() {
+    if (this.isReady) return 'Wait, I\'m not ready...';
+
+    return 'I\'m ready!';
+  }
+
+  handleReady = () => {
+    this.props.dispatch(playerActions.setReady());
+  };
+
+  handleUnready = () => {
+    this.props.dispatch(playerActions.setUnready());
+  };
+
+  handleClick = () => {
+    if (this.isReady) return this.handleUnready();
+
+    return this.handleReady();
   };
 
   render () {
@@ -27,9 +52,9 @@ export default class Initialized extends Component {
         <button
           type='button'
           className='Initialized__button Button Button--primary'
-          onClick={this.handleStartGame}
+          onClick={this.handleClick}
         >
-          Start the game
+          {this.buttonText}
         </button>
       </div>
     );
