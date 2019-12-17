@@ -19,6 +19,8 @@ class Team < ApplicationRecord
 
   def remove_player!(player)
     players.delete player
+    player.reload
+    player.touch
   end
 
   private
