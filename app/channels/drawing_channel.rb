@@ -4,7 +4,7 @@ class DrawingChannel < ApplicationCable::Channel
   end
 
   def draw(data)
-    Channels::BroadcastMessageJob.perform_later 'drawing_channel', data['plots']
+    Channels::BroadcastMessageJob.perform_now 'drawing_channel', data['plots']
   end
 
   def unsubscribed; end

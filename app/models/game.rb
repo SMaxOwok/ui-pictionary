@@ -46,9 +46,9 @@ class Game < ApplicationRecord
   private
 
   def broadcast!
-    Channels::BroadcastObjectJob.perform_later 'game_channel',
-                                               self,
-                                               include: %w[teams teams.players]
+    Channels::BroadcastObjectJob.perform_now 'game_channel',
+                                             self,
+                                             include: %w[teams teams.players]
   end
 
   def initialize_teams!

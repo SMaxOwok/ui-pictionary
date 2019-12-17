@@ -38,9 +38,9 @@ class Team < ApplicationRecord
   end
 
   def broadcast!
-    Channels::BroadcastObjectJob.perform_later "team:#{id}",
-                                               self,
-                                               include: %w[players]
+    Channels::BroadcastObjectJob.perform_now "team:#{id}",
+                                             self,
+                                             include: %w[players]
   end
 
   # Zero-indexed position so we can do even/odd round assignments

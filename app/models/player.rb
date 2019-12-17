@@ -29,7 +29,7 @@ class Player < ApplicationRecord
   private
 
   def broadcast!
-    Channels::BroadcastObjectJob.perform_later "player:#{id}", self
+    Channels::BroadcastObjectJob.perform_now "player:#{id}", self
   end
 
   class << self

@@ -12,8 +12,8 @@ module Games
         update_scores
       end
 
-      Channels::BroadcastMessageJob.perform_later 'game_channel',
-                                                  payload
+      Channels::BroadcastMessageJob.perform_now 'game_channel',
+                                                payload
     end
 
     private
