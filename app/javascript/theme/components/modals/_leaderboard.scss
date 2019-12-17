@@ -18,4 +18,86 @@
     text-align: center;
     width: 100%;
   }
+
+  &__lists {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  &__list {
+    &__header {
+      font-weight: $weight-bold;
+      margin-bottom: 1rem;
+      text-align: center;
+
+      svg {
+        margin-right: 0.5rem;
+      }
+    }
+
+    + #{&} {
+      margin-left: 2.5rem;
+    }
+  }
+
+  &__players {
+    @include list-unstyled;
+  }
+
+  &__player {
+    $block: #{&};
+    position: relative;
+    border-radius: $border-radius;
+    min-width: 15rem;
+    padding: 0.5rem;
+
+    &:first-child {
+      background-color: $gold10;
+
+      #{$block}__position {
+        color: $gold50;
+      }
+    }
+
+    &:nth-child(2) {
+      background-color: $silver10;
+
+      #{$block}__position {
+        color: $silver50;
+      }
+    }
+
+    &:nth-child(3) {
+      background-color: $bronze10;
+
+      #{$block}__position {
+        color: $bronze50;
+      }
+    }
+
+    &__name {
+      font-size: 0.875rem;
+      font-weight: $weight-bold;
+    }
+
+    &__score {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
+    &__position {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: $weight-bold;
+      color: $neutral50;
+    }
+
+    + #{&} {
+      margin-top: 0.5rem;
+    }
+  }
 }
