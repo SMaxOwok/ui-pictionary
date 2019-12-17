@@ -14,6 +14,8 @@ class Player < ApplicationRecord
   attr_accessor :skip_broadcast
 
   def abandon_team!
+    return unless team.present?
+
     team.remove_player!(self)
   end
 
