@@ -16,7 +16,7 @@ class Game < ApplicationRecord
 
   # Callbacks
   before_create :initialize_teams!
-  before_save :set_round_defaults!
+  before_save :set_round_defaults!, :maybe_start_game!
   after_commit :broadcast!, if: :persisted?
 
   delegate :can_transition_to?, :current_state, :history, :last_transition,
@@ -43,7 +43,31 @@ class Game < ApplicationRecord
     }
   end
 
+  def startable?
+    return false unless current_state == 'initialized'
+
+    total_player_count >= 4
+  end
+
   private
+
+  # TODO: I know this is horrendously hacky right now.  Deal with it.
+  def maybe_start_game!
+    return unless startable?
+
+    if total_player_count > ready_player_ids.length
+      game_transition_events.destroy_all
+    else
+      return if game_transition_events.exists? transition_to: 'setup'
+
+      game_transition_events.new transition_to: 'setup',
+                                 transition_at: Time.current + 10.seconds
+    end
+  end
+
+  def total_player_count
+    teams.inject(0) { |acc, team| acc += team.players.size }
+  end
 
   def broadcast!
     Channels::BroadcastObjectJob.perform_now 'game_channel',
