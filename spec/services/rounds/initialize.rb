@@ -37,5 +37,9 @@ RSpec.describe Rounds::Initialize do
     it 'has an empty array for guessed_words' do
       expect(subject['guessed_words']).to eq []
     end
+
+    it 'has two skips' do
+      expect(subject['skips']).to eq 2
+    end
   end
 end

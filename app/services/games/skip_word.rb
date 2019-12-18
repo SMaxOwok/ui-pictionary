@@ -5,7 +5,10 @@ module Games
     delegate :words, :current_round, to: :game
 
     def execute
+      return unless current_round['skips'].positive?
+
       current_round['current_word'] = new_word
+      current_round['skips'] -= 1
 
       game.save
     end

@@ -25,11 +25,20 @@
       }
     }
 
+    &__skip-count {
+      margin-left: 0.25rem;
+    }
+
     @include themedParent(GameState, primary) {
       background-color: $primary10;
 
       button {
         background-color: $primary80;
+
+        &:disabled {
+          background-color: $primary20;
+          pointer-events: none;
+        }
       }
     }
 
@@ -38,6 +47,11 @@
 
       button {
         background-color: $secondary50;
+
+        &:disabled {
+          background-color: $secondary30;
+          pointer-events: none;
+        }
       }
     }
   }

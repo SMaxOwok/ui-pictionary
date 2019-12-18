@@ -30,7 +30,7 @@ RSpec.describe Games::Reset do
 
   describe 'its rounds' do
     let(:expected) do
-      { 'artist' => nil, 'team' => nil, 'word' => nil, 'guessed_words' => [] }
+      { 'artist' => nil, 'team' => nil, 'word' => nil, 'guessed_words' => [], 'skips' => 2 }
     end
 
     it 'resets :current_round to defaults' do

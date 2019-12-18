@@ -9,7 +9,8 @@ module Rounds
         team: team.id,
         artist: artist,
         current_word: nil,
-        guessed_words: []
+        guessed_words: [],
+        skips: 2
       }.with_indifferent_access
     end
 

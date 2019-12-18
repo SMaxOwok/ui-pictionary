@@ -33,7 +33,7 @@ export default class Drawing extends Component {
   render () {
     return (
       <div className='Drawing'>
-        <this.Component />
+        <this.Component game={this.props.game} />
       </div>
     );
   }
