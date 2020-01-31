@@ -3,6 +3,7 @@ class JsRoutesGenerator < Rails::Generators::Base
     /^sessions$/,
     /^me$/,
     /^.+ready$/,
+    /^leaderboard/
   ]
 
   def build
