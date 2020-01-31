@@ -6,12 +6,14 @@ import reducers from './reducers';
 import promiseMiddleware from 'redux-promise';
 import authenticationMiddleware from './middleware/authentication';
 import playerMiddleware from './middleware/player';
+import leaderboardMiddleware from './middleware/leaderboard';
 
 const initialState = {};
 const enhancers = [];
 const middleware = [
   authenticationMiddleware,
   playerMiddleware,
+  leaderboardMiddleware,
   thunk,
   promiseMiddleware
 ];
