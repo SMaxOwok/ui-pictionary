@@ -5,6 +5,10 @@ class Player < ApplicationRecord
              required: false,
              touch: true
 
+  # Scopes
+  scope :top_guessers, -> { order(guess_count: :desc).limit(5) }
+  scope :top_drawers, -> { order(draw_count: :desc).limit(5) }
+
   # Validations
   validates :email, presence: true, uniqueness: true
 
