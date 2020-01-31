@@ -39,7 +39,7 @@ class Game < ApplicationRecord
 
   def reset_round(round_key)
     self[round_key] = {
-      artist: nil, team: nil, word: nil, guessed_words: [], skips: 2
+      artist: nil, team: nil, current_word: nil, guessed_words: [], skips: 2
     }
   end
 
