@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { faEdit, faComment } from '@fortawesome/free-regular-svg-icons';
 
+import Loading from 'components/Loading';
+
+import { leaderboardActions } from 'store/actions';
+
 import Modal from 'components/Modal';
 
-export default class Leaderboard extends Component {
-  static propTypes = {
-    visible: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired
+class Leaderboard extends Component {
+  static mapStateToProps = state => {
+    return {
+      guessers: state.leaderboard.guessers,
+      drawers: state.leaderboard.drawers,
+    }
   };
 
-  // TODO: Fetch from API and pull from store
-  state = {
-    players: [
-      { name: 'Max', guessCount: 100, drawCount: 100 },
-      { name: 'Max', guessCount: 90, drawCount: 90 },
-      { name: 'Max', guessCount: 80, drawCount: 80 },
-      { name: 'Max', guessCount: 70, drawCount: 70 },
-      { name: 'Max', guessCount: 60, drawCount: 60 },
-    ]
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    visible: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    drawers: PropTypes.array.isRequired,
+    guessers: PropTypes.array.isRequired
   };
+
+  state = {
+    loading: false
+  };
+
+  get leaderboardLoaded() {
+    return this.props.drawers.length || this.props.guessers.length;
+  }
 
   handleSubmit = event => {
     event.preventDefault();
@@ -45,9 +57,37 @@ export default class Leaderboard extends Component {
     }
   }
 
+  fetchLeaderboard() {
+    if (this.leaderboardLoaded) {
+      this.updateLeaderboard();
+    } else {
+      this.loadLeaderboard();
+    }
+  }
+
+  loadLeaderboard() {
+    this.setState({ loading: true }, () => {
+      this.updateLeaderboard().then(() => {
+        this.setState({ loading: false });
+      });
+    });
+  }
+
+  updateLeaderboard() {
+    return this.props.dispatch(leaderboardActions.fetchLeaderboard());
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.visible && this.props.visible) {
+      this.fetchLeaderboard();
+    }
+  }
+
   render() {
     return (
       <Modal visible={this.props.visible}>
+        <Loading visible={this.state.loading} />
+
         <div className='Leaderboard'>
           <div className='Leaderboard__title'>
             <FontAwesomeIcon icon={faTrophy} />
@@ -63,8 +103,8 @@ export default class Leaderboard extends Component {
                 </div>
 
                 <ul className='Leaderboard__players'>
-                  {this.state.players.map((player, index) => (
-                    <div className='Leaderboard__player'>
+                  {this.props.drawers.map((player, index) => (
+                    <li className='Leaderboard__player' key={player.id} >
                       <div className='Leaderboard__player__name'>
                         {player.name}
                       </div>
@@ -74,7 +114,7 @@ export default class Leaderboard extends Component {
                       <span className='Leaderboard__player__position'>
                       {this.ordinalForPosition(index)}
                     </span>
-                    </div>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -82,12 +122,12 @@ export default class Leaderboard extends Component {
               <div className='Leaderboard__list'>
                 <div className='Leaderboard__list__header'>
                   <FontAwesomeIcon icon={faComment} />
-                  Top Guesses
+                  Top Guessers
                 </div>
 
                 <ul className='Leaderboard__players'>
-                  {this.state.players.map((player, index) => (
-                    <div className='Leaderboard__player'>
+                  {this.props.guessers.map((player, index) => (
+                    <li className='Leaderboard__player' key={player.id}>
                       <div className='Leaderboard__player__name'>
                         {player.name}
                       </div>
@@ -97,7 +137,7 @@ export default class Leaderboard extends Component {
                       <span className='Leaderboard__player__position'>
                       {this.ordinalForPosition(index)}
                     </span>
-                    </div>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -112,3 +152,5 @@ export default class Leaderboard extends Component {
     )
   }
 }
+
+export default connect(Leaderboard.mapStateToProps)(Leaderboard);
