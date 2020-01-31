@@ -30,6 +30,12 @@ class Artist extends Component {
     this.props.gameChannel.skipWord();
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.game.currentRound.currentWord !== this.props.game.currentRound.currentWord) {
+      this.handleClear();
+    }
+  }
+
   render () {
     return (
       <div className='Artist'>
