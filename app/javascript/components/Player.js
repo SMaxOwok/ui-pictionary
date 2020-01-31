@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
+import { faUserCheck, faUserTimes } from '@fortawesome/free-solid-svg-icons';
 
 import get from 'lodash/get';
 
@@ -34,6 +35,16 @@ class Player extends React.Component {
     return this.props.game.currentRound;
   }
 
+  get isInitialized() {
+    return this.props.game.currentState === 'initialized';
+  }
+
+  get isReady() {
+    const { readyPlayerIds } = this.props.game;
+
+    return readyPlayerIds.includes(this.player.id);
+  }
+
   get isArtist() {
     return roundUtils.isArtist(this.currentRound, this.player);
   }
@@ -56,6 +67,20 @@ class Player extends React.Component {
     return this.props.guess.word;
   }
 
+  get icon() {
+    if (this.isInitialized) {
+      if (this.isReady) {
+        return <FontAwesomeIcon icon={faUserCheck} />;
+      } else {
+        return <FontAwesomeIcon icon={faUserTimes} />;
+      }
+    } else {
+      if (this.isArtist) {
+        return <FontAwesomeIcon icon={faEdit} />;
+      }
+    }
+  }
+
   render () {
     if (!this.player) return null;
 
@@ -63,9 +88,7 @@ class Player extends React.Component {
       <li className={this.playerClasses}>
         {this.player.name}
 
-        {this.isArtist && (
-          <FontAwesomeIcon icon={faEdit} />
-        )}
+        {this.icon}
 
         {this.guessedWord && (
           <span key={this.guessedWord} className={this.guessClasses}>
