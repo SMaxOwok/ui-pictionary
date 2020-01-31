@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post 'ready', to: 'me#set_ready', as: :set_ready
   post 'unready', to: 'me#set_unready', as: :set_unready
 
+  resource :leaderboard, only: [:show]
   resource :sessions, only: [:create, :destroy]
 
   mount ActionCable.server, at: '/cable'
