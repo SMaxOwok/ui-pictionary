@@ -33,7 +33,7 @@ module Games
       # TODO: Almost definitely can do this nicer
       object.teams.each { |team| Teams::SetDrawOrder.run! team: team }
 
-      Games::Transition.run! state: 'pre_draw', at: Time.current + 30.seconds
+      Games::Transition.run! state: 'pre_draw', at: Time.current + 60.seconds
     end
 
     after_transition(to: :pre_draw) do
