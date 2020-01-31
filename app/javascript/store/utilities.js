@@ -5,13 +5,18 @@ export function request(endpoint, method = 'GET', params = {}) {
   headers.append('content-type', 'application/json');
   headers.append('X-CSRF-Token', csrf);
 
-  return fetch(endpoint, {
+  const options = {
     method: method,
     headers: headers,
     mode: 'cors',
-    cache: 'default',
-    body: JSON.stringify(params)
-  })
+    cache: 'default'
+  };
+
+  if (method !== 'GET') {
+    options.body = JSON.stringify(params)
+  }
+
+  return fetch(endpoint, options)
   .then(response => {
     if (response.ok) {
       return response.json();
