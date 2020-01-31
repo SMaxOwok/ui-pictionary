@@ -1,28 +1,10 @@
 .Initialized {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-direction: column;
   height: 100%;
   width: 100%;
   padding: 5rem;
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    flex-grow: 1;
-  }
-
-  &__ready-players {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: $weight-bold;
-
-    &__count {
-      font-size: 3rem;
-    }
-  }
 
   &__button {
     width: 100%;

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import { playerActions } from 'store/actions';
 
-import HowToPlay from 'components/HowToPlay';
-
 export default class Initialized extends Component {
   static propTypes = {
     game: PropTypes.object.isRequired,
@@ -30,19 +28,6 @@ export default class Initialized extends Component {
     return 'I\'m ready!';
   }
 
-  get totalPlayerCount() {
-    return Object.keys(this.props.teams).reduce((a, b) => {
-      const current = this.props.teams[a];
-      const previous = this.props.teams[b];
-
-      return current.players.length + previous.players.length;
-    })
-  }
-
-  get readyPlayerCount() {
-    return this.props.game.readyPlayerIds.length;
-  }
-
   handleReady = () => {
     this.props.dispatch(playerActions.setReady());
   };
@@ -60,15 +45,6 @@ export default class Initialized extends Component {
   render () {
     return (
       <div className='Initialized'>
-        <div className='Initialized__content'>
-          <div className='Initialized__ready-players'>
-            <div className='Initialized__ready-players__count'>
-              {this.readyPlayerCount} / {this.totalPlayerCount}
-            </div>
-            players ready
-          </div>
-        </div>
-
         <button
           type='button'
           className='Initialized__button Button Button--primary'
