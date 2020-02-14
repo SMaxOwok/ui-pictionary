@@ -30,7 +30,7 @@ class Game < ApplicationRecord
     return nil unless teams.any?
     return nil if teams.pluck(:score).uniq.length <= 1
 
-    teams.order(score: :desc).first
+    teams.unscoped.order(score: :desc).first
   end
 
   def state_machine
