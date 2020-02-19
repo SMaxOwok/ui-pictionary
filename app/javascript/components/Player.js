@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
@@ -7,11 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faUserCheck, faUserTimes } from '@fortawesome/free-solid-svg-icons';
 
-import get from 'lodash/get';
+import Guess from 'components/Guess';
 
+import get from 'lodash/get';
 import roundUtils from 'utils/roundUtils';
 
-class Player extends React.Component {
+class Player extends Component {
   static mapStateToProps = (state, ownProps) => (
     {
       game: get(state, 'entities.game'),
@@ -49,22 +50,10 @@ class Player extends React.Component {
     return roundUtils.isArtist(this.currentRound, this.player);
   }
 
-  get guessClasses() {
-    return classnames('Player__guess', {
-      'Player__guess--correct': this.props.guess && this.props.guess.isCorrect,
-    });
-  }
-
   get playerClasses() {
     return classnames('Player', {
       'Player--artist': this.isArtist
     });
-  }
-
-  get guessedWord() {
-    if (!this.props.guess) return null;
-
-    return this.props.guess.word;
   }
 
   get icon() {
@@ -90,11 +79,9 @@ class Player extends React.Component {
 
         {this.icon}
 
-        {this.guessedWord && (
-          <span key={this.guessedWord} className={this.guessClasses}>
-            {this.guessedWord}
-          </span>
-        )}
+        <Guess
+          guess={this.props.guess}
+        />
       </li>
     );
   }
