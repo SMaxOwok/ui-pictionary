@@ -36,7 +36,7 @@ export default class Guess extends PureComponent {
   // nice to use something else in the future to not have so much logic and state
   // changing here.
   componentDidUpdate(prevProps) {
-    if (prevProps.guess) {
+    if (prevProps.guess && this.props.guess) {
       if (prevProps.guess.word !== this.props.guess.word) {
         if (this.isCorrect) {
           this.setState({ confetti: false}, () => this.setState({ confetti: true }));
