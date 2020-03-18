@@ -33,12 +33,15 @@ class Login extends Component {
       <Modal visible={!this.props.currentUser}>
         <div className='Login'>
           <div className='Login__header'>
-            Use your UI email address to sign in
+            Sign in using your email address
           </div>
 
           <form onSubmit={this.handleSubmit}>
             <div className='FormInput'>
-              <input type='text' value={this.state.email} onChange={this.handleChange} />
+              <input type='text' placeholder="example@email.com" value={this.state.email} onChange={this.handleChange} />
+              <div className='FormInput__instructional-copy'>
+                Your email is used for tracking your stats on the leaderboard
+              </div>
             </div>
 
             <button type='submit' className='Login__button Button Button--primary'>

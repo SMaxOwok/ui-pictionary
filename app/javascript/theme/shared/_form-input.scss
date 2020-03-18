@@ -6,4 +6,10 @@
   label {
     margin-bottom: 0.25rem;
   }
+
+  &__instructional-copy {
+    margin-top: 0.5rem;
+    color: $neutral70;
+    font-size: 0.875rem;
+  }
 }
