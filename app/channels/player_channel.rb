@@ -3,5 +3,9 @@ class PlayerChannel < ApplicationCable::Channel
     stream_from "player:#{params[:id]}"
   end
 
-  def unsubscribed; end
+  def unsubscribed
+    player = Player.find_by(id: params[:id])
+
+    player.abandon_team! if player.present?
+  end
 end
