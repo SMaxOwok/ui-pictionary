@@ -45,6 +45,14 @@ function verify(payload) {
   )
 }
 
+
+function resendVerification() {
+  return request(
+    Routes.verifications_path(),
+    'GET'
+  )
+}
+
 export default function playerMiddleware({ getState, dispatch }) {
   return next => action => {
     const state = getState();
@@ -68,6 +76,10 @@ export default function playerMiddleware({ getState, dispatch }) {
 
     if (action.type === 'VERIFY') {
       return verify(payload);
+    }
+
+    if (action.type === 'RESEND_VERIFICATION') {
+      return resendVerification();
     }
 
     return next(action);

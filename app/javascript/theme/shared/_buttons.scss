@@ -18,4 +18,13 @@
       background-color: $neutral100;
     }
   }
+
+  &--link {
+    display: inline-block;
+    color: $neutralBlack;
+    width: auto !important;
+    padding: 0;
+    border-radius: 0;
+    border-bottom: 1px solid $neutralBlack;
+  }
 }
