@@ -16,6 +16,13 @@ class NameEntry extends Component {
 
   state = { name: '' };
 
+  get visible() {
+    if (!this.props.currentUser) return false;
+    if (!this.props.currentUser.emailVerified) return false;
+
+    return !this.props.currentUser.name;
+  }
+
   handleChange = ({ target: { value } }) => {
     this.setState({ name: value });
   };
@@ -32,7 +39,7 @@ class NameEntry extends Component {
     if (!this.props.currentUser) return null;
 
     return (
-      <Modal visible={!this.props.currentUser.name}>
+      <Modal visible={this.visible}>
         <div className='NameEntry'>
           <div className='NameEntry__title'>
             New player, who dis?
