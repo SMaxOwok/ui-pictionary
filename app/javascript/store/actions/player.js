@@ -16,9 +16,15 @@ export const setUnready = () => ({
   type: 'SET_PLAYER_UNREADY'
 });
 
+export const verify = (payload) => ({
+  type: 'VERIFY',
+  payload
+});
+
 export default {
   joinTeam,
   setName,
   setReady,
-  setUnready
+  setUnready,
+  verify
 }

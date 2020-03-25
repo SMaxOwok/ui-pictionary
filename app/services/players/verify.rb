@@ -16,7 +16,7 @@ module Players
     private
 
     def valid_token?
-      player.verification_token == verification_token
+      player.verification_token == verification_token.upcase
     end
 
     def verify_player!

@@ -1,0 +1,34 @@
+.Verification {
+  .TokenInput {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    min-width: 30rem;
+    margin: 1rem 0;
+
+    &__character {
+      border: 1px solid $neutral50;
+      border-radius: $border-radius;
+      width: 4rem;
+      height: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      position: relative;
+    }
+
+    &__input {
+      position: absolute;
+      border: none;
+      font-size: 2rem;
+      text-align: center;
+      background-color: transparent;
+      outline: none;
+      height: 100%;
+      width: 4rem;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}
