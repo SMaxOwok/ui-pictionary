@@ -37,6 +37,14 @@ function setUnready() {
   );
 }
 
+function verify(payload) {
+  return request(
+    Routes.verifications_path(),
+    'POST',
+    { verification_token: payload.token }
+  )
+}
+
 export default function playerMiddleware({ getState, dispatch }) {
   return next => action => {
     const state = getState();
@@ -56,6 +64,10 @@ export default function playerMiddleware({ getState, dispatch }) {
 
     if (action.type === 'SET_PLAYER_UNREADY') {
       return setUnready();
+    }
+
+    if (action.type === 'VERIFY') {
+      return verify(payload);
     }
 
     return next(action);
