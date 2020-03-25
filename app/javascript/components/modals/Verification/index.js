@@ -33,6 +33,10 @@ class Verification extends Component {
     )).then(() => this.setState({ token: '' }));
   };
 
+  handleResend = () => {
+    this.props.dispatch(playerActions.resendVerification());
+  };
+
   render() {
     return (
       <Modal visible={this.visible}>
@@ -48,6 +52,14 @@ class Verification extends Component {
               Verify
             </button>
           </form>
+
+          <div className='Verification__resend'>
+            Didn't get a code?
+
+            <button type="button" className='Verification__button Button Button--link' onClick={this.handleResend}>
+              Resend
+            </button>
+          </div>
         </div>
       </Modal>
     )

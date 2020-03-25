@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resource :leaderboard, only: [:show], controller: 'leaderboard'
   resource :sessions, only: [:create, :destroy]
-  resource :verifications, only: [:create]
+  resource :verifications, only: [:create, :show]
 
   mount ActionCable.server, at: '/cable'
   mount Sidekiq::Web, at: '/sidekiq'

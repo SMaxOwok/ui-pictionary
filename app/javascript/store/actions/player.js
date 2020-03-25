@@ -21,10 +21,15 @@ export const verify = (payload) => ({
   payload
 });
 
+export const resendVerification = () => ({
+  type: 'RESEND_VERIFICATION'
+});
+
 export default {
   joinTeam,
   setName,
   setReady,
   setUnready,
-  verify
+  verify,
+  resendVerification
 }
