@@ -42,4 +42,4 @@ web: `bin/rails s`
 
 webpack: `bin/webpack-dev-server`
 
-worker: `bin/sidekiq`
+worker: `bin/sidekiq -C config/sidekiq.yml`
