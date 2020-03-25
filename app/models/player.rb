@@ -14,6 +14,7 @@ class Player < ApplicationRecord
 
   # Callbacks
   before_create :set_verification_token!
+  after_create :send_verification_email!
   after_commit :broadcast!, unless: :skip_broadcast, if: :persisted?
 
   attr_accessor :skip_broadcast
@@ -45,6 +46,10 @@ class Player < ApplicationRecord
 
   def set_verification_token!
     self.verification_token = SecureRandom.urlsafe_base64(4).upcase
+  end
+
+  def send_verification_email!
+    VerificationMailer.verification_email(self).deliver_later
   end
 
   class << self
