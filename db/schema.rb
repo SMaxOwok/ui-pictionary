@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_17_032423) do
+ActiveRecord::Schema.define(version: 2020_03_25_181424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 2019_12_17_032423) do
     t.string "name"
     t.integer "guess_count", default: 0, null: false
     t.integer "draw_count", default: 0, null: false
+    t.datetime "verified_at"
+    t.string "verification_token"
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
