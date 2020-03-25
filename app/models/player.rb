@@ -13,6 +13,7 @@ class Player < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   # Callbacks
+  before_create :set_verification_token!
   after_commit :broadcast!, unless: :skip_broadcast, if: :persisted?
 
   attr_accessor :skip_broadcast
@@ -21,6 +22,10 @@ class Player < ApplicationRecord
     return unless team.present?
 
     team.remove_player!(self)
+  end
+
+  def email_verified?
+    verified_at.present?
   end
 
   # Hack to force after_add method to be called, obviously not the most efficient.
@@ -36,6 +41,10 @@ class Player < ApplicationRecord
 
   def broadcast!
     Channels::BroadcastObjectJob.perform_now "player:#{id}", self
+  end
+
+  def set_verification_token!
+    self.verification_token = SecureRandom.urlsafe_base64(4).upcase
   end
 
   class << self
