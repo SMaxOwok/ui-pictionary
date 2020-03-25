@@ -505,7 +505,10 @@ Based on Rails 5.2.3 routes of UiPictionary::Application
   set_ready_path: Utils.route([["format",false]], {}, [2,[7,"/",false],[2,[6,"ready",false],[1,[2,[8,".",false],[3,"format",false]],false]]]),
 // set_unready => /unready(.:format)
   // function(options)
-  set_unready_path: Utils.route([["format",false]], {}, [2,[7,"/",false],[2,[6,"unready",false],[1,[2,[8,".",false],[3,"format",false]],false]]])}
+  set_unready_path: Utils.route([["format",false]], {}, [2,[7,"/",false],[2,[6,"unready",false],[1,[2,[8,".",false],[3,"format",false]],false]]]),
+// verifications => /verifications(.:format)
+  // function(options)
+  verifications_path: Utils.route([["format",false]], {}, [2,[7,"/",false],[2,[6,"verifications",false],[1,[2,[8,".",false],[3,"format",false]],false]]])}
 ;
       routes.configure = function(config) {
         return Utils.configure(config);
