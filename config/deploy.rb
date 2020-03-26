@@ -21,7 +21,7 @@ set :deploy_to, "/home/deploy/#{fetch :application}"
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, 'config/master.key', 'config/database.yml'
+append :linked_files, 'config/master.key', 'config/database.yml', '.env.production'
 
 # Copy master.key onto server, if not present
 namespace :deploy do
