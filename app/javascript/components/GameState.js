@@ -15,7 +15,7 @@ class GameState extends Component {
     {
       gameChannel: get(state, 'websockets.gameChannel'),
       teams: get(state, 'entities.team'),
-      theme: get(state, 'theme')
+      theme: state.theme
     }
   );
 
@@ -24,7 +24,7 @@ class GameState extends Component {
     currentUser: PropTypes.object,
     game: PropTypes.object.isRequired,
     teams: PropTypes.object,
-    theme: PropTypes.object.isRequired,
+    theme: PropTypes.string,
     dispatch: PropTypes.func.isRequired
   };
 
@@ -37,10 +37,8 @@ class GameState extends Component {
   }
 
   get containerClasses() {
-    const { palette } = this.props.theme;
-
     return classnames('GameState', {
-      [`GameState--${palette}`]: !!palette
+      [`GameState--${this.props.theme}`]: !!this.props.theme
     })
   }
 
