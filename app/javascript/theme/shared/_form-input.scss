@@ -12,4 +12,19 @@
     color: $neutral70;
     font-size: 0.875rem;
   }
+
+  + .FormInput {
+    margin-top: 1rem;
+  }
+
+  input {
+    outline: none;
+    border: 1px solid $neutral50;
+    border-radius: $border-radius-tight;
+    padding: 0.875rem;
+
+    &:disabled {
+      background-color: $neutral30;
+    }
+  }
 }

@@ -4,6 +4,7 @@ import HowToPlay from './HowToPlay';
 import Leaderboard from './Leaderboard';
 import Login from './Login';
 import NameEntry from './NameEntry';
+import Profile from './Profille';
 
 export default {
   TeamSelect,
@@ -11,5 +12,6 @@ export default {
   HowToPlay,
   Leaderboard,
   Login,
-  NameEntry
+  NameEntry,
+  Profile
 }

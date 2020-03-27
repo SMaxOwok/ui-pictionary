@@ -1,6 +1,6 @@
 .Button {
   background: none;
-  border: none;
+  border: 1px solid transparent;
   padding: 0.875rem 2rem;
   text-align: center;
   border-radius: $border-radius-tight;
@@ -15,7 +15,21 @@
     background-color: $neutralBlack;
 
     &:hover {
-      background-color: $neutral100;
+      background-color: $neutral90;
+    }
+  }
+
+  &--secondary {
+    background-color: $neutralWhite;
+    border: 1px solid $neutralBlack;
+  }
+
+  &--danger {
+    background-color: $red20;
+    color: $neutralWhite;
+
+    &:hover {
+      background-color: darken($red20, 5%);
     }
   }
 
