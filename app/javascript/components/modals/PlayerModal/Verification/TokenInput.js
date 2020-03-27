@@ -1,4 +1,4 @@
-import React, {Fragment, PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 const TOKEN_LENGTH = new Array(6).fill(0);
@@ -56,10 +56,10 @@ export default class TokenInput extends PureComponent {
 
   render() {
     return (
-      <div className="TokenInput" onClick={this.handleClick}>
+      <div className='TokenInput' onClick={this.handleClick}>
         {TOKEN_LENGTH.map((char, index) => {
           return (
-            <div className="TokenInput__character" key={index}>
+            <div className='TokenInput__character' key={index}>
               {this.characters[index]}
             </div>
           );
@@ -67,8 +67,8 @@ export default class TokenInput extends PureComponent {
 
         <input
           ref={this.input}
-          value=""
-          className="TokenInput__input"
+          value=''
+          className='TokenInput__input'
           onChange={this.handleChange}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}

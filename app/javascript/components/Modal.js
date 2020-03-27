@@ -5,7 +5,7 @@ import Icon from 'components/icons/Icon';
 
 export default class Modal extends Component {
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     visible: PropTypes.bool.isRequired
   };
 
@@ -24,7 +24,9 @@ export default class Modal extends Component {
             UI Pictionary
           </div>
 
-          {this.props.children}
+          <div className='Modal__body'>
+            {this.props.children}
+          </div>
         </div>
       </div>
     )

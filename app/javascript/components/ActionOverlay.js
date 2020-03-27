@@ -9,7 +9,7 @@ import { faTrophy, faSignOutAlt, faBook } from '@fortawesome/free-solid-svg-icon
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 import Icon from 'components/icons/Icon';
-import { Leaderboard, HowToPlay } from 'components/modals';
+import { OverlayModal } from 'components/modals';
 
 import withCurrentUser from 'components/hoc/withCurrentUser';
 
@@ -45,7 +45,7 @@ class ActionOverlay extends Component {
   };
 
   handleShowRules = () => {
-    this.setState({ modal: 'how-to-play' });
+    this.setState({ modal: 'howToPlay' });
   };
 
   handleEndGame = () => {
@@ -59,8 +59,7 @@ class ActionOverlay extends Component {
   render () {
     return (
       <Fragment>
-        <Leaderboard visible={this.state.modal === 'leaderboard'} onClose={this.handleModalClose} />
-        <HowToPlay visible={this.state.modal === 'how-to-play'} onClose={this.handleModalClose} />
+        <OverlayModal modal={this.state.modal} onClose={this.handleModalClose} />
 
         <div className='ActionOverlay ActionOverlay__logo'>
           <Icon name='UILogo' className='ActionOverlay__logo__icon' /> UI Pictionary
