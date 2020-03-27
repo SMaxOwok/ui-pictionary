@@ -5,3 +5,4 @@ export { default as websocketActions } from './websocket';
 export { default as themeActions } from './theme';
 export { default as gameActions } from './game';
 export { default as leaderboardActions } from './leaderboard';
+export { default as modalActions } from './modal';

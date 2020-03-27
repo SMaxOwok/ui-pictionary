@@ -5,13 +5,13 @@ import HowToPlay from 'components/HowToPlay';
 
 export default class HowToPlayModal extends Component {
   static propTypes = {
-    onClose: PropTypes.func.isRequired
+    handleClose: PropTypes.func.isRequired
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
-    this.props.onClose();
+    this.props.handleClose();
   };
 
   render() {

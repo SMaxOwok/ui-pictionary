@@ -20,7 +20,7 @@ class Leaderboard extends Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired,
     drawers: PropTypes.array.isRequired,
     guessers: PropTypes.array.isRequired
   };
@@ -34,7 +34,7 @@ class Leaderboard extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    this.props.onClose();
+    this.props.handleClose();
   };
 
   ordinalForPosition(index) {
