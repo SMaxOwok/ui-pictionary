@@ -30,7 +30,7 @@ class NameEntry extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    this.props.dispatch(playerActions.setName(
+    this.props.dispatch(playerActions.updatePlayer(
       { name: this.state.name }
     )).then(() => this.setState({ name: '' }));
   };

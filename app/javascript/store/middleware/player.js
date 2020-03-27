@@ -15,7 +15,7 @@ function joinTeam(payload, state, dispatch) {
   }).catch(() => null);
 }
 
-function setName(payload, dispatch) {
+function updatePlayer(payload, dispatch) {
   return request(
     Routes.me_path(),
     'PUT',
@@ -62,8 +62,8 @@ export default function playerMiddleware({ getState, dispatch }) {
       return joinTeam(payload, state, dispatch);
     }
 
-    if (action.type === 'SET_NAME') {
-      return setName(payload, dispatch);
+    if (action.type === 'UPDATE_PLAYER') {
+      return updatePlayer(payload, dispatch);
     }
 
     if (action.type === 'SET_PLAYER_READY') {
