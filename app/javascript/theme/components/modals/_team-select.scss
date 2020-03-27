@@ -1,11 +1,4 @@
 .TeamSelect {
-  &__title {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: $weight-bold;
-  }
-
   &__teams {
     display: flex;
     justify-content: space-between;
@@ -79,10 +72,5 @@
     + #{$block} {
       margin-left: 2.5rem;
     }
-  }
-
-  &__actions {
-    margin-top: 3.375rem;
-    width: 100%;
   }
 }

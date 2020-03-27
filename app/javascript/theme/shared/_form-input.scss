@@ -3,8 +3,8 @@
   flex-direction: column;
   justify-content: flex-start;
 
-  label {
-    margin-bottom: 0.25rem;
+  &__label {
+    margin-bottom: 0.75rem;
   }
 
   &__instructional-copy {
