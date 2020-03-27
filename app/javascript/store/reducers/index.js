@@ -3,6 +3,7 @@ import authentication from './authentication';
 import entities from './entities';
 import guesses from './guesses';
 import leaderboard from './leaderboard';
+import modal from './modal';
 import theme from './theme';
 import websockets from './websockets';
 
@@ -11,6 +12,7 @@ const reducers = combineReducers({
   guesses,
   entities,
   leaderboard,
+  modal,
   theme,
   websockets
 });

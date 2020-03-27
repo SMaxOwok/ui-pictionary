@@ -2,14 +2,13 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { authenticationActions } from 'store/actions';
+import { authenticationActions, modalActions } from 'store/actions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrophy, faSignOutAlt, faBook } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 import Icon from 'components/icons/Icon';
-import { OverlayModal } from 'components/modals';
 
 import withCurrentUser from 'components/hoc/withCurrentUser';
 
@@ -41,26 +40,20 @@ class ActionOverlay extends Component {
   };
 
   handleShowLeaderboard = () => {
-    this.setState({ modal: 'leaderboard' });
+    this.props.dispatch(modalActions.openModal('leaderboard'));
   };
 
   handleShowRules = () => {
-    this.setState({ modal: 'howToPlay' });
+    this.props.dispatch(modalActions.openModal('howToPlay'));
   };
 
   handleEndGame = () => {
     this.props.gameChannel.transition('completed');
   };
 
-  handleModalClose = () => {
-    this.setState({ modal: null });
-  };
-
   render () {
     return (
       <Fragment>
-        <OverlayModal modal={this.state.modal} onClose={this.handleModalClose} />
-
         <div className='ActionOverlay ActionOverlay__logo'>
           <Icon name='UILogo' className='ActionOverlay__logo__icon' /> UI Pictionary
         </div>
