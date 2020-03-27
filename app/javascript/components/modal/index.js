@@ -57,6 +57,8 @@ class Modal extends Component {
     if (!this.onTeam) return Modals.TeamSelect;
 
     switch (this.props.modal) {
+      case 'profile':
+        return Modals.Profile;
       case 'howToPlay':
         return Modals.HowToPlay;
       case 'leaderboard':

@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { authenticationActions, modalActions } from 'store/actions';
+import { modalActions } from 'store/actions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrophy, faSignOutAlt, faBook } from '@fortawesome/free-solid-svg-icons';
+import { faTrophy, faUser, faBook } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 import Icon from 'components/icons/Icon';
@@ -35,16 +35,20 @@ class ActionOverlay extends Component {
     return !['initialized', 'completed'].includes(currentState);
   }
 
-  handleSignOut = () => {
-    this.props.dispatch(authenticationActions.logout());
-  };
+  handleShowModal(key) {
+    this.props.dispatch(modalActions.openModal(key));
+  }
 
   handleShowLeaderboard = () => {
-    this.props.dispatch(modalActions.openModal('leaderboard'));
+    this.handleShowModal('leaderboard');
   };
 
   handleShowRules = () => {
-    this.props.dispatch(modalActions.openModal('howToPlay'));
+    this.handleShowModal('howToPlay');
+  };
+
+  handleShowProfile = () => {
+    this.handleShowModal('profile');
   };
 
   handleEndGame = () => {
@@ -83,9 +87,9 @@ class ActionOverlay extends Component {
 
         {this.props.currentUser && (
           <div className='ActionOverlay ActionOverlay__sign-out'>
-            <button type='button' className='Button Button--icon' onClick={this.handleSignOut}>
-              <FontAwesomeIcon icon={faSignOutAlt} />
-              Sign out
+            <button type='button' className='Button Button--icon' onClick={this.handleShowProfile}>
+              <FontAwesomeIcon icon={faUser} />
+              Profile
             </button>
           </div>
         )}
