@@ -3,8 +3,8 @@ export const joinTeam = (payload) => ({
   payload
 });
 
-export const setName = (payload) => ({
-  type: 'SET_NAME',
+export const updatePlayer = (payload) => ({
+  type: 'UPDATE_PLAYER',
   payload
 });
 
@@ -27,7 +27,7 @@ export const resendVerification = () => ({
 
 export default {
   joinTeam,
-  setName,
+  updatePlayer,
   setReady,
   setUnready,
   verify,
