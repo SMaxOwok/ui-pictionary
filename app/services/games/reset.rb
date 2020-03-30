@@ -31,6 +31,7 @@ module Games
 
     def reset_attributes!
       game.words = []
+      game.guessed_words = []
       game.ready_player_ids = []
       game.round_count = 0
       game.reset_round(:current_round)
