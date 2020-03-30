@@ -35,7 +35,6 @@ module Games
       }
     end
 
-    # TODO: Backfill words from default list to ensure there are always words
     def update_current_round
       # Push the word to correct guesses
       game.current_round['guessed_words'] << word
