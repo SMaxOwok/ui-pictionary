@@ -1,10 +1,26 @@
 .Completed {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   flex-direction: column;
   height: 100%;
   width: 100%;
   padding: 5rem;
+
+  &__guessed-words {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  &__label {
+    font-weight: $weight-bold;
+    font-size: 1.25rem;
+  }
+
+  &__word-list {
+    @include list-unstyled;
+
+    margin-top: 1rem;
+  }
 
   &__button {
     width: 100%;

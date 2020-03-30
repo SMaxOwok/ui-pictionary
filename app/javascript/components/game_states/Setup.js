@@ -50,7 +50,6 @@ export default class Setup extends Component {
   render () {
     return (
       <div className='Setup'>
-
         <div className='Setup__word-count'>
           {this.wordCount} {this.wordCount === 1 ? 'word' : 'words'} submitted
         </div>
