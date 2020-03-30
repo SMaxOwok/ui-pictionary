@@ -28,10 +28,10 @@ module Games
 
     def payload
       {
-          type: 'guess',
-          message: word,
-          playerId: player.id,
-          isCorrect: correct_guess?
+        type: 'guess',
+        message: word,
+        playerId: player.id,
+        isCorrect: correct_guess?
       }
     end
 
