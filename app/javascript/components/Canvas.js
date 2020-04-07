@@ -27,7 +27,7 @@ class Canvas extends React.Component {
 
   constructor(props) {
     super(props);
-    this.canvas = React.createRef();
+    this.canvas = props.canvasRef || React.createRef();
     this.state = {
       currentPlots: [],
       isDrawing: false,
@@ -167,4 +167,6 @@ class Canvas extends React.Component {
   }
 }
 
-export default connect(Canvas.mapStateToProps)(Canvas);
+const ConnectedCanvas = connect(Canvas.mapStateToProps)(Canvas);
+
+export default React.forwardRef((props, ref) => <ConnectedCanvas canvasRef={ref} {...props} />);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Canvas from './Canvas';
 
-export default class Easel extends React.Component {
+class Easel extends React.Component {
   static propTypes = {
     footer: PropTypes.node,
     drawable: PropTypes.bool
@@ -17,6 +17,7 @@ export default class Easel extends React.Component {
     return (
       <div className='Easel'>
         <Canvas
+          canvasRef={this.props.canvasRef}
           drawable={this.props.drawable}
         />
 
@@ -27,3 +28,5 @@ export default class Easel extends React.Component {
     );
   }
 }
+
+export default React.forwardRef((props, ref) => <Easel canvasRef={ref} {...props} />);
