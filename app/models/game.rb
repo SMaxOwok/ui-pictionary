@@ -17,7 +17,9 @@ class Game < ApplicationRecord
   # Callbacks
   before_create :initialize_teams!
   before_save :set_round_defaults!, :maybe_start_game!
-  after_commit :broadcast!, if: :persisted?
+  after_commit :broadcast!, unless: :skip_broadcast, if: :persisted?
+
+  attr_accessor :skip_broadcast
 
   delegate :can_transition_to?, :current_state, :history, :last_transition,
            :transition_to!, :transition_to, :in_state?, to: :state_machine
