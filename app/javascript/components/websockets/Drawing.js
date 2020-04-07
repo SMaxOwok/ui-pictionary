@@ -23,7 +23,8 @@ class Drawing extends React.Component {
       { channel: 'DrawingChannel' },
       {
         received: data => this.handleDataReceived(data),
-        draw: data  => this.handleDraw(data)
+        draw: data => this.handleDraw(data),
+        save: data => this.handleSave(data)
       }
     );
 
@@ -38,12 +39,16 @@ class Drawing extends React.Component {
     ));
   }
 
-  handleDataReceived = (data) => {
+  handleDataReceived = data => {
     this.props.dispatch(entityActions.setEntity({ type: 'plots', data }));
   };
 
   handleDraw = data => {
     this.props.drawingChannel.perform('draw', data);
+  };
+
+  handleSave = data => {
+    this.props.drawingChannel.perform('save', data);
   };
 
   componentDidMount() {
