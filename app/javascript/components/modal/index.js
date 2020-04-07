@@ -10,12 +10,16 @@ import { modalActions } from 'store/actions';
 import Icon from 'components/icons/Icon';
 import Modals from './modals';
 
+import get from "lodash/get";
+
 class Modal extends Component {
-  static mapStateToProps = state => (
-    { modal: state.modal }
-  );
+  static mapStateToProps = state => ({
+    game: get(state, 'entities.game'),
+    modal: state.modal
+  });
 
   static propTypes = {
+    game: PropTypes.object,
     currentUser: PropTypes.object,
     modal: PropTypes.string,
     dispatch: PropTypes.func.isRequired
@@ -63,6 +67,8 @@ class Modal extends Component {
         return Modals.HowToPlay;
       case 'leaderboard':
         return Modals.Leaderboard;
+      case 'gallery':
+        return Modals.Gallery;
       default:
         return null;
     }

@@ -5,6 +5,7 @@ import Leaderboard from './Leaderboard';
 import Login from './Login';
 import NameEntry from './NameEntry';
 import Profile from './Profille';
+import Gallery from './Gallery';
 
 export default {
   TeamSelect,
@@ -13,5 +14,6 @@ export default {
   Leaderboard,
   Login,
   NameEntry,
-  Profile
+  Profile,
+  Gallery
 }
