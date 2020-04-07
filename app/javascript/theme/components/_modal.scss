@@ -33,6 +33,7 @@
     padding: 2.5rem;
     min-height: 200px;
     min-width: 300px;
+    max-height: calc(100vh - 5rem);
     max-width: 640px;
     position: relative;
   }

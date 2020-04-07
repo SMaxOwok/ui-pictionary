@@ -10,6 +10,10 @@
     cursor: pointer;
   }
 
+  + .Button {
+    margin-top: 0.5rem;
+  }
+
   &--primary {
     color: $neutralWhite;
     background-color: $neutralBlack;

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { gameActions } from 'store/actions';
-
-import Word from 'components/Word';
+import { gameActions, modalActions } from 'store/actions';
 
 export default class Completed extends Component {
   static propTypes = {
@@ -12,12 +10,12 @@ export default class Completed extends Component {
     dispatch: PropTypes.func.isRequired
   };
 
-  get guessedWords() {
-    return this.props.game.guessedWords;
-  }
-
   handleResetGame = () => {
     this.props.gameChannel.transition('initialized');
+  };
+
+  handleOpenGallery = () => {
+    this.props.dispatch(modalActions.openModal('gallery'));
   };
 
   componentDidMount() {
@@ -27,17 +25,13 @@ export default class Completed extends Component {
   render () {
     return (
       <div className='Completed'>
-        <div className='Completed__guessed-words'>
-          <div className='Completed__label'>
-            Words guessed this game
-          </div>
-
-          <ul className='Completed__word-list'>
-            {this.guessedWords.map(word => (
-              <Word key={word} word={word} />
-            ))}
-          </ul>
-        </div>
+        <button
+          type='button'
+          className='Completed__button Button Button--secondary'
+          onClick={this.handleOpenGallery}
+        >
+          Gallery
+        </button>
 
         <button
           type='button'
