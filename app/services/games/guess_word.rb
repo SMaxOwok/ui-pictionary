@@ -38,7 +38,6 @@ module Games
     def update_current_round
       # Push the word to correct guesses
       game.current_round['guessed_words'] << word
-      game.guessed_words << word
 
       # Subtract guessed words from list and fill to 20
       fill_words!

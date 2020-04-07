@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Games::Reset do
   let!(:game) do
-    game = FactoryBot.create(:game, words: %w[one two three], guessed_words: %w(four), round_count: 8)
+    game = FactoryBot.create(:game, words: %w[one two three], gallery: { four: {} }, round_count: 8)
 
     game.transition_to! :setup
     game.transition_to! :pre_draw
@@ -27,9 +27,9 @@ RSpec.describe Games::Reset do
       end
     end
 
-    describe ':guessed_words' do
-      it 'resets to empty array' do
-        expect { running_the_interaction! }.to change(game, :guessed_words).to([])
+    describe ':gallery' do
+      it 'resets to empty hash' do
+        expect { running_the_interaction! }.to change(game, :gallery).to({})
       end
     end
   end
